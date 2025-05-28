@@ -52,6 +52,7 @@ public:
 	virtual T& operator*() const;
 	virtual iterador<T>& operator++();
 	virtual bool operator!=(const iterador<T>&) const;
+	virtual bool operator==(const iterador<T>&otro) const;
 
 private:
 	shared_ptr<nodo<T>> crusor;
@@ -80,6 +81,11 @@ bool iterador<T>::operator!=(const iterador<T>&otro) const {
 	return crusor != otro.crusor;
 }
 
+template <class T>
+bool iterador<T>::operator==(const iterador<T>& otro) const {
+	return crusor == otro.crusor;
+}
+
 //--fin implementación iterador
 
 //---class lista---
@@ -90,6 +96,7 @@ public:
 	virtual ~lista();
 	virtual bool isEmpty();
 	virtual lista<T>& agregar(const T&);
+	virtual lista<T>& eliminar(const T&);
 	virtual string toString() const override;
 	virtual iterador<T> begin() const; //patron iterator
 	virtual iterador<T> end() const; // patron iterator
@@ -129,6 +136,28 @@ lista<T>& lista<T>::agregar(const T&info) {
 }
 
 template <class T>
+lista<T>& lista<T>::eliminar(const T& info) {
+	if (!primero) return *this;
+
+	if (*(primero->info) == info) {  // compara shared_ptr
+		primero = primero->siguiente;
+		return *this;
+	}
+
+	auto actual = primero;
+	while (actual->siguiente && *(actual->siguiente->info) != info) {
+		actual = actual->siguiente;
+	}
+
+	if (actual->siguiente) {
+		actual->siguiente = actual->siguiente->siguiente;
+	}
+
+	return *this;
+}
+
+
+template <class T>
 string lista<T>::toString() const {
 	stringstream s;
 	if (primero != nullptr) {
@@ -147,3 +176,5 @@ template <class T>
 iterador<T> lista<T>::end() const { // patron iterator
 	return iterador<T>(nullptr);
 }
+
+//------
