@@ -127,16 +127,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Agua.cpp" />
     <ClCompile Include="Enviroment.cpp" />
+    <ClCompile Include="FactoryResources.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Meat.cpp" />
     <ClCompile Include="objectBase.cpp" />
+    <ClCompile Include="Planta.cpp" />
     <ClCompile Include="Recursos.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Agua.h" />
     <ClInclude Include="Enviroment.h" />
+    <ClInclude Include="FactoryResources.h" />
+    <ClInclude Include="Meat.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Lista.h" />
     <ClInclude Include="objectBase.h" />
+    <ClInclude Include="Planta.h" />
     <ClInclude Include="Recursos.h" />
     <ClInclude Include="Subject.h" />
   </ItemGroup>

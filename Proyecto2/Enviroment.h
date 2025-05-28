@@ -4,13 +4,14 @@
 
 class Enviroment: public Subject{ // singleton
 protected:
+
 	static unique_ptr<Enviroment> instancia;
 	Enviroment();
 	string clima;
 	string estacion;
 	int energia;
-	int agua;
 	shared_ptr<lista<shared_ptr<Observer>>> observers;
+
 public:
 	//singleton
 	static Enviroment* getInstancia();
@@ -32,7 +33,6 @@ public:
 	shared_ptr<lista<shared_ptr<Observer>>> getLista();
 
 	virtual string toString() const override;
-	bool hayAgua();
 
 };
 
