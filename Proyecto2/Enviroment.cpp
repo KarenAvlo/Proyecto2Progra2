@@ -2,7 +2,7 @@
 
 unique_ptr<Enviroment> Enviroment::instancia = nullptr;
 
-Enviroment::Enviroment() :clima("Lluvioso"), estacion("Primavera"), energia(100) {
+Enviroment::Enviroment() :clima("Lluvioso"), estacion("Primavera"), energia(100),agua(20) {
 	observers = make_shared<lista<shared_ptr<Observer>>>();
 }
 
@@ -41,3 +41,21 @@ string Enviroment::getClima() { return clima; }
 string Enviroment::getEstación() { return estacion; }
 
 int Enviroment::getEnergia() { return energia; }
+
+shared_ptr<lista<shared_ptr<Observer>>> Enviroment::getLista() { return observers; }
+
+
+ string Enviroment::toString() const{
+	 stringstream s;
+	 s << "Clima: " << clima << endl;
+	 s << "Estacion:" << estacion << endl;
+	 s << "Energia: " << energia << endl;
+	 return s.str();
+ }
+
+ bool Enviroment::hayAgua() {
+	 if (agua > 0) { // si hay más de 0% sí hay agua
+		 return true;
+	 }
+	 return false;
+ }

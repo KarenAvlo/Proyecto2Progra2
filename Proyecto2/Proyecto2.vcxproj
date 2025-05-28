@@ -130,12 +130,14 @@
     <ClCompile Include="Enviroment.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objectBase.cpp" />
+    <ClCompile Include="Recursos.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enviroment.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Lista.h" />
     <ClInclude Include="objectBase.h" />
+    <ClInclude Include="Recursos.h" />
     <ClInclude Include="Subject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

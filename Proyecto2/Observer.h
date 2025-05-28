@@ -1,10 +1,9 @@
 #pragma once
-#include <iostream>
-#include <sstream>
-using namespace std;
+#include "objectBase.h"
 
-class Observer {
+class Observer :public Base{
 public:
 	virtual void update() = 0;
+	virtual string toString() const = 0;
 };
 

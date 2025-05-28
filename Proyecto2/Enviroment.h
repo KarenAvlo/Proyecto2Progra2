@@ -2,13 +2,14 @@
 #include "Subject.h"
 
 
-class Enviroment:public Subject{ // singleton
+class Enviroment: public Subject{ // singleton
 protected:
 	static unique_ptr<Enviroment> instancia;
 	Enviroment();
 	string clima;
 	string estacion;
 	int energia;
+	int agua;
 	shared_ptr<lista<shared_ptr<Observer>>> observers;
 public:
 	//singleton
@@ -28,6 +29,10 @@ public:
 	string getClima();
 	string getEstación();
 	int getEnergia();
+	shared_ptr<lista<shared_ptr<Observer>>> getLista();
+
+	virtual string toString() const override;
+	bool hayAgua();
 
 };
 
