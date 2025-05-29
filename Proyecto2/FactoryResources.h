@@ -1,6 +1,6 @@
 #pragma once
 #include "Recursos.h"
-#include "Criatura.h"
+#include "Creature.h"
 #include "Observer.h"
 #include <memory>
 

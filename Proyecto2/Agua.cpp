@@ -35,7 +35,7 @@ void Agua::nivelAgual(int n)
 string Agua::toString() const {
 	stringstream s;
 	s << "Soy Agua" << endl;
-	s << "Posicion:" << x << "," << y << endl;
+	s << "Posicion:" << posX << "," << posY << endl;
 	s << "Brindo una energía de:" << EnergyValue << endl;
 	s << "Nivel de agua: " << nivel << endl;
 	return s.str();

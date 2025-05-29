@@ -1,6 +1,9 @@
 #include "Recursos.h"
 
-Recursos::Recursos(int xx, int yy, int ee):x(xx),y(yy),EnergyValue(ee),disponible(true){}
+Recursos::Recursos(int xx, int yy, int ee):EnergyValue(ee),disponible(true){
+	posX = xx;
+	posY = yy;
+}
 
 void Recursos::update(){
 	regenerarse();

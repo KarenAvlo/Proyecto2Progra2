@@ -4,11 +4,10 @@
 
 #define MAX_ENERGIA 100 // Energía máxima que puede tener una criatura
 
-class Criatura : public Observer
-{
+class Creatura : public Observer{
 public:
-	Criatura(int x = 0, int y = 0, int energia = 100);
-	virtual ~Criatura();
+	Creatura(int x = 0, int y = 0, int energia = 100);
+	virtual ~Creatura();
 
 	void update() override;
 
@@ -16,18 +15,16 @@ public:
 	int getEnergia() const;
 	void setEnergia(int e);
 
-	int getPosX() const;
+	//no es necesario, lo hereda de Observer
+	/*int getPosX() const;
 	int getPosY() const;
 
 	void setPosX(int x);
-	void setPosY(int y);
+	void setPosY(int y);*/
 
 	virtual string toString() const override;
 
 private:
-	int energia = MAX_ENERGIA	;
-	int posX;  
-	int posY;
-	
+	int energia = MAX_ENERGIA;
 };
 

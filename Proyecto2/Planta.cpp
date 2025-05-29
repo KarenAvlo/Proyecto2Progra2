@@ -11,7 +11,7 @@ void Planta::regenerarse() {
 string Planta::toString() const {
 	stringstream s;
 	s << "Soy Planta" << endl;
-	s << "Posicion:" << x << "," << y << endl;
+	s << "Posicion:" << posX << "," << posY << endl;
 	s << "Brindo una energía de:" << EnergyValue << endl;
 	return s.str();
 }

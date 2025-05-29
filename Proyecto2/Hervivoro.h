@@ -1,7 +1,7 @@
 #pragma once
-#include "Criatura.h"
-class Hervivoro : public Criatura 
-{
+#include "Creature.h"
+
+class Hervivoro : public Creatura {
 public:
 	Hervivoro(int x = 0, int y = 0, int energia = 0);
 	virtual ~Hervivoro() = default;
@@ -10,9 +10,5 @@ public:
 	string toString() const;
 
 	string getEtiqueta() const override;
-private:
-	int energia;
-	int posX;
-	int posY;
 };
 

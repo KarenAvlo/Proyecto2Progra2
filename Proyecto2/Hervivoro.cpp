@@ -1,15 +1,12 @@
 #include "Hervivoro.h"
 
 Hervivoro::Hervivoro(int x, int y, int energia) 
-	: Criatura(x, y, energia)
-{}
+	: Creatura(x, y, energia){}
 
-void Hervivoro::update()
-{
+void Hervivoro::update(){
 }
 
-string Hervivoro::toString() const
-{
+string Hervivoro::toString() const{
 	return "nada";
 }
 

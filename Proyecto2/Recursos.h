@@ -4,8 +4,6 @@
 
 class Recursos: public Observer{
 protected:
-	int x; 
-	int y; 
 	int EnergyValue; // para saber cuánto valor de energía brinda
 	bool disponible; // para saber si está disponible para comerlo (opcional) ver después
 public:

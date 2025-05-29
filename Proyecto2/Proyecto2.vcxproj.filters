@@ -42,7 +42,7 @@
     <ClCompile Include="Mapa.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Criatura.cpp">
+    <ClCompile Include="Creature.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Hervivoro.cpp">
@@ -86,7 +86,7 @@
     <ClInclude Include="Mapa.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Criatura.h">
+    <ClInclude Include="Creature.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Hervivoro.h">

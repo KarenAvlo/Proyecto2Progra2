@@ -128,7 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Agua.cpp" />
-    <ClCompile Include="Criatura.cpp" />
+    <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Enviroment.cpp" />
     <ClCompile Include="FactoryResources.cpp" />
     <ClCompile Include="Hervivoro.cpp" />
@@ -142,7 +142,7 @@
   <ItemGroup>
     <ClInclude Include="Agua.h" />
     <ClInclude Include="clases.h" />
-    <ClInclude Include="Criatura.h" />
+    <ClInclude Include="Creature.h" />
     <ClInclude Include="Enviroment.h" />
     <ClInclude Include="FactoryResources.h" />
     <ClInclude Include="Hervivoro.h" />

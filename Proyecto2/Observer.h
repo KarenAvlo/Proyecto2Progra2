@@ -3,6 +3,7 @@
 
 class Observer :public Base{
 public:
+	Observer(int x = 0, int y = 0) :posX(x), posY(y){}
 	virtual void update() = 0;
 	virtual string toString() const = 0;
 	virtual string getEtiqueta()const = 0;
