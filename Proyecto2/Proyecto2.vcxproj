@@ -131,6 +131,7 @@
     <ClCompile Include="Criatura.cpp" />
     <ClCompile Include="Enviroment.cpp" />
     <ClCompile Include="FactoryResources.cpp" />
+    <ClCompile Include="Hervivoro.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mapa.cpp" />
     <ClCompile Include="Meat.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Criatura.h" />
     <ClInclude Include="Enviroment.h" />
     <ClInclude Include="FactoryResources.h" />
+    <ClInclude Include="Hervivoro.h" />
     <ClInclude Include="Mapa.h" />
     <ClInclude Include="Meat.h" />
     <ClInclude Include="Observer.h" />

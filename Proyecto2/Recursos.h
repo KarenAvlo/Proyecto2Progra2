@@ -15,6 +15,8 @@ public:
 
 	void update() override;
 
+	virtual string getEtiqueta() const = 0;
+
 	virtual void regenerarse() = 0;
 
 	virtual string toString() const = 0;

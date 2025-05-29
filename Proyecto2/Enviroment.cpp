@@ -33,24 +33,16 @@ void Enviroment::notifyObservers() {
 
 void Enviroment::agregarRecurso(shared_ptr<Mapa> m, shared_ptr<Observer> recurso)
 {
-	if (m->agregarRecurso(recurso->getPosX(), recurso->getPosY(), recurso)) {
-		observers->agregar(recurso);
-		cout << "Recurso agregado al mapa." << endl;
-	}
-	else {
-		cout << "No se pudo agregar el recurso al mapa." << endl;
-	}
+	int x = recurso->getPosX();
+	int y = recurso->getPosY();
+	m->agregarRecurso(x, y, recurso);
 }
 
 void Enviroment::agregarCriatura(shared_ptr<Mapa> m, shared_ptr<Observer> criatura)
 {
-	if (m->agregarCriatura(criatura->getPosX(), criatura->getPosY(), criatura)) {
-		observers->agregar(criatura);
-		cout << "Criatura agregada al mapa." << endl;
-	}
-	else {
-		cout << "No se pudo agregar la criatura al mapa." << endl;
-	}
+	int x = criatura->getPosX();
+	int y = criatura->getPosY();
+	m->agregarCriatura(x, y, criatura);
 }
 
 //setters

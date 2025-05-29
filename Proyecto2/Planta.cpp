@@ -15,3 +15,8 @@ string Planta::toString() const {
 	s << "Brindo una energía de:" << EnergyValue << endl;
 	return s.str();
 }
+
+string Planta::getEtiqueta() const
+{
+	return "Planta";
+}

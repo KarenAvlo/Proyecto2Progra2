@@ -10,7 +10,7 @@ public:
 	Criatura(int x = 0, int y = 0, int energia = 100);
 	virtual ~Criatura();
 
-	virtual void update() override;
+	void update() override;
 
 	// Getters y Setters
 	int getEnergia() const;

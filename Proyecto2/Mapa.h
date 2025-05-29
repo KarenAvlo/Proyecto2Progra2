@@ -1,6 +1,9 @@
 #pragma once
 #include "objectBase.h"
 #include "Observer.h"
+#include <typeinfo>
+
+class Observer;
 
 class Mapa
 {

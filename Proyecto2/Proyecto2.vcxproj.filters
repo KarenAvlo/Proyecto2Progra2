@@ -45,6 +45,9 @@
     <ClCompile Include="Criatura.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="Hervivoro.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Lista.h">
@@ -84,6 +87,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Criatura.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Hervivoro.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

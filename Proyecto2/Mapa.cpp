@@ -14,22 +14,22 @@ Mapa::~Mapa() {
 	delete[] mapa;
 }
 
-string Mapa::mostrarMapa() const
-{
+string Mapa::mostrarMapa() const {
 	stringstream ss;
 	for (int i = 0; i < alto; i++) {
 		for (int j = 0; j < ancho; j++) {
 			if (mapa[i][j]) {
-				ss << "[ X ]"; 
+				ss << "[ " << mapa[i][j]->getEtiqueta() << " ]";
 			}
 			else {
-				ss << "[   ]"; 
+				ss << "[   ]";
 			}
 		}
 		ss << endl;
 	}
 	return ss.str();
 }
+
 
 bool Mapa::agregarRecurso(int x, int y, shared_ptr<Observer> recurso)
 {

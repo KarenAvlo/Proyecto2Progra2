@@ -5,6 +5,7 @@ class Agua: public Recursos{
 public:
 	Agua(int = 0, int = 0, int = 0, int = 0);
 	void regenerarse() override;
+	string getEtiqueta() const override;
 
 	void nivelAgual(int n);
 	string toString() const override;

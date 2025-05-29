@@ -9,6 +9,12 @@ void Agua::regenerarse() {
 		disponible = true;
 	}
 }
+string Agua::getEtiqueta() const
+{
+	return "Agua";
+}
+
+
 void Agua::nivelAgual(int n)
 {
 	//modificar despues

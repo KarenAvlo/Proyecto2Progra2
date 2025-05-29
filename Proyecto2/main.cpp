@@ -16,9 +16,12 @@ int main() {
         // Agregar al mapa desde el entorno
         env->agregarRecurso(env->getMapa(), recurso1);
 
+		// Crear una criatura manualmente
+		shared_ptr<Observer> criatura1 = make_shared<Hervivoro>(10, 11, 50); // x=5, y=6, energia=50
+		env->agregarCriatura(env->getMapa(), criatura1);
+
         // Mostrar el mapa (si implementaste mostrarMapa)
         cout << env->getMapa()->mostrarMapa();
-
 
 	
 
