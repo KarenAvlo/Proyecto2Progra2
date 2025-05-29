@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <sstream>
+#include <memory>	
 using namespace std;
 
 class Base {

@@ -4,6 +4,7 @@ unique_ptr<Enviroment> Enviroment::instancia = nullptr;
 
 Enviroment::Enviroment() :clima("Lluvioso"), estacion("Primavera"), energia(100) {
 	observers = make_shared<lista<shared_ptr<Observer>>>();
+	mapa = make_shared<Mapa>(20, 20); //creamos un mapa de 20x20 por defecto
 	//hay que hacer algo para poder rotar entre lluvioso, soleado, ventoso.... igual con las estaciones
 
 }
@@ -30,8 +31,43 @@ void Enviroment::notifyObservers() {
 	}
 }
 
+void Enviroment::agregarRecurso(shared_ptr<Mapa> m, shared_ptr<Observer> recurso)
+{
+	if (m->agregarRecurso(recurso->getPosX(), recurso->getPosY(), recurso)) {
+		observers->agregar(recurso);
+		cout << "Recurso agregado al mapa." << endl;
+	}
+	else {
+		cout << "No se pudo agregar el recurso al mapa." << endl;
+	}
+}
+
+void Enviroment::agregarCriatura(shared_ptr<Mapa> m, shared_ptr<Observer> criatura)
+{
+	if (m->agregarCriatura(criatura->getPosX(), criatura->getPosY(), criatura)) {
+		observers->agregar(criatura);
+		cout << "Criatura agregada al mapa." << endl;
+	}
+	else {
+		cout << "No se pudo agregar la criatura al mapa." << endl;
+	}
+}
+
 //setters
-void Enviroment::setClima(string cli) { clima = cli; }
+void Enviroment::setClima(int cli) {
+	if (cli == 1) {
+		clima = "Soleado";
+	}
+	else if (cli == 2) {
+		clima = "Lluvioso";
+	}
+	else if (cli == 3) {
+		clima = "Nublado";
+	}
+	else {
+		clima = "Desconocido"; 
+	}
+}
 
 void Enviroment::setEstacion(string est) { estacion = est; }
 
@@ -45,6 +81,11 @@ string Enviroment::getEstación() { return estacion; }
 int Enviroment::getEnergia() { return energia; }
 
 shared_ptr<lista<shared_ptr<Observer>>> Enviroment::getLista() { return observers; }
+
+shared_ptr<Mapa> Enviroment::getMapa() const
+{
+	return mapa; 
+}
 
 
  string Enviroment::toString() const{

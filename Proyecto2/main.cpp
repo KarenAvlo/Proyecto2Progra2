@@ -1,20 +1,26 @@
 #include <iostream>
 #include <sstream>
-#include "Lista.h"
+#include "clases.h"
 
 using namespace std;
 
 
 int main() {
-    cout << "Karencita hola" << endl;
-    
-	cout << "hola bbys" << endl;
 
-	cout << "hola bbys 2" << endl;
+        // Obtener instancia del entorno
+        Enviroment* env = Enviroment::getInstancia();
 
-	cout << "hola bbys 3" << endl;
+        // Crear un recurso manualmente
+        shared_ptr<Observer> recurso1 = make_shared<Planta>(3, 4, 15); // x=3, y=4, energia=15
 
-	cout << "mundo hola" << endl;
+        // Agregar al mapa desde el entorno
+        env->agregarRecurso(env->getMapa(), recurso1);
+
+        // Mostrar el mapa (si implementaste mostrarMapa)
+        cout << env->getMapa()->mostrarMapa();
+
+
+	
 
     return 0;
 }

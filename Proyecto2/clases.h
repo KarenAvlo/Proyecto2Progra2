@@ -1,0 +1,11 @@
+#pragma once
+#include "Enviroment.h"
+#include "Mapa.h"
+#include "Observer.h"
+#include "Recursos.h"
+#include "Criatura.h"
+#include "FactoryResources.h"
+#include "Agua.h"
+#include "Planta.h"
+#include "Meat.h"
+#include "Subject.h"
