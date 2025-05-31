@@ -12,7 +12,7 @@ string Planta::toString() const {
 	stringstream s;
 	s << "Soy Planta" << endl;
 	s << "Posicion:" << x << "," << y << endl;
-	s << "Brindo una energía de:" << EnergyValue << endl;
+	s << "Brindo una energia de:" << EnergyValue << endl;
 	return s.str();
 }
 

@@ -7,7 +7,7 @@
 class Estrategia;
 
 class Creatura: public Objeto{
-private:
+protected:
 	int energía;
 	int edad;
 	EstrategiaMovimiento* em;

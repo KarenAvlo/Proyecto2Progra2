@@ -55,6 +55,10 @@ string Enviroment::getClima() { return clima; }
 
 string Enviroment::getEstación() { return estacion; }
 
+const lista<shared_ptr<Objeto>>* Enviroment::getLista() const{
+	return &objetos;
+}
+
 shared_ptr<Mapa> Enviroment::getMapa() const{
 	return mapa; 
 }

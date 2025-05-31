@@ -37,6 +37,7 @@ public:
 	string getEstación();
 
 
+	const lista<shared_ptr<Objeto>>* getLista() const;
 	shared_ptr<Mapa> getMapa() const;
 
 	virtual string toString() const;

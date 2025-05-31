@@ -22,10 +22,16 @@ int main() {
         // Agregar el hervivoro al entorno (aunque no es necesario para esta prueba)
         env->agregarCreatura(herv1);
 
-        // Probar si hay planta cerca del hervivoro
-        bool hayPlanta = env->hayPlantaCerca(herv1.get());
+        cout << *planta1 << endl;
+        cout << "----------------" << endl;
 
-        cout << "¿Hay planta cerca del hervivoro? " << (hayPlanta ? "Sí" : "No") << endl;
+        cout << env->getLista()->toString() << endl;
+
+
+        // Probar si hay planta cerca del hervivoro
+       /* bool hayPlanta = env->hayPlantaCerca(herv1.get());
+
+        cout << "¿Hay planta cerca del hervivoro? " << (hayPlanta ? "Sí" : "No") << endl;*/
 
     return 0;
 }

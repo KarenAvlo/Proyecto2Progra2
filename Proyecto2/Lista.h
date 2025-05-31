@@ -15,20 +15,20 @@ private:
 	shared_ptr<T> objeto;
 	shared_ptr<nodo<T>> siguiente;
 public:
-	nodo(const T&, shared_ptr<nodo<T>>);
+	nodo(const shared_ptr<T>&, shared_ptr<nodo<T>>);
 	virtual string toString() const;
 	virtual~nodo();
 };
 //-------nodo.cpp-------
 
 template <class T>
-nodo<T>::nodo(const T& obj, shared_ptr<nodo<T>>sig) :objeto(make_shared<T>(obj)), siguiente(sig) {
-}
+nodo<T>::nodo(const shared_ptr<T>& obj, shared_ptr<nodo<T>> sig) : objeto(obj), siguiente(sig) {}
+
 
 template <class T>
 string nodo<T>::toString() const {
 	stringstream s;
-	s << *objeto;
+	s << **objeto;
 	if (siguiente != nullptr) {
 		s << *siguiente;
 	}
@@ -74,7 +74,7 @@ template <class T>
 T& iterador<T>::operator*() const {
 	return *(crusor->objeto); // preferible porque uso smart pointers
 	//en lugar de
-	// return *(crusor.get()->objeto);
+	// return **(crusor.get()->objeto);
 
 }
 template <class T>
@@ -128,9 +128,11 @@ bool lista<T>::estaVacia() const {
 
 template <class T>
 lista<T>& lista<T>::agregar(const T& obj) {
-	primero = make_shared<nodo<T>>(obj, primero);
+	auto ptr_obj = std::make_shared<T>(obj);
+	primero = make_shared<nodo<T>>(ptr_obj, primero);
 	return *this;
 }
+
 
 template <class T>
 void lista<T>::eliminarTodos() {
