@@ -9,10 +9,10 @@ protected:
 	int y;
 public:
 	Objeto(int = 0, int = 0);
-	~Objeto() = default;
+	virtual~Objeto() = default;
 	virtual string toString() const = 0;
-	int getX();
-	int getY();
+	int getX() const;
+	int getY() const;
 	void setX(int );
 	void setY(int );
 	virtual string getEtiqueta() const = 0;

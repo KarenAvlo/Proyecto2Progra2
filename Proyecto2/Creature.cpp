@@ -9,7 +9,7 @@ Creatura::~Creatura() {}
 
 void Creatura::moverse() {
 	//el moverse utiliza 5 de energía
-	if (energía > 5) {
+	if (energía >= 5) {
 		energía -= 5;
 		em->EjecutarEstrategia(this);
 	}

@@ -1,6 +1,6 @@
 #pragma once
-#include "Objeto.h"
 #include <memory>
+#include "Objeto.h"
 
 template <class T> class nodo;
 template <class T> class iterador;
@@ -8,7 +8,7 @@ template <class T> class lista;
 
 //-------nodo.h---------
 template <class T>
-class nodo{
+class nodo {
 	friend class iterador<T>;
 	friend class lista<T>;
 private:
@@ -28,11 +28,9 @@ nodo<T>::nodo(const T& obj, shared_ptr<nodo<T>>sig) :objeto(make_shared<T>(obj))
 template <class T>
 string nodo<T>::toString() const {
 	stringstream s;
-	if (objeto) {
-	s << objeto->toString();
-	}
+	s << *objeto;
 	if (siguiente != nullptr) {
-		s << siguiente->toString();
+		s << *siguiente;
 	}
 	return s.str();
 }
@@ -41,6 +39,14 @@ template <class T>
 nodo<T>::~nodo() {
 	//no hay que usar una liberacion pues la maneja los punteros inteligentes
 }
+
+template <class T>
+ostream& operator<<(ostream& os, const nodo<T>& n) {
+	os << n.toString();
+	return os;
+}
+
+
 //-------iterador.h-------
 template <class T>
 class iterador {
@@ -88,7 +94,7 @@ bool iterador<T>::operator!=(const iterador<T>& otro) const {
 
 //-------lista.h-------
 template <class T>
-class lista{
+class lista {
 private:
 	shared_ptr<nodo<T>>primero;
 public:
@@ -128,6 +134,13 @@ lista<T>& lista<T>::agregar(const T& obj) {
 
 template <class T>
 void lista<T>::eliminarTodos() {
+	// Nota:
+	  // Observe que el método NO elimina los elementos de manera
+	  // explícita. Solamente se actualiza la referencia del
+	  // primer elemento.
+	  // Al hacer que el puntero tenga un valor nulo, la memoria
+	  // se recupera automáticamente en el destructor de la lista,
+	  // ya que no existirán referencias a los objetos correspondientes.
 
 	primero = nullptr;
 
@@ -137,7 +150,7 @@ template <class T>
 string lista<T>::toString() const {
 	stringstream s;
 	if (primero != nullptr) {
-		s << primero->toString() << endl;
+		s << *primero << endl;
 	}
 	return s.str();
 }
