@@ -131,7 +131,7 @@
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Enviroment.cpp" />
     <ClCompile Include="Estrategia.cpp" />
-    <ClCompile Include="FactoryResources.cpp" />
+    <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Hervivoro.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mapa.cpp" />
@@ -146,7 +146,7 @@
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Enviroment.h" />
     <ClInclude Include="Estrategia.h" />
-    <ClInclude Include="FactoryResources.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="Hervivoro.h" />
     <ClInclude Include="Mapa.h" />
     <ClInclude Include="Meat.h" />

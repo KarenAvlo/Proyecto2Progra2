@@ -5,6 +5,8 @@ Recursos::Recursos(int xx, int yy, int ee):Objeto(xx,yy),EnergyValue(ee),disponi
 	
 }
 
+Recursos::~Recursos(){}
+
 
 void Recursos::consumir(Creatura* c) {
 	if (disponible) {

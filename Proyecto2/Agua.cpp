@@ -4,11 +4,11 @@
 Agua::Agua(int xx, int yy, int ee, int nive): Recursos(xx,yy,ee), nivel(nive){}
 
 
-//void Agua::regenerarse() {
-//	if (Enviroment::getInstancia()->getClima() == "lluvioso") {
-//		disponible = true;
-//	}
-//}
+void Agua::regenerarse() {
+	if (Enviroment::getInstancia()->getClima() == "lluvioso") {
+		disponible = true;
+	}
+}
 
 string Agua::getEtiqueta() const{return "Agua";}
 

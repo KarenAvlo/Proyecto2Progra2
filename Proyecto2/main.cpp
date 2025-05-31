@@ -7,31 +7,24 @@ using namespace std;
 
 int main() {
   
-        // Obtener la instancia singleton del entorno
-        Enviroment* env = Enviroment::getInstancia();
-
-        // Crear una planta en (5, 5)
-        shared_ptr<Planta> planta1 = make_shared<Planta>(5, 5);
-
-        // Crear un hervivoro en (7, 6) - a una distancia ~2.24 de la planta (dentro de 3)
-        shared_ptr<Hervivoro> herv1 = make_shared<Hervivoro>(7, 6, 10, 1, nullptr);
-
-        // Agregar la planta al entorno
-        env->agregarRecurso(planta1);
-
-        // Agregar el hervivoro al entorno (aunque no es necesario para esta prueba)
-        env->agregarCreatura(herv1);
-
-        cout << *planta1 << endl;
-        cout << "----------------" << endl;
-
-        cout << env->getLista()->toString() << endl;
+    // Crear una criatura que cumple con los requisitos de reproducción
+    shared_ptr<EstrategiaMovimiento> estrategiaMovimiento = make_shared<EstrategiaMovimiento>();
+    shared_ptr<EstrategiaReproducción> estrategiaRepro = make_shared<EstrategiaReproducción>();
 
 
-        // Probar si hay planta cerca del hervivoro
-       /* bool hayPlanta = env->hayPlantaCerca(herv1.get());
+    shared_ptr<Creatura> hervivoro = make_shared<Hervivoro>(1, 1, 50, 25, estrategiaMovimiento, estrategiaRepro);
 
-        cout << "¿Hay planta cerca del hervivoro? " << (hayPlanta ? "Sí" : "No") << endl;*/
+    Enviroment::getInstancia()->agregarCreatura(hervivoro);
+   cout<< Enviroment::getInstancia()->getLista()->toString();
+
+   hervivoro->reproducirse();
+
+   cout << Enviroment::getInstancia()->getLista()->toString();
+
+
+
+
+
 
     return 0;
 }

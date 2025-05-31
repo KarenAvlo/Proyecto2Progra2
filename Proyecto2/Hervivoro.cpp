@@ -1,7 +1,8 @@
 #include "Hervivoro.h"
 
-Hervivoro::Hervivoro(int x, int y, int energia,int edad,EstrategiaMovimiento*em) 
-	: Creatura(x, y, energia,edad,em ){}
+Hervivoro::Hervivoro(int x, int y, int energia,int edad, shared_ptr<EstrategiaMovimiento> em,
+	shared_ptr<EstrategiaReproducción> er) 
+	: Creatura(x, y, energia,edad,em ,er){}
 
 
 string Hervivoro::toString() const{
@@ -12,7 +13,6 @@ string Hervivoro::toString() const{
 	return s.str();
 }
 
-string Hervivoro::getEtiqueta() const
-{
+string Hervivoro::getEtiqueta() const{
 	return "Hervivoro";
 }

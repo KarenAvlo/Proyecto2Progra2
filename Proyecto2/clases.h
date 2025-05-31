@@ -4,7 +4,7 @@
 #include "Objeto.h"
 #include "Recursos.h"
 #include "Hervivoro.h"
-#include "FactoryResources.h"
+#include "Factory.h"
 #include "Agua.h"
 #include "Planta.h"
 #include "Meat.h"

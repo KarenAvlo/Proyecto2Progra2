@@ -33,7 +33,7 @@
     <ClCompile Include="Meat.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="FactoryResources.cpp">
+    <ClCompile Include="Factory.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Mapa.cpp">
@@ -71,7 +71,7 @@
     <ClInclude Include="Meat.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="FactoryResources.h">
+    <ClInclude Include="Factory.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="clases.h">

@@ -1,5 +1,7 @@
 #pragma once
 class Creatura;
+class Enviroment;
+
 
 class Estrategia {
 public:
@@ -7,11 +9,11 @@ public:
 };
 
 
-//---- derivadas de estrategia-----
+//--------------------derivadas de estrategia------------------------
 
 class EstrategiaReproducción:public Estrategia {
-public:
-	virtual void EjecutarEstrategia(Creatura* c);
+	public:
+		virtual void EjecutarEstrategia(Creatura* c);
 };
 
 //class EstrategiaAlimentacion:public Estrategia {

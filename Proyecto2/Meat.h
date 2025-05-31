@@ -8,6 +8,8 @@ public:
 
 	void regenerarse() override;
 
+	virtual string getEtiqueta() const override;
+
 	string toString() const override;
 };
 

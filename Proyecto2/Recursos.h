@@ -12,7 +12,7 @@ protected:
 public:
 	Recursos(int, int, int);
 
-	virtual ~Recursos() = default;
+	virtual ~Recursos();
 
 	virtual string getEtiqueta() const = 0;
 
