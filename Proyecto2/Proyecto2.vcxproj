@@ -135,7 +135,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mapa.cpp" />
     <ClCompile Include="Meat.cpp" />
-    <ClCompile Include="objectBase.cpp" />
+    <ClCompile Include="Objeto.cpp" />
     <ClCompile Include="Planta.cpp" />
     <ClCompile Include="Recursos.cpp" />
   </ItemGroup>
@@ -148,12 +148,10 @@
     <ClInclude Include="Hervivoro.h" />
     <ClInclude Include="Mapa.h" />
     <ClInclude Include="Meat.h" />
-    <ClInclude Include="Observer.h" />
     <ClInclude Include="Lista.h" />
-    <ClInclude Include="objectBase.h" />
+    <ClInclude Include="Objeto.h" />
     <ClInclude Include="Planta.h" />
     <ClInclude Include="Recursos.h" />
-    <ClInclude Include="Subject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

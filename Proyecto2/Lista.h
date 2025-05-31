@@ -1,180 +1,154 @@
 #pragma once
-#include "objectBase.h"
+#include "Objeto.h"
 #include <memory>
 
-template <class T> class lista;
 template <class T> class nodo;
 template <class T> class iterador;
+template <class T> class lista;
 
-//--------class nodo----------
+//-------nodo.h---------
 template <class T>
-class nodo : public Base {
-	friend class lista<T>;
+class nodo{
 	friend class iterador<T>;
-public:
-	nodo(const T& inf);
-	nodo(const T&, shared_ptr<nodo<T>>);
-	virtual ~nodo();
-	virtual string toString() const override;
+	friend class lista<T>;
 private:
-	shared_ptr<T> info;
+	shared_ptr<T> objeto;
 	shared_ptr<nodo<T>> siguiente;
+public:
+	nodo(const T&, shared_ptr<nodo<T>>);
+	virtual string toString() const;
+	virtual~nodo();
 };
-//----implementación nodo-----
+//-------nodo.cpp-------
 
 template <class T>
-nodo<T>::nodo(const T& inf):info(make_shared<T>(inf)),siguiente(nullptr){}
-
-template <class T>
-nodo<T>::nodo(const T& inf, shared_ptr<nodo<T>> next) : info(make_shared<T>(inf)), siguiente(next) {
-
+nodo<T>::nodo(const T& obj, shared_ptr<nodo<T>>sig) :objeto(make_shared<T>(obj)), siguiente(sig) {
 }
-
-template <class T>
-nodo<T>::~nodo() {}
 
 template <class T>
 string nodo<T>::toString() const {
 	stringstream s;
-	s << *info;
+	if (objeto) {
+	s << objeto->toString();
+	}
 	if (siguiente != nullptr) {
-		s << *siguiente;
+		s << siguiente->toString();
 	}
 	return s.str();
 }
-//--fin implementación nodo--
 
-//-----class iterador----
+template <class T>
+nodo<T>::~nodo() {
+	//no hay que usar una liberacion pues la maneja los punteros inteligentes
+}
+//-------iterador.h-------
 template <class T>
 class iterador {
+private:
+	shared_ptr<nodo<T>> crusor;
 public:
 	iterador(shared_ptr<nodo<T>>);
+	// Nota:
+	  // El iterador debe proveer métodos para la inicialización,
+	  // obtener la referencia al elemento actual (dereference),
+	  // incrementar la posición del iterador y sobrecargar el operador
+	  // de comparación (para verificar el final de la lista).
+
 	virtual T& operator*() const;
 	virtual iterador<T>& operator++();
 	virtual bool operator!=(const iterador<T>&) const;
-	virtual bool operator==(const iterador<T>&otro) const;
-
-private:
-	shared_ptr<nodo<T>> crusor;
 };
-
-//---implementación Iterador---
-
+//-------iterador.cpp-------
 template <class T>
-iterador<T>::iterador(shared_ptr<nodo<T>> primero) :crusor(primero) {
+iterador<T>::iterador(shared_ptr<nodo<T>>primero) : crusor(primero) {
 
 }
 
 template <class T>
 T& iterador<T>::operator*() const {
-	return *(crusor->info);
-}
+	return *(crusor->objeto); // preferible porque uso smart pointers
+	//en lugar de
+	// return *(crusor.get()->objeto);
 
+}
 template <class T>
-iterador<T>& iterador<T>::operator++() {
+iterador<T>& iterador<T>::operator++() {//esto es para movernos al siguiente;
 	crusor = crusor->siguiente;
 	return *this;
 }
 
 template <class T>
-bool iterador<T>::operator!=(const iterador<T>&otro) const {
-	return crusor != otro.crusor;
+bool iterador<T>::operator!=(const iterador<T>& otro) const {
+	// compara si ambos iteradores están en posiciones diferentes
+	if (crusor != otro.crusor) {
+		return true;
+	}
+	return false;
 }
 
+//-------lista.h-------
 template <class T>
-bool iterador<T>::operator==(const iterador<T>& otro) const {
-	return crusor == otro.crusor;
-}
-
-//--fin implementación iterador
-
-//---class lista---
-template <class T>
-class lista :public Base {
+class lista{
+private:
+	shared_ptr<nodo<T>>primero;
 public:
 	lista();
 	virtual ~lista();
-	virtual bool isEmpty();
+
+	lista(const lista<T>&) = delete;
+	lista<T> operator=(const lista<T>&) = delete;
+
+	virtual bool estaVacia() const;
 	virtual lista<T>& agregar(const T&);
-	virtual lista<T>& eliminar(const T&);
-	virtual string toString() const override;
-	virtual iterador<T> begin() const; //patron iterator
-	virtual iterador<T> end() const; // patron iterator
-private:
-	shared_ptr<nodo<T>> primero;
+	virtual void eliminarTodos();
+
+	virtual string toString() const;
+
+	virtual iterador<T> begin() const;
+	virtual iterador<T> end() const;
 };
-
-//---implementación Lista----
+//---------lista.cpp---------
+template <class T>
+lista<T>::lista() :primero(nullptr) {}
 
 template <class T>
-lista<T>::lista(){}
-
-template <class T>
-lista<T>::~lista(){}
-
-template <class T>
-bool lista<T>::isEmpty() {
-	return !primero;
+lista<T>::~lista() {
 }
 
 template <class T>
-lista<T>& lista<T>::agregar(const T&info) {
-	shared_ptr<nodo < T>> tmp = make_shared<nodo < T >>(info);
-
-	if (primero == nullptr) {
-		primero = tmp;
-	}
-	else {
-		nodo<T>* crusor = primero.get();
-		while (crusor->siguiente != nullptr) {
-			crusor = crusor->siguiente.get();
-		}
-		crusor->siguiente = tmp;
-	}
-	return *this;
-
+bool lista<T>::estaVacia() const {
+	return primero == nullptr;
 }
 
 template <class T>
-lista<T>& lista<T>::eliminar(const T& info) {
-	if (!primero) return *this;
-
-	if (*(primero->info) == info) {  // compara shared_ptr
-		primero = primero->siguiente;
-		return *this;
-	}
-
-	auto actual = primero;
-	while (actual->siguiente && *(actual->siguiente->info) != info) {
-		actual = actual->siguiente;
-	}
-
-	if (actual->siguiente) {
-		actual->siguiente = actual->siguiente->siguiente;
-	}
-
+lista<T>& lista<T>::agregar(const T& obj) {
+	primero = make_shared<nodo<T>>(obj, primero);
 	return *this;
 }
 
+template <class T>
+void lista<T>::eliminarTodos() {
+
+	primero = nullptr;
+
+}
 
 template <class T>
 string lista<T>::toString() const {
 	stringstream s;
 	if (primero != nullptr) {
-		s << *primero;
+		s << primero->toString() << endl;
 	}
 	return s.str();
 }
 
 template <class T>
-iterador<T> lista<T>::begin() const { //patron iterator
+iterador<T> lista<T>::begin() const {
 	return iterador<T>(primero);
 
 }
 
 template <class T>
-iterador<T> lista<T>::end() const { // patron iterator
+iterador<T> lista<T>::end() const {
 	return iterador<T>(nullptr);
 }
-
-//------
