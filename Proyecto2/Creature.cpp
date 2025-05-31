@@ -51,7 +51,6 @@ void Creatura::ReducirEnergía(int e) {
 	else {
 		throw std::out_of_range("Energía fuera de rango");
 	}
-
 }
 
 void Creatura::setEdad(int age) { edad = age; }
@@ -74,6 +73,13 @@ string Creatura::toString() const {
 
 string Creatura::getEtiqueta() const {
 	return "Creatura";
+}
+
+bool Creatura::isDead() { //lo ideal es poner algo en enviroment para sacar las creaturas muertas
+	if (energía < 0) {
+		return true;
+	}
+	return false;
 }
 
 

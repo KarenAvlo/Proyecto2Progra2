@@ -13,8 +13,6 @@ Mapa::Mapa(int x, int y) : ancho(x), alto(y) {
 	}
 }
 
-
-
 string Mapa::mostrarMapa() const {
 	stringstream ss;
 	for (int i = 0; i < alto; ++i) {
@@ -48,8 +46,7 @@ bool Mapa::agregarRecurso(int x, int y, std::shared_ptr<Objeto> recurso) {
 	return true;
 }
 
-bool Mapa::agregarCreatura(int x, int y, shared_ptr<Objeto> criatura)
-{
+bool Mapa::agregarCreatura(int x, int y, shared_ptr<Objeto> criatura){
 	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
 		cout << "Coordenadas fuera de los limites del mapa." << endl;
 		return false;
@@ -61,6 +58,19 @@ bool Mapa::agregarCreatura(int x, int y, shared_ptr<Objeto> criatura)
 	mapa[y][x] = criatura;
 	criatura->setX(x);
 	criatura->setY(y);
+	return true;
+}
+
+bool Mapa::eliminarCreatura(int x, int y) {
+	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
+		cout << "Coordenadas fuera de los limites del mapa." << endl;
+		return false;
+	}
+	if (!mapa[y][x]) {
+		cout << "No hay criatura en esas coordenadas para eliminar." << endl;
+		return false;
+	}
+	mapa[y][x] = nullptr;  // Eliminar la criatura (shared_ptr queda en nullptr)
 	return true;
 }
 

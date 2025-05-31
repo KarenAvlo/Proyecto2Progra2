@@ -8,5 +8,7 @@
 #include "Agua.h"
 #include "Planta.h"
 #include "Meat.h"
-
+#include "Omnivoro.h"
+#include "Carnívoro.h"
+#include "Estrategia.h"
 

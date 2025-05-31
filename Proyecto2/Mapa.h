@@ -19,6 +19,8 @@ public:
 
 	bool agregarCreatura(int x, int y, shared_ptr<Objeto> criatura);
 
+	bool eliminarCreatura(int x, int y);
+
 private:
 	int ancho;
 	int alto;

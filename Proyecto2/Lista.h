@@ -107,9 +107,10 @@ public:
 	virtual bool estaVacia() const;
 	virtual lista<T>& agregar(const T&);
 	virtual void eliminarTodos();
-
 	virtual string toString() const;
 
+	void eliminar(const T&);
+	
 	virtual iterador<T> begin() const;
 	virtual iterador<T> end() const;
 };
@@ -155,6 +156,30 @@ string lista<T>::toString() const {
 		s << *primero << endl;
 	}
 	return s.str();
+}
+
+template <class T>
+void lista<T>::eliminar(const T& obj) {
+	if (!primero) return; // lista vacía
+
+	// Caso especial: eliminar el primer nodo
+	while (primero && *(primero->objeto) == obj) {
+		primero = primero->siguiente;
+	}
+
+	if (!primero) return;
+
+	// Nodo actual para iterar
+	auto actual = primero;
+	while (actual->siguiente) {
+		if (*(actual->siguiente->objeto) == obj) {
+			// Saltamos el nodo a eliminar
+			actual->siguiente = actual->siguiente->siguiente;
+		}
+		else {
+			actual = actual->siguiente;
+		}
+	}
 }
 
 template <class T>

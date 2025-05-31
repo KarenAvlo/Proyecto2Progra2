@@ -16,6 +16,7 @@ public:
 	void setX(int );
 	void setY(int );
 	virtual string getEtiqueta() const = 0;
+	bool operator==(const Objeto& otro) const;
 };
 
 ostream& operator<<(ostream& out, const Objeto& obj);

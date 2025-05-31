@@ -27,6 +27,7 @@ public:
 	void setEdad(int);
 	void setEstrategiaMovimiento(shared_ptr<EstrategiaMovimiento> );
 	void setEstrategiaReproduccion(shared_ptr<EstrategiaReproducción>);
+	bool isDead();
 
 	virtual string toString() const override;
 	string getEtiqueta() const override;

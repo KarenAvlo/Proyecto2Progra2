@@ -1,8 +1,5 @@
 #pragma once
-#include "Recursos.h"
-#include "Creature.h"
-#include "Hervivoro.h"
-#include "Estrategia.h"
+#include "clases.h"
 #include <memory>
 using namespace std;
 
@@ -15,8 +12,6 @@ class FactoryCreature {
 public:
 	static shared_ptr<Creatura> crearInstancia(int);
 	static int etiquetaToTipo(const string& etiqueta);
-
-
 };
 
 

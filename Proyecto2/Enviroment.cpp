@@ -1,6 +1,7 @@
 #include "Enviroment.h"
 #include "Planta.h"
 #include "Hervivoro.h"
+#include "Omnivoro.h"
 
 unique_ptr<Enviroment> Enviroment::instancia = nullptr;
 
@@ -31,6 +32,11 @@ void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
 	int y = creatura->getY();
 	objetos.agregar(creatura);
 	mapa->agregarCreatura(x, y, creatura);
+}
+
+void Enviroment::eliminarCreatura(shared_ptr<Objeto> creatura) {
+	objetos.eliminar(creatura);
+	mapa->eliminarCreatura(creatura->getX(), creatura->getY());
 }
 
 //setters
@@ -87,7 +93,29 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 return false;
  }
 
- bool Enviroment::hayCreaturaDebilCerca(Creatura* cre) {
+ bool Enviroment::hayCreaturaDebilCerca(Creatura* cre) const{
+
+	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+
+		 shared_ptr<Objeto> obj = *it;
+
+		 //el hypot calcula la formula de la distancia
+
+
+		// Intenta convertir a Hervivoro
+		 shared_ptr<Hervivoro> her = dynamic_pointer_cast<Hervivoro>(obj);
+		 if (her && her.get() != cre) {
+			 double dist = hypot(her->getX() - cre->getX(), her->getY() - cre->getY());
+			 if (dist <= 3.0) return true;
+		 }
+
+		 // Intenta convertir a Omnivoro
+		 shared_ptr<Omnivoro> om = dynamic_pointer_cast<Omnivoro>(obj);
+		 if (om && om.get() != cre) {
+			 double dist = hypot(om->getX() - cre->getX(), om->getY() - cre->getY());
+			 if (dist <= 3.0) return true;
+		 }
+	 }
 	 return false;
  }
  

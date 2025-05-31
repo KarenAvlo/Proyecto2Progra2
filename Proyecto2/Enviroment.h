@@ -2,6 +2,7 @@
 #include "Lista.h"
 #include "Mapa.h"
 class Hervivoro;
+class Omnivoro;
 class Creatura;
 class Planta;
 
@@ -27,6 +28,7 @@ public:
 	//metodos de mapa
 	void agregarRecurso(shared_ptr<Objeto> recurso);  
 	void agregarCreatura(shared_ptr<Objeto> criatura);
+	void eliminarCreatura(shared_ptr<Objeto> creatura);
 
 	//setters
 	void setClima(int cli);
@@ -44,7 +46,7 @@ public:
 
 	bool hayPlantaCerca(Hervivoro* her) const;
 
-	bool hayCreaturaDebilCerca(Creatura* cre );
+	bool hayCreaturaDebilCerca(Creatura* cre) const;
 
 };
 

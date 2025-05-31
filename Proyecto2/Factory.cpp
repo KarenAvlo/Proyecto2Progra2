@@ -1,10 +1,9 @@
 #include "Factory.h"
-#include "Agua.h"
-#include "Planta.h"
-#include "Meat.h"
+
 
 shared_ptr<Recursos> FactoryResources::crearInstancia(int t){
 	shared_ptr<Recursos> re = nullptr;
+
 	//Se crean nuevas variables x y y, random;
 	int newX = rand() % 10;
 	int newY = rand() % 10;
@@ -29,8 +28,8 @@ shared_ptr<Recursos> FactoryResources::crearInstancia(int t){
 shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 	shared_ptr<Creatura> creatura = nullptr;
 
-	shared_ptr<EstrategiaMovimiento> e1;
-	shared_ptr<EstrategiaReproducción> e2;
+	shared_ptr<EstrategiaMovimiento> e1= make_shared<EstrategiaMovimiento>();
+	shared_ptr<EstrategiaReproducción> e2= make_shared<EstrategiaReproducción>();;
 
 	//Se crean nuevas variables x y y, random;
 	int newX = rand() % 10;
@@ -39,9 +38,16 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 
 	switch (t) {
 	case 1:
-		e1 = make_shared<EstrategiaMovimiento>();
 		creatura = make_shared<Hervivoro>(newX, newY, 100,edad,e1,e2);
 		break;
+	case 2:
+		creatura = make_shared<Carnívoro>(newX, newY, 100, edad, e1, e2);
+		break;
+
+	case 3:
+		creatura = make_shared<Omnivoro>(newX, newY, 100, edad, e1, e2);
+		break;
+
 	default:
 		throw invalid_argument("Tipo de creatura desconocido: ");
 		break;

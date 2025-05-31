@@ -16,10 +16,10 @@ class EstrategiaReproducción:public Estrategia {
 		virtual void EjecutarEstrategia(Creatura* c);
 };
 
-//class EstrategiaAlimentacion:public Estrategia {
-//public:
-//	virtual void EjecutarEstrategia(Creatura* c) = 0;
-//};
+class EstrategiaAlimentacion:public Estrategia {
+public:
+	virtual void EjecutarEstrategia(Creatura* c) = 0;
+};
 
 class EstrategiaMovimiento :public Estrategia {
 public:
@@ -37,12 +37,15 @@ public:
 //	virtual void EjecutarEstrategia(Creatura* c) override;
 //};
 //
-////---derivada de alimentación, canívoro y hervíboro
-//
-//class EstrategiaAlimentacionC :public EstrategiaAlimentacion {
-//public:
-//	virtual void EjecutarEstrategia(Creatura* c) override;
-//};
+// 
+// 
+//---derivada de alimentación, canívoro y hervíboro
+
+class EstrategiaAlimentacionC :public EstrategiaAlimentacion {
+public:
+	virtual void EjecutarEstrategia(Creatura* c) override;
+};
+
 //
 //class EstrategiaAlimentacionH :public EstrategiaAlimentacion {
 //public:

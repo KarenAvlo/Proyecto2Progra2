@@ -1,10 +1,7 @@
-#include "Estrategia.h"
-#include "Creature.h"
-#include "Enviroment.h"
 #include "Factory.h"
 
 void EstrategiaReproducción::EjecutarEstrategia(Creatura* c) {
-    // algunas ideas serían
+
     if (c->getEdad() > 20 && c->getEnergia() > 10) {
 
         //se crea una creatura por defecto...
@@ -15,6 +12,7 @@ void EstrategiaReproducción::EjecutarEstrategia(Creatura* c) {
         shared_ptr<Creatura>cre = FactoryCreature::crearInstancia(tipo);
 
         // luego se introduce al ambiente...
+        //pues lo que se hace es crear una creatura de su mismo tipo
         Enviroment::getInstancia()->agregarCreatura(cre);
     }
 }
@@ -37,10 +35,15 @@ void EstrategiaMovimiento::EjecutarEstrategia(Creatura* c) {
 //void EstrategiaDefensa ::EjecutarEstrategia(Creatura* c) {
 //
 //}
-//
-//void EstrategiaAlimentacionC::EjecutarEstrategia(Creatura* c) {
-//
-//}
+
+
+void EstrategiaAlimentacionC::EjecutarEstrategia(Creatura* c) {
+    if (Enviroment::getInstancia()->hayCreaturaDebilCerca(c) == true) {
+
+    }
+
+
+}
 //
 //void EstrategiaAlimentacionH::EjecutarEstrategia(Creatura* c) {
 //
