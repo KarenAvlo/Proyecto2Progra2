@@ -130,6 +130,7 @@
     <ClCompile Include="Agua.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Enviroment.cpp" />
+    <ClCompile Include="Estrategia.cpp" />
     <ClCompile Include="FactoryResources.cpp" />
     <ClCompile Include="Hervivoro.cpp" />
     <ClCompile Include="main.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="clases.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Enviroment.h" />
+    <ClInclude Include="Estrategia.h" />
     <ClInclude Include="FactoryResources.h" />
     <ClInclude Include="Hervivoro.h" />
     <ClInclude Include="Mapa.h" />
