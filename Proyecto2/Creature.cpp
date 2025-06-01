@@ -20,14 +20,14 @@ Creatura::~Creatura() {}
 void Creatura::moverse() {
 	//el moverse utiliza 5 de energía
 	if (energía >= 5) {
-		energía -= 5;
+		ReducirEnergía(5);
 		em->EjecutarEstrategia(this);
 	}
 }
 
 void Creatura::reproducirse() {
 	if (energía > 10) {
-		energía -= 10;
+		ReducirEnergía(10);
 		er->EjecutarEstrategia(this);
 	}
 }

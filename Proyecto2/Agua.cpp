@@ -30,9 +30,6 @@ void Agua::nivelAgual(int n){ //cual es la finalidad de esto?
 
 string Agua::toString() const {
 	stringstream s;
-	s << "Soy Agua" << endl;
-	s << "Posicion:" << x << "," << y << endl;
-	s << "Brindo una energía de:" << EnergyValue << endl;
-	s << "Nivel de agua: " << nivel << endl;
+	s << "A(" << x << "," << y << ") E:" << EnergyValue; // A de Agua, sus coordenadas y respectiva energía
 	return s.str();
 }

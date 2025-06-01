@@ -8,9 +8,7 @@ Omnivoro::Omnivoro(int x, int y, int energia, int edad, shared_ptr<EstrategiaMov
 
 string Omnivoro::toString() const {
 	stringstream s;
-	s << "Soy Omnivoro" << endl;
-	s << "Posicion:" << x << "," << y << endl;
-	s << "Tengo una energia de:" << energía << endl;
+	s << "O(" << x << "," << y << ") E:" << energía; // O de Omnivoro, sus coordenadas y respectiva energía
 	return s.str();
 }
 

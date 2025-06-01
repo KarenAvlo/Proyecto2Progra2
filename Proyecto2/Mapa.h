@@ -2,6 +2,7 @@
 #include "memory"
 #include <typeinfo>
 #include "Objeto.h"
+#include <iomanip>
 
 class Objeto;
 

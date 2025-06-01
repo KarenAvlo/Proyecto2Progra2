@@ -15,17 +15,22 @@ Mapa::Mapa(int x, int y) : ancho(x), alto(y) {
 
 string Mapa::mostrarMapa() const {
 	stringstream ss;
+	const int anchoCelda = 15;
+
 	for (int i = 0; i < alto; ++i) {
 		for (int j = 0; j < ancho; ++j) {
+			string contenido = " ";
+
 			if (mapa[i][j]) {
-				ss << "[ " << mapa[i][j]->getEtiqueta() << " ]";
+				contenido = mapa[i][j]->toString();
 			}
-			else {
-				ss << "[   ]";
-			}
+
+			// Asegurar que el contenido tenga siempre el mismo ancho
+			ss << "[ " << setw(anchoCelda - 2) << left << contenido << "]";
 		}
-		ss << '\n';
+		ss << "\n";
 	}
+
 	return ss.str();
 }
 

@@ -7,9 +7,7 @@ Hervivoro::Hervivoro(int x, int y, int energia,int edad, shared_ptr<EstrategiaMo
 
 string Hervivoro::toString() const{
 	stringstream s;
-	s << "Soy Hervivoro" << endl;
-	s << "Posicion:" << x << "," << y << endl;
-	s << "Tengo una energia de:" << energía << endl;
+	s << "H(" << x << "," << y << ") E:" << energía; // H de Hervivoro, sus coordenadas y respectiva energía
 	return s.str();
 }
 

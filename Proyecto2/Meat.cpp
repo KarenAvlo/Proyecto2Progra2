@@ -15,8 +15,6 @@ string Meat::getEtiqueta() const {
 
 string Meat::toString() const {
 	stringstream s;
-	s << "Soy Planta" << endl;
-	s << "Posicion:" << x << "," << y << endl;
-	s << "Brindo una energía de:" << EnergyValue << endl;
+	s << "M(" << x << "," << y << ") E:" << EnergyValue; // M de Meat, sus coordenadas y respectiva energía
 	return s.str();
 }

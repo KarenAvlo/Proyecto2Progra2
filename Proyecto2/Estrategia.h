@@ -46,9 +46,9 @@ public:
 	virtual void EjecutarEstrategia(Creatura* c) override;
 };
 
-//
-//class EstrategiaAlimentacionH :public EstrategiaAlimentacion {
-//public:
-//	virtual void EjecutarEstrategia(Creatura* c) override;
-//};
+
+class EstrategiaAlimentacionH :public EstrategiaAlimentacion {
+public:
+	virtual void EjecutarEstrategia(Creatura* c) override;
+};
 

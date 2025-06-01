@@ -11,9 +11,7 @@ Carnívoro::Carnívoro(int x, int y, int energia, int edad, shared_ptr<EstrategiaM
 
 string Carnívoro::toString() const {
 	stringstream s;
-	s << "Soy Carnivoro" << endl;
-	s << "Posicion:" << x << "," << y << endl;
-	s << "Tengo una energia de:" << energía << endl;
+	s << "C(" << x << "," << y << ") E:" << energía; // C de carnivoro, sus coordenadas y respectiva energía
 	return s.str();
 }
 

@@ -47,7 +47,8 @@ void EstrategiaAlimentacionC::EjecutarEstrategia(Creatura* c) {
         Enviroment::getInstancia()->eliminarCreatura(presa);
     }
 }
-//
-//void EstrategiaAlimentacionH::EjecutarEstrategia(Creatura* c) {
-//
-//}
+
+
+void EstrategiaAlimentacionH::EjecutarEstrategia(Creatura* c) {
+
+}
