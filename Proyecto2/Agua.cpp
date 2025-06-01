@@ -12,7 +12,7 @@ void Agua::regenerarse() {
 
 string Agua::getEtiqueta() const{return "Agua";}
 
-void Agua::nivelAgual(int n){
+void Agua::nivelAgual(int n){ //cual es la finalidad de esto?
 	//modificar despues
 	if (n == 0) {
 		nivel = 0; // sin agua

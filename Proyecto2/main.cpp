@@ -6,33 +6,29 @@ using namespace std;
 
 
 int main() {
-  
-    // Crear una criatura que cumple con los requisitos de reproducción
-    shared_ptr<EstrategiaMovimiento> estrategiaMovimiento = make_shared<EstrategiaMovimiento>();
-    shared_ptr<EstrategiaReproducción> estrategiaRepro = make_shared<EstrategiaReproducción>();
+    shared_ptr<EstrategiaMovimiento> em = make_shared<EstrategiaMovimiento>();
+    shared_ptr<EstrategiaReproducción> er = make_shared<EstrategiaReproducción>();
+    shared_ptr<EstrategiaAlimentacion> ea = make_shared<EstrategiaAlimentacionC>();
+
+    shared_ptr<EstrategiaAlimentacion> ea1 = make_shared<EstrategiaAlimentacionC>();
+
+    shared_ptr<Carnívoro> ca = make_shared<Carnívoro>(5, 5, 50, 13, em, er,ea);
+    cout << *ca;
 
 
-    shared_ptr<Creatura> hervivoro = make_shared<Hervivoro>(1, 1, 50, 25, estrategiaMovimiento, estrategiaRepro);
+    shared_ptr<Hervivoro> her = make_shared<Hervivoro>(5, 6, 20, 2, em, er, ea1);
+    cout << *her;
 
-    Enviroment::getInstancia()->agregarCreatura(hervivoro);
-    cout << "--------------Antes de reproducirse-----------" << endl;
-   cout<< Enviroment::getInstancia()->getLista()->toString();
+    Enviroment::getInstancia()->agregarCreatura(ca);
+    Enviroment::getInstancia()->agregarCreatura(her);
 
-   hervivoro->reproducirse();
+    cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
 
-   cout << "--------------Despues de reproducirse-----------" << endl;
+    ca->alimentarse();
 
-   cout << Enviroment::getInstancia()->getLista()->toString();
+    cout << *ca;
 
-   cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
-
-   Enviroment::getInstancia()->eliminarCreatura(hervivoro);
-   cout << "----------después de la eliminación --------------" << endl;
-
-   cout << Enviroment::getInstancia()->getLista()->toString();
-
-   cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
-
+    cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
 
     return 0;
 }

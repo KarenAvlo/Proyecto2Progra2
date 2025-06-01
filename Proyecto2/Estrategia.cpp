@@ -38,11 +38,14 @@ void EstrategiaMovimiento::EjecutarEstrategia(Creatura* c) {
 
 
 void EstrategiaAlimentacionC::EjecutarEstrategia(Creatura* c) {
-    if (Enviroment::getInstancia()->hayCreaturaDebilCerca(c) == true) {
+    if (Enviroment::getInstancia()->hayCreaturaDebilCerca(c)) {
 
+        shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
+
+        c->AumentarEnergia(20); //comer da 20pts de energía
+
+        Enviroment::getInstancia()->eliminarCreatura(presa);
     }
-
-
 }
 //
 //void EstrategiaAlimentacionH::EjecutarEstrategia(Creatura* c) {

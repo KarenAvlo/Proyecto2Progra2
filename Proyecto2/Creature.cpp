@@ -9,8 +9,10 @@ Creatura::Creatura(){
 }
 
 Creatura::Creatura(int xx, int yy, int ener, int age, shared_ptr<EstrategiaMovimiento> e1, 
-	shared_ptr<EstrategiaReproducción> e2) :Objeto(xx, yy),
-energía(ener), edad(age), em(e1),er(e2) {
+	shared_ptr<EstrategiaReproducción> e2, shared_ptr<EstrategiaAlimentacion> e3) :Objeto(xx, yy),
+energía(ener), edad(age), em(e1),er(e2),ea(e3) {
+
+
 }
 
 Creatura::~Creatura() {}
@@ -22,7 +24,6 @@ void Creatura::moverse() {
 		em->EjecutarEstrategia(this);
 	}
 }
-void Creatura::alimentarse() {}
 
 void Creatura::reproducirse() {
 	if (energía > 10) {
@@ -35,7 +36,7 @@ int Creatura::getEnergia() { return energía; }
 
 int Creatura::getEdad() { return edad; }
 
-void Creatura::AumentarEnergia(int e) {
+void Creatura::AumentarEnergia(int e){
 	if (e >= 0 && e <= MAX_ENERGIA) {
 		energía += e;
 	}
@@ -60,6 +61,10 @@ void Creatura::setEstrategiaMovimiento(shared_ptr<EstrategiaMovimiento> move) {
 }
 void Creatura::setEstrategiaReproduccion(shared_ptr<EstrategiaReproducción> repro) {
 	er = repro;
+}
+
+void Creatura::setEstrategiaAlimentacion(shared_ptr<EstrategiaAlimentacion> alimento) {
+	ea = alimento;
 }
 
 

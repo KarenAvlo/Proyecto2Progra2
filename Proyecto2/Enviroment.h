@@ -1,6 +1,7 @@
 #pragma once
 #include "Lista.h"
 #include "Mapa.h"
+
 class Hervivoro;
 class Omnivoro;
 class Creatura;
@@ -45,7 +46,7 @@ public:
 	virtual string toString() const;
 
 	bool hayPlantaCerca(Hervivoro* her) const;
-
+	shared_ptr<Creatura> getCreaturaDebilCerca(Creatura* depredador);
 	bool hayCreaturaDebilCerca(Creatura* cre) const;
 
 };

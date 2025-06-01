@@ -93,6 +93,39 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 return false;
  }
 
+ shared_ptr<Creatura> Enviroment::getCreaturaDebilCerca(Creatura* depredador) {
+	 if (!depredador) return nullptr;
+	 shared_ptr<Creatura> presaMasCercana = nullptr;
+
+	 double distanciaPresa = 0;
+
+	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+		 shared_ptr<Objeto> obj = *it;
+
+		 // Herbívoro
+		 shared_ptr<Hervivoro> her = dynamic_pointer_cast<Hervivoro>(obj);
+		 if (her && her.get() != depredador) {
+			 double dist = hypot(her->getX() - depredador->getX(), her->getY() - depredador->getY());
+			 if (dist <= 3.0 && (presaMasCercana == nullptr || dist < distanciaPresa)) {
+				 presaMasCercana = her;
+				 distanciaPresa = dist;
+			 }
+		 }
+
+		 // Omnívoro
+		 shared_ptr<Omnivoro> om = dynamic_pointer_cast<Omnivoro>(obj);
+		 if (om && om.get() != depredador) {
+			 double dist = hypot(om->getX() - depredador->getX(), om->getY() - depredador->getY());
+			 if (dist <= 3.0 && (presaMasCercana == nullptr || dist < distanciaPresa)) {
+				 presaMasCercana = om;
+				 distanciaPresa = dist;
+			 }
+		 }
+	 }
+	 return presaMasCercana;
+
+ }
+
  bool Enviroment::hayCreaturaDebilCerca(Creatura* cre) const{
 
 	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
