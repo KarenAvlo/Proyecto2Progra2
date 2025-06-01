@@ -29,10 +29,43 @@ int main() {
 
     ca->alimentarse();
 
+
     cout << *ca;
     cout << endl;
 
+    ca->moverse();
+
+
     cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
+
+    system("cls");
+
+	//primeras pruebas
+	/*cout << "---------------------------------------" << endl;
+
+	cout << "Simulando el entorno..." << endl;
+	Enviroment::getInstancia()->simularTiempo(10);
+	cout << "---------------------------------------" << endl;
+	cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
+	cout << endl;
+	cout << "---------------------------------------" << endl;
+	cout << "Estado final de las criaturas:" << endl;
+	for (auto it = Enviroment::getInstancia()->getLista()->begin(); it != Enviroment::getInstancia()->getLista()->end(); ++it) {
+		shared_ptr<Objeto> obj = *it;
+		shared_ptr<Creatura> criatura = dynamic_pointer_cast<Creatura>(obj);
+		if (criatura) {
+			cout << *criatura << endl;
+		}
+	}
+	cout << "---------------------------------------" << endl;
+	cout << "Estado final del entorno:" << endl;
+	cout << Enviroment::getInstancia()->toString() << endl;
+	cout << "---------------------------------------" << endl;
+	cout << "Estado final del mapa:" << endl;
+	cout << Enviroment::getInstancia()->getMapa()->mostrarMapa() << endl;
+
+	cout << "---------------------------------------" << endl;
+	cout << "Fin de la simulacion." << endl;*/
 
     return 0;
 }

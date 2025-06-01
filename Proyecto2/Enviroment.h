@@ -37,7 +37,7 @@ public:
 
 	//getters
 	string getClima();
-	string getEstación();
+	string getEstacion();
 
 
 	const lista<shared_ptr<Objeto>>* getLista() const;
@@ -48,6 +48,9 @@ public:
 	bool hayPlantaCerca(Hervivoro* her) const;
 	shared_ptr<Creatura> getCreaturaDebilCerca(Creatura* depredador);
 	bool hayCreaturaDebilCerca(Creatura* cre) const;
+
+	//ticks de tiempo
+	void simularTiempo(int n);
 
 };
 

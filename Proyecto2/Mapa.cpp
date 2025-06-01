@@ -35,6 +35,24 @@ string Mapa::mostrarMapa() const {
 }
 
 
+bool Mapa::posValida()
+{
+	if (ancho <= 0 || alto <= 0) {
+		std::cerr << "El mapa no tiene dimensiones válidas.\n";
+		return false;
+	}
+	return true; // Retorna true si las dimensiones del mapa son válidas
+}
+
+shared_ptr<Objeto> Mapa::hayObjetoEnMapa(int x, int y)
+{
+	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
+		std::cerr << "Coordenadas fuera de los limites.\n";
+		return nullptr;
+	}
+	return mapa[y][x]; // Retorna true si hay un objeto en las coordenadas dadas
+}
+
 bool Mapa::agregarRecurso(int x, int y, std::shared_ptr<Objeto> recurso) {
 	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
 		std::cerr << "Coordenadas fuera de los límites del mapa.\n";

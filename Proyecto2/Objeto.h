@@ -7,6 +7,7 @@ class Objeto {
 protected:
 	int x;
 	int y;
+
 public:
 	Objeto(int = 0, int = 0);
 	virtual~Objeto() = default;

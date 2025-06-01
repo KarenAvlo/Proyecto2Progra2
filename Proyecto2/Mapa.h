@@ -15,6 +15,8 @@ public:
 	string mostrarMapa() const;
 
 	// Métodos para manipular el mapa
+	bool posValida();
+	shared_ptr<Objeto> hayObjetoEnMapa(int x, int y);  //para evitar las colisiones
 
 	bool agregarRecurso(int x, int y, shared_ptr<Objeto> recurso);
 

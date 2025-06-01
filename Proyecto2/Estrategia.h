@@ -6,6 +6,7 @@ class Enviroment;
 class Estrategia {
 public:
 	virtual void EjecutarEstrategia(Creatura* c) = 0;
+	virtual ~Estrategia() = default;
 };
 
 

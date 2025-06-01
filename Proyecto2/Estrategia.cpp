@@ -18,16 +18,24 @@ void EstrategiaReproducción::EjecutarEstrategia(Creatura* c) {
 }
 
 void EstrategiaMovimiento::EjecutarEstrategia(Creatura* c) {
+	shared_ptr<Mapa> destino = Enviroment::getInstancia()->getMapa();
+    // Verificar si hay objetos en el mapa
     int dx = (rand() % 3) - 1; // -1, 0 o 1
     int dy = (rand() % 3) - 1;
     int nuevaX = c->getX() + dx;
     int nuevaY = c->getY() + dy;
 
-    c->setX(nuevaX);
-    c->setY(nuevaY);
-    cout << "Se mueve a (" << nuevaX << ", " << nuevaY << ")";
+	if (destino->posValida() && !destino->hayObjetoEnMapa(nuevaX, nuevaY)) {
+		// Mover la criatura a la nueva posición
+		c->setX(nuevaX);
+		c->setY(nuevaY);
+	}
+	else {
+		//habira que implementar un mensaje de error con simbologia
+		cout << " error (" << nuevaX << ", " << nuevaY << ").\n";
+	}
 }
-
+   
 //void EstrategiaAtaque::EjecutarEstrategia(Creatura* c) {
 //
 //}

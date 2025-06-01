@@ -2,8 +2,8 @@
 #include "Objeto.h"
 #include "Estrategia.h"
 #include "Enviroment.h"
-
 #include <memory>
+
 #define MAX_ENERGIA 100 // Energía máxima que puede tener una criatura
 
 class Estrategia;

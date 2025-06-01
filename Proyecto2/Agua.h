@@ -7,7 +7,7 @@ public:
 	void regenerarse() override;
 	string getEtiqueta() const override;
 
-	void nivelAgual(int n);
+	void nivelAgua(int n);
 	string toString() const override;
 
 protected:

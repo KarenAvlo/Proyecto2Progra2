@@ -59,7 +59,7 @@ void Enviroment::setEstacion(string est) { estacion = est; }
 
 string Enviroment::getClima() { return clima; }
 
-string Enviroment::getEstación() { return estacion; }
+string Enviroment::getEstacion() { return estacion; }
 
 const lista<shared_ptr<Objeto>>* Enviroment::getLista() const{
 	return &objetos;
@@ -150,5 +150,52 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 }
 	 }
 	 return false;
+ }
+
+ void Enviroment::simularTiempo(int maxTicks)
+ {
+	 int tick = 0;
+	 int ticksPorDia = 10; // Definir cuántos ticks son un día
+	 int op = -1;
+
+	 while (tick < maxTicks && op != 1) {
+		 cout << "Tick: " << tick << endl;
+		 cout << "Clima actual: " << clima << endl;
+		 cout << "Estación actual: " << estacion << endl;
+		 // Simular el clima y la estación
+		 if (tick % ticksPorDia == 0) {
+			 // Cambiar el clima aleatoriamente
+			 int nuevoClima = rand() % 3 + 1; // 1 a 3
+			 setClima(nuevoClima);
+			 // Cambiar la estación aleatoriamente
+			 if (estacion == "Primavera") {
+				 estacion = "Verano";
+			 }
+			 else if (estacion == "Verano") {
+				 estacion = "Otonio";
+			 }
+			 else if (estacion == "Otonio") {
+				 estacion = "Invierno";
+			 }
+			 else {
+				 estacion = "Primavera";
+			 }
+		 }
+		 // Simular las criaturas
+		 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+			 shared_ptr<Objeto> obj = *it;
+			 shared_ptr<Creatura> criatura = dynamic_pointer_cast<Creatura>(obj);
+			 if (criatura) {
+				 criatura->moverse();
+				/* criatura->alimentarse();*/
+				/* criatura->reproducirse();*/
+			 }
+		 }
+		 cout << mapa->mostrarMapa() << endl;
+		 tick++;
+		 cout << "Presione 1 para detener la simulación o cualquier otra tecla para continuar..." << endl;
+		 cin >> op;
+	
+	 }
  }
  
