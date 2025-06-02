@@ -53,6 +53,7 @@ public:
 
 	//ticks de tiempo
 	void simularTiempo(int n);
+	void simularTickTiempo(int maxTicks);
 
 };
 

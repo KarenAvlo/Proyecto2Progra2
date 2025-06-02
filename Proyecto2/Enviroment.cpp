@@ -153,35 +153,86 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 return false;
  }
 
- void Enviroment::simularTiempo(int maxTicks)
+ //void Enviroment::simularTiempo(int maxTicks)
+ //{
+	// int tick = 0;
+	// int ticksPorDia = 10; // Definir cuántos ticks son un día
+	// int op = -1;
+
+	// do {
+	//	 int tick = 0;
+
+	//	 while (tick < maxTicks) {
+
+	//		 cout << "Tick: " << tick + 1 << endl;
+	//		 cout << "Clima actual: " << clima << endl;
+	//		 cout << "Estación actual: " << estacion << endl;
+
+	//		 // Simular el clima y la estación
+	//		 if (tick % ticksPorDia == 0) {
+	//			 // Cambiar el clima aleatoriamente
+	//			 int nuevoClima = rand() % 3 + 1; // 1 a 3
+
+	//			 setClima(nuevoClima);
+	//			 // Cambiar la estación aleatoriamente
+	//			 if (estacion == "Primavera") estacion = "Verano";
+	//			 else if (estacion == "Verano") estacion = "Otonio";
+	//			 else if (estacion == "Otonio")  estacion = "Invierno";
+	//			 else  estacion = "Primavera";
+	//		 }
+
+	//		 // Simular las criaturas
+	//		 for (auto& obj : objetos) {
+	//			 shared_ptr<Creatura> criatura = dynamic_pointer_cast<Creatura>(obj);
+	//			 if (criatura) {
+	//				 criatura->moverse();
+	//				 criatura->alimentarse();
+	//				 criatura->reproducirse();
+	//			 }
+	//		 }
+	//		 cout << mapa->mostrarMapa() << endl;
+	//		 tick++;
+	//		 std::this_thread::sleep_for(chrono::milliseconds(1)); // Simular un pequeño retraso para la visualización
+
+	//		 cout << "\n¿Deseas continuar la simulacion? (1 = Si, 0 = No): ";
+	//		 cin >> op;
+
+	//		 if (op == 0) {
+	//			 cout << "Simulacion finalizada." << endl;
+	//			 break;
+	//		 }
+	//	 }
+	// } while (op != 0);
+ //}
+
+ void Enviroment::simularTickTiempo(int maxTick)
  {
-	 int tick = 0;
-	 int ticksPorDia = 10; // Definir cuántos ticks son un día
-	 int op = -1;
 
-	 do {
-		 int tick = 0;
+	 int ticksPorDia = 10; // Cada 10 ticks cambia clima/estación
+	 int tickGlobal = 0;
+	 int maxTicks = maxTick;
+	 char continuar = 's';
 
-		 while (tick < maxTicks) {
+	 while (continuar == 's' || continuar == 'S') {
 
-			 cout << "Tick: " << tick + 1 << endl;
+		 for (int tick = 0; tick < maxTicks; ++tick, ++tickGlobal) {
+
+			 cout << endl;
+			 cout << "Tick: " << tickGlobal + 1 << endl;
 			 cout << "Clima actual: " << clima << endl;
-			 cout << "Estación actual: " << estacion << endl;
+			 cout << "Estacion actual: " << estacion << endl;
 
-			 // Simular el clima y la estación
-			 if (tick % ticksPorDia == 0) {
-				 // Cambiar el clima aleatoriamente
-				 int nuevoClima = rand() % 3 + 1; // 1 a 3
-
+			 // Cambios al clima 
+			 if (tickGlobal % ticksPorDia == 0) {
+				 int nuevoClima = rand() % 3 + 1;
 				 setClima(nuevoClima);
-				 // Cambiar la estación aleatoriamente
 				 if (estacion == "Primavera") estacion = "Verano";
 				 else if (estacion == "Verano") estacion = "Otonio";
-				 else if (estacion == "Otonio")  estacion = "Invierno";
-				 else  estacion = "Primavera";
+				 else if (estacion == "Otonio") estacion = "Invierno";
+				 else estacion = "Primavera";
 			 }
 
-			 // Simular las criaturas
+			 // criaturas
 			 for (auto& obj : objetos) {
 				 shared_ptr<Creatura> criatura = dynamic_pointer_cast<Creatura>(obj);
 				 if (criatura) {
@@ -189,19 +240,21 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 					 criatura->alimentarse();
 					 criatura->reproducirse();
 				 }
-			 }
+			 }			 
 			 cout << mapa->mostrarMapa() << endl;
-			 tick++;
-			 std::this_thread::sleep_for(chrono::milliseconds(1)); // Simular un pequeño retraso para la visualización
-
-			 cout << "\n¿Deseas continuar la simulacion? (1 = Si, 0 = No): ";
-			 cin >> op;
-
-			 if (op == 0) {
-				 cout << "Simulacion finalizada." << endl;
-				 break;
-			 }
+			 std::this_thread::sleep_for(std::chrono::seconds(1)); // para simular los segundos
 		 }
-	 } while (op != 0);
+
+		
+		 cout << "\n¿Desea continuar la simulacion por mas segundos? (s/n): ";
+		 cin >> continuar;
+		 if (continuar == 'n') {
+			 break;
+		 }else if (continuar == 's' || continuar == 'S') {
+			 cout << "¿Cuantos segundos quiere?: ";
+			 cin >> maxTicks;
+		 }
+	 }
  }
+ 
  
