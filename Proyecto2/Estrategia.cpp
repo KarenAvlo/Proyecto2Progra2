@@ -24,7 +24,7 @@ void EstrategiaMovimiento::EjecutarEstrategia(shared_ptr<Creatura> c) {
     int nuevaX = c->getX() + dx;
     int nuevaY = c->getY() + dy;
 
-	if (destino->posValida(nuevaX, nuevaY) && !destino->hayObjetoEnMapa(nuevaX, nuevaY)) {
+    if (destino->posValida(nuevaX, nuevaY) && destino->hayObjetoEnMapa(nuevaX, nuevaY) == nullptr) {
         //para mover la criatura de pos
 		destino->eliminarObjeto(c->getX(), c->getY()); // Eliminar la criatura de su posición actual
 		c->setX(nuevaX);
