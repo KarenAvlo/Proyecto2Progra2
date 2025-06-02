@@ -35,13 +35,12 @@ string Mapa::mostrarMapa() const {
 }
 
 
-bool Mapa::posValida(int x, int y)
-{
-	if (x <= 0 || y <= 0) {
-		cerr << "El mapa no tiene dimensiones válidas.\n";
+bool Mapa::posValida(int x, int y){
+	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
+		cerr << "Coordenadas fuera de los límites del mapa: (" << x << ", " << y << ")\n";
 		return false;
 	}
-	return true; // Retorna true si las dimensiones del mapa son válidas
+	return true;
 }
 
 shared_ptr<Objeto> Mapa::hayObjetoEnMapa(int x, int y)

@@ -65,6 +65,8 @@ void EstrategiaMovimiento::EjecutarEstrategia(shared_ptr<Creatura> c) {
 void EstrategiaAlimentacionC::EjecutarEstrategia(shared_ptr<Creatura> c)
 {
             shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
+
+            if (!presa) return;
     
             c->AumentarEnergia(20); //comer da 20pts de energía
     

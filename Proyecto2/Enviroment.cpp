@@ -35,8 +35,9 @@ void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
 }
 
 void Enviroment::eliminarCreatura(shared_ptr<Objeto> creatura) {
-	objetos.eliminar(creatura);
 	mapa->eliminarObjeto(creatura->getX(), creatura->getY());
+	objetos.eliminar(creatura);
+	
 }
 
 //setters

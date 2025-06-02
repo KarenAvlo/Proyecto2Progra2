@@ -82,7 +82,7 @@ int main() {
 
         // Crear criaturas
         shared_ptr<Carnívoro> ca = make_shared<Carnívoro>(5, 5, 50, 13, em, er, ea);
-        shared_ptr<Hervivoro> her = make_shared<Hervivoro>(5, 6, 20, 2, em, er, ea1);
+        shared_ptr<Hervivoro> her = make_shared<Hervivoro>(1, 1, 20, 2, em, er, ea1);
 
         cout << *ca << endl;
         cout << *her << endl;
