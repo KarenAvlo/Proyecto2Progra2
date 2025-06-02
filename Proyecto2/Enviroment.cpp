@@ -24,19 +24,19 @@ void Enviroment::agregarRecurso(shared_ptr<Objeto> recurso){
 	int x = recurso->getX();
 	int y = recurso->getY();
 	objetos.agregar(recurso);
-	mapa->agregarRecurso(x, y, recurso);
+	mapa->agregarObjeto(x, y, recurso);
 }
 
 void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
 	int x = creatura->getX();
 	int y = creatura->getY();
 	objetos.agregar(creatura);
-	mapa->agregarCreatura(x, y, creatura);
+	mapa->agregarObjeto(x, y, creatura);
 }
 
 void Enviroment::eliminarCreatura(shared_ptr<Objeto> creatura) {
 	objetos.eliminar(creatura);
-	mapa->eliminarCreatura(creatura->getX(), creatura->getY());
+	mapa->eliminarObjeto(creatura->getX(), creatura->getY());
 }
 
 //setters
@@ -93,7 +93,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 return false;
  }
 
- shared_ptr<Creatura> Enviroment::getCreaturaDebilCerca(Creatura* depredador) {
+ shared_ptr<Creatura> Enviroment::getCreaturaDebilCerca(shared_ptr<Creatura> depredador) {
 	 if (!depredador) return nullptr;
 	 shared_ptr<Creatura> presaMasCercana = nullptr;
 
@@ -104,7 +104,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 		 // Herbívoro
 		 shared_ptr<Hervivoro> her = dynamic_pointer_cast<Hervivoro>(obj);
-		 if (her && her.get() != depredador) {
+		 if (her && her.get() != depredador.get()) {
 			 double dist = hypot(her->getX() - depredador->getX(), her->getY() - depredador->getY());
 			 if (dist <= 3.0 && (presaMasCercana == nullptr || dist < distanciaPresa)) {
 				 presaMasCercana = her;
@@ -114,7 +114,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 		 // Omnívoro
 		 shared_ptr<Omnivoro> om = dynamic_pointer_cast<Omnivoro>(obj);
-		 if (om && om.get() != depredador) {
+		 if (om && om.get() != depredador.get()) {
 			 double dist = hypot(om->getX() - depredador->getX(), om->getY() - depredador->getY());
 			 if (dist <= 3.0 && (presaMasCercana == nullptr || dist < distanciaPresa)) {
 				 presaMasCercana = om;
@@ -158,44 +158,49 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 int ticksPorDia = 10; // Definir cuántos ticks son un día
 	 int op = -1;
 
-	 while (tick < maxTicks && op != 1) {
-		 cout << "Tick: " << tick << endl;
-		 cout << "Clima actual: " << clima << endl;
-		 cout << "Estación actual: " << estacion << endl;
-		 // Simular el clima y la estación
-		 if (tick % ticksPorDia == 0) {
-			 // Cambiar el clima aleatoriamente
-			 int nuevoClima = rand() % 3 + 1; // 1 a 3
-			 setClima(nuevoClima);
-			 // Cambiar la estación aleatoriamente
-			 if (estacion == "Primavera") {
-				 estacion = "Verano";
+	 do {
+		 int tick = 0;
+
+		 while (tick < maxTicks) {
+
+			 cout << "Tick: " << tick + 1 << endl;
+			 cout << "Clima actual: " << clima << endl;
+			 cout << "Estación actual: " << estacion << endl;
+
+			 // Simular el clima y la estación
+			 if (tick % ticksPorDia == 0) {
+				 // Cambiar el clima aleatoriamente
+				 int nuevoClima = rand() % 3 + 1; // 1 a 3
+
+				 setClima(nuevoClima);
+				 // Cambiar la estación aleatoriamente
+				 if (estacion == "Primavera") estacion = "Verano";
+				 else if (estacion == "Verano") estacion = "Otonio";
+				 else if (estacion == "Otonio")  estacion = "Invierno";
+				 else  estacion = "Primavera";
 			 }
-			 else if (estacion == "Verano") {
-				 estacion = "Otonio";
+
+			 // Simular las criaturas
+			 for (auto& obj : objetos) {
+				 shared_ptr<Creatura> criatura = dynamic_pointer_cast<Creatura>(obj);
+				 if (criatura) {
+					 criatura->moverse();
+					 criatura->alimentarse();
+					 criatura->reproducirse();
+				 }
 			 }
-			 else if (estacion == "Otonio") {
-				 estacion = "Invierno";
-			 }
-			 else {
-				 estacion = "Primavera";
+			 cout << mapa->mostrarMapa() << endl;
+			 tick++;
+			 std::this_thread::sleep_for(chrono::milliseconds(1)); // Simular un pequeño retraso para la visualización
+
+			 cout << "\n¿Deseas continuar la simulacion? (1 = Si, 0 = No): ";
+			 cin >> op;
+
+			 if (op == 0) {
+				 cout << "Simulacion finalizada." << endl;
+				 break;
 			 }
 		 }
-		 // Simular las criaturas
-		 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
-			 shared_ptr<Objeto> obj = *it;
-			 shared_ptr<Creatura> criatura = dynamic_pointer_cast<Creatura>(obj);
-			 if (criatura) {
-				 criatura->moverse();
-				/* criatura->alimentarse();*/
-				/* criatura->reproducirse();*/
-			 }
-		 }
-		 cout << mapa->mostrarMapa() << endl;
-		 tick++;
-		 cout << "Presione 1 para detener la simulación o cualquier otra tecla para continuar..." << endl;
-		 cin >> op;
-	
-	 }
+	 } while (op != 0);
  }
  

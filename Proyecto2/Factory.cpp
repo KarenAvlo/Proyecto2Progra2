@@ -29,7 +29,7 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 	shared_ptr<Creatura> creatura = nullptr;
 
 	shared_ptr<EstrategiaMovimiento> e1= make_shared<EstrategiaMovimiento>();
-	shared_ptr<EstrategiaReproducción> e2= make_shared<EstrategiaReproducción>();
+	shared_ptr<EstrategiaReproduccion> e2= make_shared<EstrategiaReproduccion>();
 	shared_ptr<EstrategiaAlimentacion> e3 = nullptr;
 
 	//Se crean nuevas variables x y y, random;

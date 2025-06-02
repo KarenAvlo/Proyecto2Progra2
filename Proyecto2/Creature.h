@@ -4,21 +4,21 @@
 #include "Enviroment.h"
 #include <memory>
 
-#define MAX_ENERGIA 100 // Energía máxima que puede tener una criatura
+#define MAX_ENERGIA 100 // energia máxima que puede tener una criatura
 
 class Estrategia;
 
-class Creatura: public Objeto{
+class Creatura: public Objeto, public enable_shared_from_this<Creatura> {
 protected:
-	int energía;
+	int energia;
 	int edad;
 	shared_ptr<EstrategiaMovimiento> em;
-	shared_ptr<EstrategiaReproducción> er;
+	shared_ptr<EstrategiaReproduccion> er;
 	shared_ptr<EstrategiaAlimentacion> ea;
 
 public:
 	Creatura();
-	Creatura(int, int, int, int, shared_ptr<EstrategiaMovimiento>, shared_ptr<EstrategiaReproducción>,
+	Creatura(int, int, int, int, shared_ptr<EstrategiaMovimiento>, shared_ptr<EstrategiaReproduccion>,
 		shared_ptr<EstrategiaAlimentacion>);
 	virtual ~Creatura();
 	void moverse();
@@ -27,10 +27,10 @@ public:
 	int getEnergia();
 	int getEdad();
 	virtual void AumentarEnergia(int);
-	void ReducirEnergía(int);
+	void Reducirenergia(int);
 	void setEdad(int);
 	void setEstrategiaMovimiento(shared_ptr<EstrategiaMovimiento> );
-	void setEstrategiaReproduccion(shared_ptr<EstrategiaReproducción>);
+	void setEstrategiaReproduccion(shared_ptr<EstrategiaReproduccion>);
 	void setEstrategiaAlimentacion(shared_ptr<EstrategiaAlimentacion>);
 	bool isDead();
 	virtual string toString() const override;

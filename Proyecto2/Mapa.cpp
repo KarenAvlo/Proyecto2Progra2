@@ -35,10 +35,10 @@ string Mapa::mostrarMapa() const {
 }
 
 
-bool Mapa::posValida()
+bool Mapa::posValida(int x, int y)
 {
-	if (ancho <= 0 || alto <= 0) {
-		std::cerr << "El mapa no tiene dimensiones válidas.\n";
+	if (x <= 0 || y <= 0) {
+		cerr << "El mapa no tiene dimensiones válidas.\n";
 		return false;
 	}
 	return true; // Retorna true si las dimensiones del mapa son válidas
@@ -47,53 +47,63 @@ bool Mapa::posValida()
 shared_ptr<Objeto> Mapa::hayObjetoEnMapa(int x, int y)
 {
 	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
-		std::cerr << "Coordenadas fuera de los limites.\n";
+		cerr << "Coordenadas fuera de los limites.\n";
 		return nullptr;
 	}
 	return mapa[y][x]; // Retorna true si hay un objeto en las coordenadas dadas
 }
 
-bool Mapa::agregarRecurso(int x, int y, std::shared_ptr<Objeto> recurso) {
+bool Mapa::agregarObjeto(int x, int y, shared_ptr<Objeto> obj1)
+{
 	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
-		std::cerr << "Coordenadas fuera de los límites del mapa.\n";
+		cerr << "Coordenadas fuera de rango." << endl;
 		return false;
 	}
-	if (mapa[y][x]) {
-		std::cerr << "Ya hay un objeto en estas coordenadas.\n";
+	if (mapa[y][x] != nullptr) {
+		cerr << "Ya hay un objeto en (" << x << ", " << y << ")." << endl;
 		return false;
 	}
 
-	mapa[y][x] = recurso;
-	recurso->setX(x);
-	recurso->setY(y);
+	mapa[y][x] = obj1;
 	return true;
 }
 
-bool Mapa::agregarCreatura(int x, int y, shared_ptr<Objeto> criatura){
-	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
-		cout << "Coordenadas fuera de los limites del mapa." << endl;
-		return false;
-	}
-	if (mapa[y][x]) {
-		cout << "Ya hay un recurso o criatura en estas coordenadas." << endl;
-		return false;
-	}
-	mapa[y][x] = criatura;
-	criatura->setX(x);
-	criatura->setY(y);
-	return true;
+void Mapa::colocarObjeto(int x, int y, shared_ptr<Objeto> obj)
+{
+		if (posValida(x, y)) {
+			mapa[y][x] = obj;
+		}
 }
 
-bool Mapa::eliminarCreatura(int x, int y) {
-	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
-		cout << "Coordenadas fuera de los limites del mapa." << endl;
+//bool Mapa::agregarCreatura(int x, int y, shared_ptr<Objeto> criatura){
+//	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
+//		cout << "Coordenadas fuera de los limites del mapa." << endl;
+//		return false;
+//	}
+//	if (mapa[y][x]) {
+//		cout << "Ya hay un recurso o criatura en estas coordenadas." << endl;
+//		return false;
+//	}
+//	mapa[y][x] = criatura;
+//	criatura->setX(x);
+//	criatura->setY(y);
+//	return true;
+//}
+
+bool Mapa::eliminarObjeto(int x, int y) {
+	if (posValida(x, y)) {
+		if (mapa[y][x]) {
+			mapa[y][x] = nullptr; // Elimina el objeto en las coordenadas dadas, pero Ojo no hay que borrar el obj que ya me paso
+			return true;
+		}
+		else {
+			cerr << "No hay un objeto en estas coordenadas.\n";
+			return false;
+		}
+	}
+	else {
+		cerr << "Coordenadas fuera de los límites del mapa.\n";
 		return false;
 	}
-	if (!mapa[y][x]) {
-		cout << "No hay criatura en esas coordenadas para eliminar." << endl;
-		return false;
-	}
-	mapa[y][x] = nullptr;  // Eliminar la criatura (shared_ptr queda en nullptr)
-	return true;
 }
 

@@ -15,14 +15,17 @@ public:
 	string mostrarMapa() const;
 
 	// Métodos para manipular el mapa
-	bool posValida();
+	bool posValida(int,int);
 	shared_ptr<Objeto> hayObjetoEnMapa(int x, int y);  //para evitar las colisiones
 
-	bool agregarRecurso(int x, int y, shared_ptr<Objeto> recurso);
+	/*bool agregarRecurso(int x, int y, shared_ptr<Objeto> recurso);
 
-	bool agregarCreatura(int x, int y, shared_ptr<Objeto> criatura);
+	bool agregarCreatura(int x, int y, shared_ptr<Objeto> criatura);*/
 
-	bool eliminarCreatura(int x, int y);
+	bool agregarObjeto(int, int, shared_ptr<Objeto> loquesea);
+
+	void colocarObjeto(int x, int y, shared_ptr<Objeto> obj);  //para el movimiento de las criaturas
+	bool eliminarObjeto(int x, int y);
 
 private:
 	int ancho;

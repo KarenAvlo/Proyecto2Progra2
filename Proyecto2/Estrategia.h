@@ -5,26 +5,26 @@ class Enviroment;
 
 class Estrategia {
 public:
-	virtual void EjecutarEstrategia(Creatura* c) = 0;
+	virtual void EjecutarEstrategia(shared_ptr<Creatura> c) = 0;
 	virtual ~Estrategia() = default;
 };
 
 
 //--------------------derivadas de estrategia------------------------
 
-class EstrategiaReproducción:public Estrategia {
+class EstrategiaReproduccion:public Estrategia {
 	public:
-		virtual void EjecutarEstrategia(Creatura* c);
+		 void EjecutarEstrategia(shared_ptr<Creatura> c);
 };
 
 class EstrategiaAlimentacion:public Estrategia {
 public:
-	virtual void EjecutarEstrategia(Creatura* c) = 0;
+	 void EjecutarEstrategia(shared_ptr<Creatura> c) = 0;
 };
 
 class EstrategiaMovimiento :public Estrategia {
 public:
-	virtual void EjecutarEstrategia(Creatura* c) override;
+	  void EjecutarEstrategia(shared_ptr<Creatura> c) override;
 };
 
 //
@@ -44,12 +44,12 @@ public:
 
 class EstrategiaAlimentacionC :public EstrategiaAlimentacion {
 public:
-	virtual void EjecutarEstrategia(Creatura* c) override;
+	 void EjecutarEstrategia(shared_ptr<Creatura> c) override;
 };
 
 
 class EstrategiaAlimentacionH :public EstrategiaAlimentacion {
 public:
-	virtual void EjecutarEstrategia(Creatura* c) override;
+	 void EjecutarEstrategia(shared_ptr<Creatura> c) override;
 };
 

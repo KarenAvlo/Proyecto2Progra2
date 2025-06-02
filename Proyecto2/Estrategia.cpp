@@ -1,6 +1,6 @@
 #include "Factory.h"
 
-void EstrategiaReproducción::EjecutarEstrategia(Creatura* c) {
+void EstrategiaReproduccion::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
     if (c->getEdad() > 20 && c->getEnergia() > 10) {
 
@@ -17,18 +17,19 @@ void EstrategiaReproducción::EjecutarEstrategia(Creatura* c) {
     }
 }
 
-void EstrategiaMovimiento::EjecutarEstrategia(Creatura* c) {
+void EstrategiaMovimiento::EjecutarEstrategia(shared_ptr<Creatura> c) {
 	shared_ptr<Mapa> destino = Enviroment::getInstancia()->getMapa();
-    // Verificar si hay objetos en el mapa
     int dx = (rand() % 3) - 1; // -1, 0 o 1
     int dy = (rand() % 3) - 1;
     int nuevaX = c->getX() + dx;
     int nuevaY = c->getY() + dy;
 
-	if (destino->posValida() && !destino->hayObjetoEnMapa(nuevaX, nuevaY)) {
-		// Mover la criatura a la nueva posición
+	if (destino->posValida(nuevaX, nuevaY) && !destino->hayObjetoEnMapa(nuevaX, nuevaY)) {
+        //para mover la criatura de pos
+		destino->eliminarObjeto(c->getX(), c->getY()); // Eliminar la criatura de su posición actual
 		c->setX(nuevaX);
 		c->setY(nuevaY);
+		destino->colocarObjeto(nuevaX, nuevaY, c); // Colocar la criatura en la nueva posición
 	}
 	else {
 		//habira que implementar un mensaje de error con simbologia
@@ -44,19 +45,34 @@ void EstrategiaMovimiento::EjecutarEstrategia(Creatura* c) {
 //
 //}
 
+//
+//void EstrategiaAlimentacionC::EjecutarEstrategia(Creatura* c) {
+//    if (Enviroment::getInstancia()->hayCreaturaDebilCerca(c)) {
+//
+//        shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
+//
+//        c->AumentarEnergia(20); //comer da 20pts de energía
+//
+//        Enviroment::getInstancia()->eliminarCreatura(presa);
+//    }
+//}
+//
+//
+//void EstrategiaAlimentacionH::EjecutarEstrategia(Creatura* c) {
+//
+//}
 
-void EstrategiaAlimentacionC::EjecutarEstrategia(Creatura* c) {
-    if (Enviroment::getInstancia()->hayCreaturaDebilCerca(c)) {
+void EstrategiaAlimentacionC::EjecutarEstrategia(shared_ptr<Creatura> c)
+{
+            shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
+    
+            c->AumentarEnergia(20); //comer da 20pts de energía
+    
+            Enviroment::getInstancia()->eliminarCreatura(presa);
 
-        shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
-
-        c->AumentarEnergia(20); //comer da 20pts de energía
-
-        Enviroment::getInstancia()->eliminarCreatura(presa);
-    }
 }
 
-
-void EstrategiaAlimentacionH::EjecutarEstrategia(Creatura* c) {
+void EstrategiaAlimentacionH::EjecutarEstrategia(shared_ptr<Creatura> c)
+{
 
 }

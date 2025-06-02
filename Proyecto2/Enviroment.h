@@ -1,4 +1,6 @@
 #pragma once
+#include <thread>   // Para this_thread::sleep_for
+#include <chrono>   // Para chrono::seconds
 #include "Lista.h"
 #include "Mapa.h"
 
@@ -46,7 +48,7 @@ public:
 	virtual string toString() const;
 
 	bool hayPlantaCerca(Hervivoro* her) const;
-	shared_ptr<Creatura> getCreaturaDebilCerca(Creatura* depredador);
+	shared_ptr<Creatura> getCreaturaDebilCerca(shared_ptr<Creatura> depredador);
 	bool hayCreaturaDebilCerca(Creatura* cre) const;
 
 	//ticks de tiempo
