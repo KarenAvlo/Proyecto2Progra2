@@ -11,4 +11,7 @@
 #include "Omnivoro.h"
 #include "Carnívoro.h"
 #include "Estrategia.h"
+#include "Sistema.h"
+#include "Interfaz.h"
+
 

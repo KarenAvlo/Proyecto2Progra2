@@ -10,10 +10,6 @@ Creatura::Creatura(){
 
 Creatura::Creatura(int xx, int yy, int ener, int age, shared_ptr<Estrategia> e):Objeto(xx, yy), energia(ener), edad(age),E(e){}
 
-//Creatura::Creatura(int xx, int yy, int ener, int age, shared_ptr<EstrategiaMovimiento> e1, 
-//	shared_ptr<EstrategiaReproduccion> e2, shared_ptr<EstrategiaAlimentacion> e3) :
-//	Objeto(xx, yy),energia(ener), edad(age), em(e1),er(e2),ea(e3) {
-//}
 
 Creatura::~Creatura() {}
 
@@ -67,16 +63,6 @@ void Creatura::setEstrategia(shared_ptr<Estrategia> ee) {
 	E = ee;
 }
 
-//void Creatura::setEstrategiaMovimiento(shared_ptr<EstrategiaMovimiento> move) {
-//	em = move;
-//}
-//void Creatura::setEstrategiaReproduccion(shared_ptr<EstrategiaReproduccion> repro) {
-//	er = repro;
-//}
-//
-//void Creatura::setEstrategiaAlimentacion(shared_ptr<EstrategiaAlimentacion> alimento) {
-//	ea = alimento;
-//}
 
 string Creatura::toString() const {
 	stringstream s;
@@ -90,7 +76,7 @@ string Creatura::getEtiqueta() const {
 	return "Creatura";
 }
 
-bool Creatura::isDead() { //lo ideal es poner algo en enviroment para sacar las creaturas muertas
+bool Creatura::isDead() { 
 	if (energia < 0) {
 		return true;
 	}

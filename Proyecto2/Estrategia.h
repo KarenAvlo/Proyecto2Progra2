@@ -42,7 +42,7 @@ public:
 
  
  
-//---derivada de alimentación, canívoro y hervíboro
+//---derivada de alimentación, canívoro, hervíboro y omnivoro
 
 class EstrategiaAlimentacionC :public EstrategiaAlimentacion {
 public:

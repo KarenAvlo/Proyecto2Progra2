@@ -38,15 +38,13 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 
 	switch (t) {
 	case 1:
-		
+
 		creatura = make_shared<Hervivoro>(newX, newY, 100,edad,e1);
 		break;
 	case 2:
 		creatura = make_shared<Carnívoro>(newX, newY, 100, edad, e1);
 		break;
-
 	case 3:
-		 
 		creatura = make_shared<Omnivoro>(newX, newY, 100, edad, e1);
 		break;
 

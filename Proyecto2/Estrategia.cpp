@@ -2,125 +2,129 @@
 
 void EstrategiaReproduccion::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
-    if (c->getEdad() > 20 && c->getEnergia() > 10) {
+	if (c->getEdad() > 20 && c->getEnergia() > 10) {
 
-        //se crea una creatura por defecto...
+		//se crea una creatura por defecto...
 
-        int tipo = FactoryCreature::etiquetaToTipo(c->getEtiqueta());
+		int tipo = FactoryCreature::etiquetaToTipo(c->getEtiqueta());
 
-        //llamamos a factory para crear una creatura
-        shared_ptr<Creatura>cre = FactoryCreature::crearInstancia(tipo);
+		//llamamos a factory para crear una creatura
+		shared_ptr<Creatura>cre = FactoryCreature::crearInstancia(tipo);
 
-        // luego se introduce al ambiente...
-        //pues lo que se hace es crear una creatura de su mismo tipo
-        Enviroment::getInstancia()->agregarCreatura(cre);
-    }
+		// luego se introduce al ambiente...
+		//pues lo que se hace es crear una creatura de su mismo tipo
+		Enviroment::getInstancia()->agregarCreatura(cre);
+	}
 }
 
 void EstrategiaMovimiento::EjecutarEstrategia(shared_ptr<Creatura> c) {
-    shared_ptr<Mapa> mapa = Enviroment::getInstancia()->getMapa();
+	shared_ptr<Mapa> mapa = Enviroment::getInstancia()->getMapa();
 
-    // Intentar hasta 10 veces moverse aleatoriamente
-    for (int i = 0; i < 10; ++i) {
-        int dx = (rand() % 3) - 1; // -1, 0, 1
-        int dy = (rand() % 3) - 1;
+	// Intentar hasta 10 veces moverse aleatoriamente
+	for (int i = 0; i < 10; ++i) {
+		int dx = (rand() % 3) - 1; // -1, 0, 1
+		int dy = (rand() % 3) - 1;
 
-        // Omitir quedarse en el mismo lugar
-        if (dx == 0 && dy == 0) continue;
+		// Omitir quedarse en el mismo lugar
+		if (dx == 0 && dy == 0) continue;
 
-        int nuevaX = c->getX() + dx;
-        int nuevaY = c->getY() + dy;
+		int nuevaX = c->getX() + dx;
+		int nuevaY = c->getY() + dy;
 
-        // Si es válida y libre, mover
-        if (mapa->posValida(nuevaX, nuevaY) && mapa->hayObjetoEnMapa(nuevaX, nuevaY) == nullptr) {
-            mapa->eliminarObjeto(c->getX(), c->getY());
-            c->setX(nuevaX);
-            c->setY(nuevaY);
-            mapa->colocarObjeto(nuevaX, nuevaY, c);
-            return; // Movimiento hecho
-        }
-    }
+		// Si es válida y libre, mover
+		if (mapa->posValida(nuevaX, nuevaY) && mapa->hayObjetoEnMapa(nuevaX, nuevaY) == nullptr) {
+			mapa->eliminarObjeto(c->getX(), c->getY());
+			c->setX(nuevaX);
+			c->setY(nuevaY);
+			mapa->colocarObjeto(nuevaX, nuevaY, c);
+			return; // Movimiento hecho
+		}
+	}
 
 }
-   
+
 void EstrategiaAtaque::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
-    if (!c) return;
+	if (!c) return;
 
-    shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
-    if (!presa || presa == c) return;
+	shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
+	if (!presa || presa == c) return;
 
-    c->ReducirEnergia(15);
-    presa->ReducirEnergia(50);
+	c->ReducirEnergia(15);
+	presa->ReducirEnergia(50);
 
-    if (presa->isDead()) { // si la presa está muerta
+	if (presa->isDead()) { // si la presa está muerta
 
-        Enviroment::getInstancia()->eliminarCreatura(presa); //eliminamos la creatura y luego se convierte a recurso Meat
+		Enviroment::getInstancia()->eliminarCreatura(presa); //eliminamos la creatura y luego se convierte a recurso Meat
 
-        shared_ptr<Meat> carne= make_shared<Meat>(presa->getX(), presa->getY(), 50);
+		shared_ptr<Meat> carne = make_shared<Meat>(presa->getX(), presa->getY(), 50);
 
-        Enviroment::getInstancia()->agregarRecurso(carne);
-    }
+		Enviroment::getInstancia()->agregarRecurso(carne);
+	}
 
 }
 
 void EstrategiaDefensa::EjecutarEstrategia(shared_ptr<Creatura> c) {
+	// me falta
+
+
+
 
 }
 
 
-void EstrategiaAlimentacionC::EjecutarEstrategia(shared_ptr<Creatura> c){
-    if (!c) return;
+void EstrategiaAlimentacionC::EjecutarEstrategia(shared_ptr<Creatura> c) {
+	if (!c) return;
 
-            shared_ptr<Meat> carne= Enviroment::getInstancia()->getCarneCerca(c);
+	shared_ptr<Meat> carne = Enviroment::getInstancia()->getCarneCerca(c);
 
-            if (!carne) return;
-    
-            c->AumentarEnergia(20); //comer da 20pts de energía
-    
-            Enviroment::getInstancia()->eliminarCreatura(carne);
+	if (!carne) return;
+
+	c->AumentarEnergia(20); //comer da 20pts de energía
+
+	Enviroment::getInstancia()->eliminarCreatura(carne);
 
 }
 
-void EstrategiaAlimentacionH::EjecutarEstrategia(shared_ptr<Creatura> c){
+void EstrategiaAlimentacionH::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
-    shared_ptr<Planta> alimento = Enviroment::getInstancia()->getPlantaCerca(c);
+	shared_ptr<Planta> alimento = Enviroment::getInstancia()->getPlantaCerca(c);
 
-    if (!alimento) return;
+	if (!alimento) return;
 
-    c->AumentarEnergia(20);
+	c->AumentarEnergia(20);
 
-    Enviroment::getInstancia()->eliminarRecurso(alimento);
+	Enviroment::getInstancia()->eliminarRecurso(alimento);
 
 }
 
 void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
-    //el Omnivoro come ambas cosas carne y plantas
-    shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
+	//el Omnivoro come ambas cosas carne y plantas
+	shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
 
-    //la creatura debil solo son Hervivoros y Omnivoros, por lo cual los carnpivoros ganarían por encima de omnivoros
+	//la creatura debil solo son Hervivoros y Omnivoros, por lo cual los carnpivoros ganarían por encima de omnivoros
 
-    if (presa) { // el caso de alguna creatura
+	if (presa) { // el caso de alguna creatura
 
-        c->AumentarEnergia(20); //comer da 20pts de energía
+		c->AumentarEnergia(20); //comer da 20pts de energía
 
-        Enviroment::getInstancia()->eliminarCreatura(presa);
+		Enviroment::getInstancia()->eliminarCreatura(presa);
 
-        return;
-    }
+		return;
+	}
 
 
-    shared_ptr<Planta> alimento = Enviroment::getInstancia()->getPlantaCerca(c);
+	shared_ptr<Planta> alimento = Enviroment::getInstancia()->getPlantaCerca(c);
 
-    if (alimento) { //alguna planta
+	if (alimento) { //alguna planta
 
-        c->AumentarEnergia(20);
+		c->AumentarEnergia(20);
 
-        Enviroment::getInstancia()->eliminarRecurso(alimento);
-        
-        return;
-    }
+		Enviroment::getInstancia()->eliminarRecurso(alimento);
+
+		return;
+	}
 
 
 }
