@@ -1,12 +1,7 @@
 #include "Carnívoro.h"
 
-Carnívoro::Carnívoro(int x, int y, int energia, int edad, shared_ptr<EstrategiaMovimiento> em,
-	shared_ptr<EstrategiaReproduccion> er, shared_ptr<EstrategiaAlimentacion> ea)
-	: Creatura(x, y, energia, edad, em, er,ea) {
-
-	//se debe cambiar la estrategia para los carnívoros
-	setEstrategiaAlimentacion(make_shared < EstrategiaAlimentacionC>());
-}
+Carnívoro::Carnívoro(int x, int  y , int energia , int edad , shared_ptr<Estrategia> E):
+	Creatura(x, y, energia, edad,E){}
 
 
 string Carnívoro::toString() const {
@@ -21,7 +16,18 @@ string Carnívoro::getEtiqueta() const {
 
 
 void Carnívoro::alimentarse() {
-	if (ea) {
-		ea->EjecutarEstrategia(shared_from_this());
+	setEstrategia(make_shared <EstrategiaAlimentacionC>());
+
+	if (E) {
+		E->EjecutarEstrategia(shared_from_this());
 	}
+}
+
+void Carnívoro::atacar() {
+	setEstrategia(make_shared <EstrategiaAtaque>());
+
+	if (E) {
+		E->EjecutarEstrategia(shared_from_this());
+	}
+
 }

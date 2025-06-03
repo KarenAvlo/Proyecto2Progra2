@@ -44,15 +44,18 @@ int main() {
         Enviroment& env = *Enviroment::getInstancia();
 
         // Crear estrategias
-        shared_ptr<EstrategiaMovimiento> em = make_shared<EstrategiaMovimiento>();
-        shared_ptr<EstrategiaReproduccion> er = make_shared<EstrategiaReproduccion>();
-        shared_ptr<EstrategiaAlimentacion> ea = make_shared<EstrategiaAlimentacionC>();
-        shared_ptr<EstrategiaAlimentacion> ea1 = make_shared<EstrategiaAlimentacionC>();
+        shared_ptr<Estrategia> em = make_shared<EstrategiaMovimiento>();
+        
 
         // Crear criaturas
-        shared_ptr<Carnívoro> ca = make_shared<Carnívoro>(1, 1, 100, 13, em, er, ea);
-        shared_ptr<Hervivoro> her = make_shared<Hervivoro>(1, 2, 100, 2, em, er, ea1);
+        shared_ptr<Carnívoro> ca = make_shared<Carnívoro>(1, 1, 100, 13, em);
+        shared_ptr<Hervivoro> her = make_shared<Hervivoro>(0, 4, 100, 2, em);
+
+        shared_ptr<Hervivoro> her2 = make_shared<Hervivoro>(4, 2, 100, 2, em);//este hervivoro desaparece xd
 		shared_ptr<Planta> planta = make_shared<Planta>(5, 3, 10); // Crear una planta para el entorno
+
+        shared_ptr<Carnívoro> ca2 = make_shared<Carnívoro>(7,9, 100, 13, em);
+        shared_ptr<Omnivoro> omn = make_shared<Omnivoro>(6,8, 100, 2, em);
 
 
         cout << *ca << endl;
@@ -61,7 +64,12 @@ int main() {
         // Agregar al ambiente
         env.agregarCreatura(ca);
         env.agregarCreatura(her);
-		env.agregarCreatura(planta); // Agregar la planta al entorno
+        env.agregarCreatura(her2);
+
+		env.agregarRecurso(planta); // Agregar la planta al entorno
+
+        env.agregarCreatura(ca2);
+        env.agregarCreatura(omn);
 
         // Configurar entorno
         env.setClima(1);

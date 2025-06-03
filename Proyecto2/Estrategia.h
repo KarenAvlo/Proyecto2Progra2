@@ -27,19 +27,21 @@ public:
 	  void EjecutarEstrategia(shared_ptr<Creatura> c) override;
 };
 
-//
-//class EstrategiaAtaque :public Estrategia {
-//public:
-//	virtual void EjecutarEstrategia(Creatura* c) override;
-//};
-//
-//class EstrategiaDefensa :public Estrategia {
-//public:
-//	virtual void EjecutarEstrategia(Creatura* c) override;
-//};
-//
-// 
-// 
+
+class EstrategiaAtaque :public Estrategia {
+public:
+	virtual void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+};
+
+
+
+class EstrategiaDefensa :public Estrategia {
+public:
+	virtual void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+};
+
+ 
+ 
 //---derivada de alimentación, canívoro y hervíboro
 
 class EstrategiaAlimentacionC :public EstrategiaAlimentacion {
@@ -53,3 +55,7 @@ public:
 	 void EjecutarEstrategia(shared_ptr<Creatura> c) override;
 };
 
+class EstrategiaAlimentacionO :public EstrategiaAlimentacion {
+public:
+	void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+};

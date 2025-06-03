@@ -5,28 +5,37 @@ Creatura::Creatura(){
 	y = 0;
 	energia = MAX_ENERGIA;
 	edad = 10;
-	em = nullptr;
+	E = nullptr;
 }
 
-Creatura::Creatura(int xx, int yy, int ener, int age, shared_ptr<EstrategiaMovimiento> e1, 
-	shared_ptr<EstrategiaReproduccion> e2, shared_ptr<EstrategiaAlimentacion> e3) :
-	Objeto(xx, yy),energia(ener), edad(age), em(e1),er(e2),ea(e3) {
-}
+Creatura::Creatura(int xx, int yy, int ener, int age, shared_ptr<Estrategia> e):Objeto(xx, yy), energia(ener), edad(age),E(e){}
+
+//Creatura::Creatura(int xx, int yy, int ener, int age, shared_ptr<EstrategiaMovimiento> e1, 
+//	shared_ptr<EstrategiaReproduccion> e2, shared_ptr<EstrategiaAlimentacion> e3) :
+//	Objeto(xx, yy),energia(ener), edad(age), em(e1),er(e2),ea(e3) {
+//}
 
 Creatura::~Creatura() {}
 
 void Creatura::moverse() {
+	//se cambia la estrategia para cada cosa
+	setEstrategia(make_shared < EstrategiaMovimiento>());
+	
+
 	//el moverse utiliza 5 de energia
 	if (energia >= 5) {
-		Reducirenergia(5);
-		em->EjecutarEstrategia(shared_from_this());
+		ReducirEnergia(5);
+		E->EjecutarEstrategia(shared_from_this());
 	}
 }
 
 void Creatura::reproducirse() {
-	if (energia > 10) {
-		Reducirenergia(10);
-		er->EjecutarEstrategia(shared_from_this());
+
+	setEstrategia(make_shared <EstrategiaReproduccion>());
+
+	if (energia >= 10) {
+		ReducirEnergia(10);
+		E->EjecutarEstrategia(shared_from_this());
 	}
 }
 
@@ -43,7 +52,7 @@ void Creatura::AumentarEnergia(int e){
 	}
 }
 
-void Creatura::Reducirenergia(int e) {
+void Creatura::ReducirEnergia(int e) {
 	if (e >= 0 && e <= MAX_ENERGIA) {
 		energia -= e;
 	}
@@ -54,16 +63,20 @@ void Creatura::Reducirenergia(int e) {
 
 void Creatura::setEdad(int age) { edad = age; }
 
-void Creatura::setEstrategiaMovimiento(shared_ptr<EstrategiaMovimiento> move) {
-	em = move;
-}
-void Creatura::setEstrategiaReproduccion(shared_ptr<EstrategiaReproduccion> repro) {
-	er = repro;
+void Creatura::setEstrategia(shared_ptr<Estrategia> ee) {
+	E = ee;
 }
 
-void Creatura::setEstrategiaAlimentacion(shared_ptr<EstrategiaAlimentacion> alimento) {
-	ea = alimento;
-}
+//void Creatura::setEstrategiaMovimiento(shared_ptr<EstrategiaMovimiento> move) {
+//	em = move;
+//}
+//void Creatura::setEstrategiaReproduccion(shared_ptr<EstrategiaReproduccion> repro) {
+//	er = repro;
+//}
+//
+//void Creatura::setEstrategiaAlimentacion(shared_ptr<EstrategiaAlimentacion> alimento) {
+//	ea = alimento;
+//}
 
 string Creatura::toString() const {
 	stringstream s;

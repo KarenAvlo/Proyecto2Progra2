@@ -28,9 +28,8 @@ shared_ptr<Recursos> FactoryResources::crearInstancia(int t){
 shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 	shared_ptr<Creatura> creatura = nullptr;
 
-	shared_ptr<EstrategiaMovimiento> e1= make_shared<EstrategiaMovimiento>();
-	shared_ptr<EstrategiaReproduccion> e2= make_shared<EstrategiaReproduccion>();
-	shared_ptr<EstrategiaAlimentacion> e3 = nullptr;
+	shared_ptr<Estrategia> e1= make_shared<EstrategiaMovimiento>();
+	
 
 	//Se crean nuevas variables x y y, random;
 	int newX = rand() % 10;
@@ -39,17 +38,16 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 
 	switch (t) {
 	case 1:
-		e3 = make_shared<EstrategiaAlimentacionH>();
-		creatura = make_shared<Hervivoro>(newX, newY, 100,edad,e1,e2,e3);
+		
+		creatura = make_shared<Hervivoro>(newX, newY, 100,edad,e1);
 		break;
 	case 2:
-		 e3 = make_shared<EstrategiaAlimentacionC>();
-		creatura = make_shared<Carnívoro>(newX, newY, 100, edad, e1, e2,e3);
+		creatura = make_shared<Carnívoro>(newX, newY, 100, edad, e1);
 		break;
 
 	case 3:
-		 e3 = make_shared<EstrategiaAlimentacionH>();
-		creatura = make_shared<Omnivoro>(newX, newY, 100, edad, e1, e2,e3);
+		 
+		creatura = make_shared<Omnivoro>(newX, newY, 100, edad, e1);
 		break;
 
 	default:

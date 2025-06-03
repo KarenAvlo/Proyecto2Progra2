@@ -11,27 +11,36 @@ class Estrategia;
 class Creatura: public Objeto, public enable_shared_from_this<Creatura> {
 protected:
 	int energia;
+
 	int edad;
-	shared_ptr<EstrategiaMovimiento> em;
-	shared_ptr<EstrategiaReproduccion> er;
-	shared_ptr<EstrategiaAlimentacion> ea;
+
+	shared_ptr<Estrategia> E;
 
 public:
 	Creatura();
-	Creatura(int, int, int, int, shared_ptr<EstrategiaMovimiento>, shared_ptr<EstrategiaReproduccion>,
-		shared_ptr<EstrategiaAlimentacion>);
+
+	Creatura(int, int, int, int, shared_ptr<Estrategia>);
+
 	virtual ~Creatura();
+
 	void moverse();
+
 	virtual void alimentarse() = 0;
+
+	virtual void atacar() = 0;
+
 	void reproducirse();
+
 	int getEnergia();
+
 	int getEdad();
+
 	virtual void AumentarEnergia(int);
-	void Reducirenergia(int);
+	void ReducirEnergia(int);
 	void setEdad(int);
-	void setEstrategiaMovimiento(shared_ptr<EstrategiaMovimiento> );
-	void setEstrategiaReproduccion(shared_ptr<EstrategiaReproduccion>);
-	void setEstrategiaAlimentacion(shared_ptr<EstrategiaAlimentacion>);
+	void setEstrategia(shared_ptr<Estrategia>);
+
+
 	bool isDead();
 	virtual string toString() const override;
 	string getEtiqueta() const override;

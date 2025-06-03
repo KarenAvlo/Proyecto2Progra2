@@ -1,15 +1,10 @@
-#include "Enviroment.h"
-#include "Planta.h"
-#include "Hervivoro.h"
-#include "Omnivoro.h"
+#include "clases.h"
 
 unique_ptr<Enviroment> Enviroment::instancia = nullptr;
 
 Enviroment::Enviroment() :clima("Lluvioso"), estacion("Primavera") {
 	
 	mapa = make_shared<Mapa>(10, 10); 
-
-	//hay que hacer algo para poder rotar entre lluvioso, soleado, ventoso.... igual con las estaciones
 
 }
 
@@ -39,6 +34,12 @@ void Enviroment::eliminarCreatura(shared_ptr<Objeto> creatura) {
 	objetos.eliminar(creatura);
 	
 }
+
+void Enviroment::eliminarRecurso(shared_ptr<Objeto> recurso) {
+	mapa->eliminarObjeto(recurso->getX(), recurso->getY());
+	objetos.eliminar(recurso);
+}
+
 
 //setters
 void Enviroment::setClima(int cli) {
@@ -78,7 +79,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 return s.str();
  }
 
- bool Enviroment::hayPlantaCerca(Hervivoro* her) const {
+ bool Enviroment::hayPlantaCerca(Hervivoro* her) const { //creo que no se está necesitando
 
 	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
 
@@ -93,6 +94,60 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 }
 	 return false;
  }
+
+ shared_ptr<Planta> Enviroment::getPlantaCerca(shared_ptr<Creatura> hervivoro) {
+	 if (!hervivoro) return nullptr;
+
+	 shared_ptr<Planta> presaMasCercana = nullptr;
+	 double distanciaPresa = 0.0;
+
+	 for (const auto& obj : objetos) {
+		 // Intentar convertir el objeto a una Planta
+		 shared_ptr<Planta> planta = dynamic_pointer_cast<Planta>(obj);
+
+		 // Si es una planta válida y no es el mismo objeto que el hervívoro
+		 if (planta && obj != hervivoro) {
+			 double dist = hypot(planta->getX() - hervivoro->getX(),
+				 planta->getY() - hervivoro->getY());
+
+			 if (dist <= 1.0 && (!presaMasCercana || dist < distanciaPresa)) {
+				 presaMasCercana = planta;
+				 distanciaPresa = dist;
+			 }
+		 }
+	 }
+
+	 return presaMasCercana;
+ }
+
+
+ shared_ptr<Meat> Enviroment::getCarneCerca(shared_ptr<Creatura> depredador) {
+	 if (!depredador) return nullptr;
+
+	 shared_ptr<Meat> presaMasCercana = nullptr;
+	 double distanciaPresa = 0.0;
+
+	 for (const auto& obj : objetos) {
+		 // Intentar convertir el objeto a una Planta
+		 shared_ptr<Meat> carnita = dynamic_pointer_cast<Meat>(obj);
+
+		 // Si es una planta válida y no es el mismo objeto que el hervívoro
+		 if (carnita && obj != depredador) {
+			 double dist = hypot(carnita->getX() - depredador->getX(),
+				 carnita->getY() - depredador->getY());
+
+			 if (dist <= 1.0 && (!presaMasCercana || dist < distanciaPresa)) {
+				 presaMasCercana = carnita;
+				 distanciaPresa = dist;
+			 }
+		 }
+	 }
+
+	 return presaMasCercana;
+ }
+
+
+
 
  shared_ptr<Creatura> Enviroment::getCreaturaDebilCerca(shared_ptr<Creatura> depredador) {
 	 if (!depredador) return nullptr;
@@ -117,7 +172,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 shared_ptr<Omnivoro> om = dynamic_pointer_cast<Omnivoro>(obj);
 		 if (om && om.get() != depredador.get()) {
 			 double dist = hypot(om->getX() - depredador->getX(), om->getY() - depredador->getY());
-			 if (dist <= 3.0 && (presaMasCercana == nullptr || dist < distanciaPresa)) {
+			 if (dist <= 1.0 && (presaMasCercana == nullptr || dist < distanciaPresa)) {
 				 presaMasCercana = om;
 				 distanciaPresa = dist;
 			 }
@@ -239,8 +294,13 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 					 criatura->moverse();
 					 criatura->alimentarse();
 					 criatura->reproducirse();
+					 criatura->atacar();
+
 				 }
-			 }			 
+			 }		
+
+			 //falta simular recursos
+
 			 cout << mapa->mostrarMapa() << endl;
 			 std::this_thread::sleep_for(std::chrono::seconds(1)); // para simular los segundos
 		 }

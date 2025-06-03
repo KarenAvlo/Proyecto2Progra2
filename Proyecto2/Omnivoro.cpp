@@ -1,9 +1,8 @@
 #include "Omnivoro.h"
 
-Omnivoro::Omnivoro(int x, int y, int energia, int edad, shared_ptr<EstrategiaMovimiento> em,
-	shared_ptr<EstrategiaReproduccion> er, shared_ptr<EstrategiaAlimentacion> ea)
-	: Creatura(x, y, energia, edad, em, er,ea) {
-}
+
+Omnivoro::Omnivoro(int x, int y, int energia, int edad, shared_ptr<Estrategia> E) :
+	Creatura(x, y, energia, edad, E){ }
 
 
 string Omnivoro::toString() const {
@@ -17,6 +16,20 @@ string Omnivoro::getEtiqueta() const {
 }
 
 void Omnivoro::alimentarse() {
+	setEstrategia(make_shared<EstrategiaAlimentacionO>());
 
+	if (E) {
+		E->EjecutarEstrategia(shared_from_this());
+	}
+}
+
+void Omnivoro::atacar() {
+	//los omnivoros sí atacan a omnivoros y hervivoros
+
+	setEstrategia(make_shared<EstrategiaAtaque>());
+
+	if (E) {
+		E->EjecutarEstrategia(shared_from_this());
+	}
 
 }

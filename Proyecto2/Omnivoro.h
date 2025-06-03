@@ -3,8 +3,8 @@
 
 class Omnivoro: public Creatura{
 public:
-	Omnivoro(int x = 0, int  y = 0, int energia = 0, int edad = 0, shared_ptr<EstrategiaMovimiento> em = nullptr,
-		shared_ptr<EstrategiaReproduccion> er = nullptr, shared_ptr<EstrategiaAlimentacion> ea = nullptr);
+
+	Omnivoro(int x = 0, int  y = 0, int energia = 0, int edad = 0, shared_ptr<Estrategia> em = nullptr);
 
 	virtual ~Omnivoro() = default;
 
@@ -13,6 +13,8 @@ public:
 	string getEtiqueta() const override;
 
 	void alimentarse() override;
+
+	 void atacar() override;
 
 };
 

@@ -8,6 +8,8 @@ class Hervivoro;
 class Omnivoro;
 class Creatura;
 class Planta;
+class Recursos;
+class Meat;
 
 class Enviroment { // singleton
 
@@ -32,6 +34,8 @@ public:
 	void agregarRecurso(shared_ptr<Objeto> recurso);  
 	void agregarCreatura(shared_ptr<Objeto> criatura);
 	void eliminarCreatura(shared_ptr<Objeto> creatura);
+	void eliminarRecurso(shared_ptr<Objeto> recurso);
+
 
 	//setters
 	void setClima(int cli);
@@ -48,12 +52,18 @@ public:
 	virtual string toString() const;
 
 	bool hayPlantaCerca(Hervivoro* her) const;
+	shared_ptr<Planta> getPlantaCerca(shared_ptr<Creatura> hervivoro);
+
+	shared_ptr<Meat>getCarneCerca(shared_ptr<Creatura> depredador);
+
 	shared_ptr<Creatura> getCreaturaDebilCerca(shared_ptr<Creatura> depredador);
 	bool hayCreaturaDebilCerca(Creatura* cre) const;
 
 	//ticks de tiempo
 	void simularTiempo(int n);
 	void simularTickTiempo(int maxTicks);
+
+
 
 };
 
