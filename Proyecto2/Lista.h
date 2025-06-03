@@ -28,7 +28,7 @@ nodo<T>::nodo(const shared_ptr<T>& obj, shared_ptr<nodo<T>> sig) : objeto(obj), 
 template <class T>
 string nodo<T>::toString() const {
 	stringstream s;
-	s << **objeto;
+	s << **objeto<<'\n';
 	if (siguiente != nullptr) {
 		s << *siguiente;
 	}

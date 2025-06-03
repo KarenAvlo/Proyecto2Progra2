@@ -9,11 +9,16 @@ public:
 	Sistema();
 	~Sistema();
 
+	static void visualMenuPrincipal();
+	static void visualsubmenuRegistro();
+	static void visualsubmenuReportes();
+	static void visualsubmenuPersistenciaDeDatos();
+
 	// Lógica de los submenús:
 	void mostrarMenuPrincipal();
 	void mostrarSubmenuRegistroDatos();
-	void mostrarSubmenuModificacionDatos();
 	void mostrarSubmenuReportes();
+	void mostrarSubmenuEntornoyInteracciones();
 	void mostrarSubmenuPersistenciaDeDatos();
 
 private:

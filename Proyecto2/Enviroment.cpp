@@ -18,15 +18,25 @@ Enviroment* Enviroment::getInstancia(){
 void Enviroment::agregarRecurso(shared_ptr<Objeto> recurso){
 	int x = recurso->getX();
 	int y = recurso->getY();
-	objetos.agregar(recurso);
-	mapa->agregarObjeto(x, y, recurso);
+
+	if (mapa->agregarObjeto(x, y, recurso)) {
+		objetos.agregar(recurso);
+	}
+	else {
+		cerr << "No se pudo agregar la creatura en (" << x << ", " << y << "), posición ocupada o inválida." << endl;
+	}
 }
 
 void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
 	int x = creatura->getX();
 	int y = creatura->getY();
-	objetos.agregar(creatura);
-	mapa->agregarObjeto(x, y, creatura);
+
+	if (mapa->agregarObjeto(x, y, creatura)) {
+		objetos.agregar(creatura);
+	}
+	else {
+		cerr << " No se pudo agregar la Creatura en ( " << x << "," << y << ") , posicion inválida o ocupada" << endl;
+	}
 }
 
 void Enviroment::eliminarCreatura(shared_ptr<Objeto> creatura) {
@@ -65,6 +75,34 @@ string Enviroment::getEstacion() { return estacion; }
 
 const lista<shared_ptr<Objeto>>* Enviroment::getLista() const{
 	return &objetos;
+}
+
+shared_ptr<lista<shared_ptr<Creatura>>> Enviroment::mostrarCreaturas() const {
+	auto listaCreaturas = make_shared<lista<shared_ptr<Creatura>>>();
+
+	for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+		shared_ptr<Objeto> obj = *it;
+		shared_ptr<Creatura> c = dynamic_pointer_cast<Creatura>(obj);
+		if (c != nullptr) {
+			listaCreaturas->agregar(c);
+		}
+	}
+	return listaCreaturas;
+
+}
+
+shared_ptr<lista<shared_ptr<Recursos>>> Enviroment::mostrarRecursos() const {
+	auto listaRecursos = make_shared<lista<shared_ptr<Recursos>>>();
+
+	for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+		shared_ptr<Objeto> obj = *it;
+		shared_ptr<Recursos> c = dynamic_pointer_cast<Recursos>(obj);
+		if (c != nullptr) {
+			listaRecursos->agregar(c);
+		}
+	}
+	return listaRecursos;
+
 }
 
 shared_ptr<Mapa> Enviroment::getMapa() const{

@@ -16,7 +16,7 @@ class Enviroment { // singleton
 protected:
 	static unique_ptr<Enviroment> instancia;
 
-	string clima;  
+	string clima;
 
 	string estacion;
 
@@ -31,7 +31,7 @@ public:
 	static Enviroment* getInstancia();
 
 	//metodos de mapa
-	void agregarRecurso(shared_ptr<Objeto> recurso);  
+	void agregarRecurso(shared_ptr<Objeto> recurso);
 	void agregarCreatura(shared_ptr<Objeto> criatura);
 	void eliminarCreatura(shared_ptr<Objeto> creatura);
 	void eliminarRecurso(shared_ptr<Objeto> recurso);
@@ -47,6 +47,9 @@ public:
 
 
 	const lista<shared_ptr<Objeto>>* getLista() const;
+	shared_ptr<lista<shared_ptr<Creatura>>>mostrarCreaturas() const;
+	shared_ptr < lista < shared_ptr < Recursos >> > mostrarRecursos() const;
+
 	shared_ptr<Mapa> getMapa() const;
 
 	virtual string toString() const;

@@ -2,57 +2,70 @@
 
 
 shared_ptr<Recursos> FactoryResources::crearInstancia(int t){
-	shared_ptr<Recursos> re = nullptr;
+	const int maxIntentos = 100;
+	int newX, newY;
 
-	//Se crean nuevas variables x y y, random;
-	int newX = rand() % 10;
-	int newY = rand() % 10;
+	for (int intentos = 0; intentos < maxIntentos; ++intentos) {
+		newX = rand() % 10;  // o mapa->getAncho()
+		newY = rand() % 10;
 
-	switch (t) {
-	case 1:
-		re = make_shared<Agua>(newX,newY,100);
-		break;
-	case 2:
-		re = make_shared<Planta>(newX, newY, 100);
-		break;
-	case 3:
-		re = make_shared<Meat>(newX, newY, 100);
-		break;
-	default:
-		throw invalid_argument("Tipo de recurso desconocido: ");
-		break;
+		if (Enviroment::getInstancia()->getMapa()->posValida(newX, newY)) {  // solo si la posición está libre
+			shared_ptr<Recursos> re = nullptr;
+
+			switch (t) {
+			case 1:
+				re = make_shared<Agua>(newX, newY, 20);
+				break;
+			case 2:
+				re = make_shared<Planta>(newX, newY, 20);
+				break;
+			case 3:
+				re = make_shared<Meat>(newX, newY, 20);
+				break;
+			default:
+				throw invalid_argument("Tipo de recurso desconocido: ");
+				break;
+			}
+			return re;
+		}
 	}
-	return re;
+	throw runtime_error("No se encontró posición válida para crear recurso.");
 }
 
 shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
-	shared_ptr<Creatura> creatura = nullptr;
+	const int maxIntentos = 100;
+	int newX, newY,edad;
+	shared_ptr<Estrategia> e1 = make_shared<EstrategiaMovimiento>();
 
-	shared_ptr<Estrategia> e1= make_shared<EstrategiaMovimiento>();
-	
+	for (int intentos = 0; intentos < maxIntentos; ++intentos) {
+		newX = rand() % 10;  // o mapa->getAncho()
+		newY = rand() % 10;
+		edad = rand() % 100;
 
-	//Se crean nuevas variables x y y, random;
-	int newX = rand() % 10;
-	int newY = rand() % 10;
-	int edad = rand() % 10;
+		if (Enviroment::getInstancia()->getMapa()->posValida(newX, newY)) {
+			shared_ptr<Creatura> creatura = nullptr;
+		
 
-	switch (t) {
-	case 1:
+			switch (t) {
+			case 1:
 
-		creatura = make_shared<Hervivoro>(newX, newY, 100,edad,e1);
-		break;
-	case 2:
-		creatura = make_shared<Carnívoro>(newX, newY, 100, edad, e1);
-		break;
-	case 3:
-		creatura = make_shared<Omnivoro>(newX, newY, 100, edad, e1);
-		break;
+				creatura = make_shared<Hervivoro>(newX, newY, 100, edad, e1);
+				break;
+			case 2:
+				creatura = make_shared<Carnívoro>(newX, newY, 100, edad, e1);
+				break;
+			case 3:
+				creatura = make_shared<Omnivoro>(newX, newY, 100, edad, e1);
+				break;
 
-	default:
-		throw invalid_argument("Tipo de creatura desconocido: ");
-		break;
+			default:
+				throw invalid_argument("Tipo de creatura desconocido: ");
+				break;
+			}
+			return creatura;
+		}
 	}
-	return creatura;
+	throw runtime_error("No se encontró posición válida para crear criatura.");
 }
 
 int FactoryCreature::etiquetaToTipo(const string& etiqueta) {
