@@ -1,37 +1,37 @@
 #include "Factory.h"
 
 
-//shared_ptr<Recursos> FactoryResources::crearInstancia(int t){
-//	const int maxIntentos = 100;
-//	int newX, newY;
-//
-//	for (int intentos = 0; intentos < maxIntentos; ++intentos) {
-//		newX = rand() % 10;  // o mapa->getAncho()
-//		newY = rand() % 10;
-//
-//		if (Enviroment::getInstancia()->getMapa()->posValida(newX, newY)) {  // solo si la posición está libre
-//			shared_ptr<Recursos> re = nullptr;
-//
-//			switch (t) {
-//			//case 0:
-//			///*	re = make_shared<Agua>(newX, newY, 20);*/
-//			//	
-//			//	break;
-//			case 1:
-//				re = make_shared<Planta>(newX, newY, 20);
-//				break;
-//			case 2:
-//				re = make_shared<Meat>(newX, newY, 20);
-//				break;
-//			default:
-//				throw invalid_argument("Tipo de recurso desconocido: ");
-//				break;
-//			}
-//			return re;
-//		}
-//	}
-//	throw runtime_error("No se encontro posición valida para crear recurso.");
-//}
+shared_ptr<Recursos> FactoryResources::crearInstancia(int t){
+	const int maxIntentos = 100;
+	int newX, newY;
+
+	for (int intentos = 0; intentos < maxIntentos; ++intentos) {
+		newX = rand() % 10;  // o mapa->getAncho()
+		newY = rand() % 10;
+
+		if (Enviroment::getInstancia()->getMapa()->posValida(newX, newY)) {  // solo si la posición está libre
+			shared_ptr<Recursos> re = nullptr;
+
+			switch (t) {
+			//case 0:
+			///*	re = make_shared<Agua>(newX, newY, 20);*/
+			//	
+			//	break;
+			case 1:
+				re = make_shared<Planta>(newX, newY, 20);
+				break;
+			case 2:
+				re = make_shared<Meat>(newX, newY, 20);
+				break;
+			default:
+				throw invalid_argument("Tipo de recurso desconocido: ");
+				break;
+			}
+			return re;
+		}
+	}
+	throw runtime_error("No se encontro posición valida para crear recurso.");
+}
 
 shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 	const int maxIntentos = 100;

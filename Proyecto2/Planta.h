@@ -4,7 +4,7 @@
 class Planta: public Recursos{
 public:
 
-	Planta(int=0, int=0, int=0);
+	Planta(int = 0, int = 0, int = 0);
 
 	void regenerarse() override;
 

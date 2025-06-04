@@ -5,7 +5,7 @@ using namespace std;
 
 class FactoryResources{
 public:
-	static shared_ptr<Recursos> crearInstancia(int); 
+	static shared_ptr<Recursos> crearInstancia(int);  
 };
 
 class FactoryCreature {

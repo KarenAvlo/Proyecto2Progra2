@@ -171,7 +171,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 int y = rand() % mapa->getAlto();
 
 	 if (!mapa->hayObjetoEnMapa(x, y)) {
-		 shared_ptr<Recursos> recurs = make_shared<Recursos>(x, y, "??");
+		 shared_ptr<Recursos> recurs = make_shared<Recursos>(x, y, 100);
 		 agregarRecurso(recurs);
 	 }
  }
@@ -213,7 +213,6 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 			 }
 		 }
 	 }
-
 	 return presaMasCercana;
  }
 
@@ -242,8 +241,6 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 	 return presaMasCercana;
  }
-
-
 
 
  shared_ptr<Creatura> Enviroment::getCreaturaDebilCerca(shared_ptr<Creatura> depredador) {
@@ -414,6 +411,10 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 			 cin >> maxTicks;
 		 }
 	 }
+ }
+
+ void Enviroment::generarAleatorio(int ancho, int alto, int cantCriaturas, int cantRecursos, int nivelAgua, int nivelSol)
+ {
  }
  
  

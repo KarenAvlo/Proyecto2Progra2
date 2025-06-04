@@ -164,7 +164,6 @@
     <ClInclude Include="Planta.h" />
     <ClInclude Include="Recursos.h" />
     <ClInclude Include="Sistema.h" />
-    <ClInclude Include="Sol.h" />
     <ClInclude Include="utilitarios.h" />
     <ClInclude Include="visuales.h" />
   </ItemGroup>

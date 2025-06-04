@@ -40,7 +40,6 @@ public:
 	void setEdad(int);
 	void setEstrategia(shared_ptr<Estrategia>);
 
-
 	bool isDead();
 	virtual string toString() const override;
 	string getEtiqueta() const override;

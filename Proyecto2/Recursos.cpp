@@ -12,10 +12,15 @@ string Recursos::getEtiqueta() const
 	return ":";
 }
 
-//string Recursos::toString() const
-//{
-//	return "";
-//}
+void Recursos::regenerarse()
+{
+
+}
+
+string Recursos::toString() const
+{
+	return "";
+}
 
 void Recursos::consumir(Creatura* c) {
 	if (disponible) {

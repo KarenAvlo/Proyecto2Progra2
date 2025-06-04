@@ -14,13 +14,13 @@ public:
 
 	virtual ~Recursos();
 
-	virtual string getEtiqueta() const;
+	virtual string getEtiqueta() const override;
 
 	virtual void regenerarse();
 
-	virtual string toString() const;
+	virtual string toString() const override;
 
-	virtual void consumir(Creatura*c);
+	void consumir(Creatura* c);
 
 	string formatear();
 
