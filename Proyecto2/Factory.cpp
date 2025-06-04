@@ -30,7 +30,7 @@ shared_ptr<Recursos> FactoryResources::crearInstancia(int t){
 			return re;
 		}
 	}
-	throw runtime_error("No se encontro posición valida para crear recurso.");
+	throw runtime_error("No se encontro posicion valida para crear recurso.");
 }
 
 shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
@@ -38,7 +38,7 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 	int newX, newY,edad;
 	shared_ptr<Estrategia> e1 = make_shared<EstrategiaMovimiento>();
 
-	for (int intentos = 0; intentos < maxIntentos; ++intentos) {
+	for (int intentos = 0; intentos < maxIntentos; intentos++) {
 		newX = rand() % 10;  // o mapa->getAncho()
 		newY = rand() % 10;
 		edad = rand() % 100;
@@ -46,7 +46,6 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 		if (Enviroment::getInstancia()->getMapa()->posValida(newX, newY)) {
 			shared_ptr<Creatura> creatura = nullptr;
 		
-
 			switch (t) {
 			case 1:
 				creatura = make_shared<Hervivoro>(newX, newY, 100, edad, e1);

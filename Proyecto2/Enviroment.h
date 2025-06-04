@@ -66,22 +66,23 @@ public:
 	virtual string toString() const;
 
 	int generarIntervaloDeRegeneracionRecursos()const;
+
 	void generarRecursos();
 
 	bool hayPlantaCerca(Hervivoro* her) const;
+
 	shared_ptr<Planta> getPlantaCerca(shared_ptr<Creatura> hervivoro);
 
 	shared_ptr<Meat>getCarneCerca(shared_ptr<Creatura> depredador);
 
 	shared_ptr<Creatura> getCreaturaDebilCerca(shared_ptr<Creatura> depredador);
+
 	bool hayCreaturaDebilCerca(Creatura* cre) const;
 
 	//ticks de tiempo
-	//void simularTiempo(int n);
-	void simularTickTiempo(int maxTicks);
+	void simularTiempoAleatorio();
 
-	//entornos aleatorios
-	void generarAleatorio(int ancho, int alto, int cantCriaturas, int cantRecursos, int nivelAgua, int nivelSol);
+	void simularTickTiempo(int maxTicks);
 
 	void guardarCreaturasEnArchivo(const string& nombreArchivo) const;
 

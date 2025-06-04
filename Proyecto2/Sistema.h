@@ -17,6 +17,8 @@ public:
 
 	// Lógica de los submenús:
 	void mostrarMenuPrincipal();
+	void mostrarSubmenuAleatorio();
+	void mostrarSubmenuRegistro();
 	void mostrarSubmenuRegistroDatos();
 	void mostrarSubmenuReportes();
 	void mostrarSubmenuEntornoyInteracciones();

@@ -20,7 +20,7 @@ static void visualMenuPrincipal()
 	generarTitulos("---[ Menu Principal ]---", "");
 
 	cout << "[1] - Generar entorno aleatorio." << endl;
-	cout << "[2] - Generar Entorno personalidado." << endl;
+	cout << "[2] - Generar Entorno personalizado." << endl;
 	cout << "[3] - Modificacion de Datos" << endl;
 	//aqui pienso que como solo hay un entorno a la vez, no se deberia modificar,
 	//si se quiere modificar pienso que lo ideal seria matar el entorno actual y crear uno nuevo

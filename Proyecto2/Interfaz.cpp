@@ -10,66 +10,75 @@ void Interfaz::generarAleatorio()
 
 }
 
-void Interfaz::ingresarCreatura(){
+void Interfaz::ingresarCreatura() {
 	int opcion = 0;
 	int tipo = 0;
 
 	do {
+		system("cls"); 
 		cout << "   --- Ingresar Creatura ---   " << endl;
 
-		cout << "Seleccione el tipo de Creatura (1:Hervivoro , 2:Carnivoro, 3:Omnivoro). ";
+		cout << "Seleccione el tipo de Creatura (1:Hervivoro , 2:Carnivoro, 3:Omnivoro): ";
 		cin >> tipo;
 
 		if (cin.fail()) {
-			cin.clear();                // Limpia el error
-			cin.ignore(1000, '\n');     // Ignora entrada inválida hasta el salto de línea
+			cin.clear();
+			cin.ignore(1000, '\n');
 			cerr << "Entrada invalida, por favor ingrese un numero." << endl;
+			cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();
 			continue;
 		}
 
 		if (tipo < 1 || tipo > 3) {
 			cout << "Tipo invalido. Intente de nuevo." << endl;
+			cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();
 			continue;
 		}
 
 		try {
 			shared_ptr<Creatura> nueva = FactoryCreature::crearInstancia(tipo);
 			Enviroment::getInstancia()->agregarCreatura(nueva);
-			cout << "Creatura agregada exitosamente " << nueva->toString() << endl;
+			cout << "Creatura agregada exitosamente: " << nueva->toString() << endl;
 		}
 		catch (const std::exception& e) {
 			cerr << "Error al crear la creatura: " << e.what() << endl;
+			cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();
 			continue;
 		}
 
 		cout << endl;
-		cout << "Mostrando los objetos del entorno" << endl;
-		cout<<Enviroment::getInstancia()->getLista()->toString();
+		cout << "Mostrando los objetos del entorno..." << endl;
+		cout << Enviroment::getInstancia()->getLista()->toString();
 
-	
-			cout << "Desea agregar otra creatura? (1: Si, 0: No): ";
+		cout << "Desea agregar otra creatura? (1: Si, 0: No): ";
+		cin >> opcion;
+
+		while (cin.fail() || (opcion != 0 && opcion != 1)) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Opcion invalida, ingrese 0 o 1: ";
 			cin >> opcion;
+		}
 
-			while (cin.fail() || (opcion != 0 && opcion != 1)) {
-				cin.clear();
-				cin.ignore(1000, '\n');
-				cout << "Opcion invalida, ingrese 0 o 1: ";
-				cin >> opcion;
-			}
-
-	} while (opcion != 0); // si el usuario marca 0 sale del ciclo
-
+	} while (opcion != 0);
 }
+
 void Interfaz::ingresarRecurso() {
 	int opcion = 0;
-	int tipo = 0;
-
+	int agua = 0;
+	int sol = 0;
 
 	do {
-		cout << "   --- Ingresar Recurso ---   " << endl;
+		cout << "   --- Generar Recurso ---   " << endl;
 
-		cout << "Seleccione el tipo de Recurso (1: Agua , 2: Planta, 3: Carne). ";
-		cin >> tipo;
+		cout << "Nivel de AGUA: [(0)Nada, (1)Poca, (2)Mucha] ";
+		cin >> agua;
 
 		if (cin.fail()) {
 			cin.clear();                // Limpia el error
@@ -78,28 +87,25 @@ void Interfaz::ingresarRecurso() {
 			continue;
 		}
 
-		if (tipo < 1 || tipo > 3) {
+		if (agua < 0 || agua > 2) {
 			cerr << "Tipo invalido. Intente de nuevo." << endl;
 			continue;
 		}
 
-		try {
-			shared_ptr<Recursos> nueva = FactoryResources::crearInstancia(tipo);
-			Enviroment::getInstancia()->agregarRecurso(nueva);
-			cout << "Recurso agregado exitosamente " << nueva->toString() << endl;
-		}
-		catch (const std::exception& e) {
-			cout << "Error al crear el Recurso: " << e.what() << endl;
-			continue;
-		}
+		cout << "Nivel de SOL: [(0)De noche, (1)Nublado, (2)Soleado] " << endl;
+		cin >> sol;
+		Enviroment::getInstancia()->setNivelAgua(agua);
+		Enviroment::getInstancia()->setNivelSol(sol);
+		cout << "Recurso agregado exitosamente "<<endl;
+
+		Enviroment::getInstancia()->generarRecursos(); // Genera recursos basados en los niveles de agua y sol
 
 		cout << endl;
 		cout << "Mostrando los objetos del entorno" << endl;
 		cout << Enviroment::getInstancia()->getLista()->toString();
-
-
-		cout << "Desea agregar otro Recurso? (1: Sí, 0: No): ";
-		cin >> opcion;
+		break;
+		//cout << "Desea agregar otro Recurso? (1: Si, 0: No): ";
+		//cin >> opcion;
 
 		while (cin.fail() || (opcion != 0 && opcion != 1)) {
 			cin.clear();

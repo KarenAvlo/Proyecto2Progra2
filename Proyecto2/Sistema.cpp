@@ -1,13 +1,11 @@
 #include "Sistema.h"
 
-
 Sistema::Sistema(){
 	i= make_shared<Interfaz>();
 }
 Sistema::~Sistema(){
 // la memoria se libera sola :)
 }
-
 
 void Sistema::visualMenuPrincipal(){
 	cout << ("   ---[ Menu Principal ]---   ") << endl;
@@ -30,12 +28,9 @@ void Sistema::visualGenerarAleatorio() {
 }
 
 void Sistema::visualsubmenuRegistro(){
-
 	cout<<("   ---[ Submenu Registro de Datos ]---   ")<<endl;
-
-	cout << "(1) - Ingresar Creatura" << endl;
-	cout << "(2) - Ingresar Recurso" << endl;
-
+	cout << "(1) - Generar Creatura(s)" << endl;
+	cout << "(2) - Generar niveles: AGUA/SOL (afecta a la regeneracion de recursos) " << endl;
 	cout << "[0] - Volver a Menu Principal" << endl << endl;
 }
 
@@ -84,19 +79,31 @@ void Sistema::mostrarMenuPrincipal(){
 			break;
 
 		case 1:
-			mostrarSubmenuRegistroDatos();
+			visualGenerarAleatorio();
+			cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();
 			break;
 
 		case 2:
-			mostrarSubmenuEntornoyInteracciones();
+			visualsubmenuRegistro();
+			cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();
 			break;
 
 		case 3:
 			mostrarSubmenuReportes();
+			cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();
 			break;
 
 		case 4:
 			mostrarSubmenuPersistenciaDeDatos();
+			cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();
 			break;
 		}
 
@@ -104,35 +111,71 @@ void Sistema::mostrarMenuPrincipal(){
 
 }
 //por hacer, primero tengo que hacer cosas antes
-//void Sistema::visualGenerarAleatorio() {
-//	int opcion;
-//	do {
-//		system("cls");
-//		visualGenerarAleatorio();
-//
-//		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
-//			cin.clear();
-//			cin.ignore(1000, '\n');
-//			cerr << "Opcion invalida. Ingrese 0, 1 o 2: ";
-//		}
-//		system("cls");
-//		switch (opcion) {
-//		case 0:
-//			break;
-//		case 1:
-//			system("cls");
-//			i->generarAleatorio();
-//			break;
-//		case 2:
-//			system("cls");
-//			i->MostrarEntornoAndInteractions();
-//			cout << "\nPresione Enter para continuar...";
-//			cin.ignore();
-//			cin.get();
-//			break;
-//		}
-//	} while (opcion != 0);
-//}
+void Sistema::mostrarSubmenuAleatorio() {
+	int opcion;
+	do {
+		system("cls");
+		visualGenerarAleatorio();
+
+		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cerr << "Opcion invalida. Ingrese 0, 1 o 2: ";
+		}
+		system("cls");
+		switch (opcion) {
+		case 0:
+			break;
+		case 1:
+			system("cls");
+			i->generarAleatorio();
+			/*cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();*/
+			break;
+		case 2:
+			system("cls");
+			i->MostrarEntornoAndInteractions();
+			/*cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();*/
+			break;
+		}
+	} while (opcion != 0);
+}
+
+void Sistema::mostrarSubmenuRegistro()
+{
+	int opcion;
+	do {
+		system("cls");
+		visualsubmenuRegistro();
+
+
+
+		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cerr << "Opcion invalida. Ingrese 0, 1 o 2: ";
+		}
+		switch (opcion) {
+		case 1:
+			cout << "Generar criaturas" << endl;
+			i->ingresarCreatura();
+			/*cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();*/
+			break;
+		case 2:
+			i->ingresarRecurso();
+			/*cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();*/
+			break;
+		}
+	} while (opcion != 0);
+}
+
 
 void Sistema::mostrarSubmenuRegistroDatos(){
 	int opcion;
