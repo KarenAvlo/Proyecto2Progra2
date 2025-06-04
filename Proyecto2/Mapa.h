@@ -14,6 +14,9 @@ public:
 
 	string mostrarMapa() const;
 
+	int getAncho() const;
+	int getAlto() const;
+
 	// Métodos para manipular el mapa
 	bool posValida(int,int);
 	shared_ptr<Objeto> hayObjetoEnMapa(int x, int y);  //para evitar las colisiones

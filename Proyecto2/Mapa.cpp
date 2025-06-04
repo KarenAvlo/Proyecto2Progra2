@@ -34,8 +34,18 @@ string Mapa::mostrarMapa() const {
 	return ss.str();
 }
 
+int Mapa::getAncho() const
+{
+	return ancho;
+}
 
-bool Mapa::posValida(int x, int y){
+int Mapa::getAlto() const
+{
+	return alto;
+}
+
+bool Mapa::posValida(int x, int y) {
+	
 	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
 		cerr << "Coordenadas fuera de los límites del mapa: (" << x << ", " << y << ")\n";
 		return false;

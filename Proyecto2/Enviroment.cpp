@@ -69,6 +69,38 @@ void Enviroment::setClima(int cli) {
 
 void Enviroment::setEstacion(string est) { estacion = est; }
 
+void Enviroment::setNivelAgua(int nivel)
+{
+	if (nivel >= 0 && nivel <= 2) {
+		nivelAguita = nivel;
+	}
+	else {
+		cerr << "Nivel de agua invalido. Debe estar entre 0 y 2." << endl;
+	}
+}
+
+void Enviroment::setNivelSol(int nivel)
+{
+	if (nivel >= 0 && nivel <= 2) {
+		nivelSol = nivel;
+	}
+	else {
+		cerr << "Nivel de sol invalido. Debe estar entre 0 y 2." << endl;
+	}
+}
+
+int Enviroment::getNivelAgua() const { return nivelAguita; }
+int Enviroment::getNivelSol() const { return nivelSol; }
+
+int Enviroment::getAnchoMapa() const
+{
+	return mapa->getAncho();
+}
+int Enviroment::getAltoMapa() const
+{
+	return mapa->getAlto();
+}
+
 string Enviroment::getClima() { return clima; }
 
 string Enviroment::getEstacion() { return estacion; }
@@ -115,6 +147,33 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 s << "Clima: " << clima << endl;
 	 s << "Estacion:" << estacion << endl;
 	 return s.str();
+ }
+
+ int Enviroment::generarIntervaloDeRegeneracionRecursos()const
+ {
+ //los niveles de agua y sol son 0, 1 o 2
+// y el numero que retorna son los ticks de tiempo que tarda en regenerarse el recurso
+	 if (nivelSol == 2 && nivelAguita == 2) return 2;
+	 if (nivelSol == 1 && nivelAguita == 1) return 4;
+	 if (nivelSol == 2 && nivelAguita == 1) return 3;
+	 if (nivelSol == 1 && nivelAguita == 2) return 3;
+	 if (nivelSol == 0 && nivelAguita == 2) return 7;
+	 if (nivelSol == 2 && nivelAguita == 0) return 7;
+	 if (nivelSol == 0 && nivelAguita == 1) return 9;
+	 if (nivelSol == 1 && nivelAguita == 0) return 9;
+	 if (nivelSol == 0 && nivelAguita == 0) return 15;
+ }
+
+ void Enviroment::generarRecursos()
+ {
+	 // generar un recurso aleatorio en una posición libre del mapa
+	 int x = rand() % mapa->getAncho();
+	 int y = rand() % mapa->getAlto();
+
+	 if (!mapa->hayObjetoEnMapa(x, y)) {
+		 shared_ptr<Recursos> recurs = make_shared<Recursos>(x, y, "??");
+		 agregarRecurso(recurs);
+	 }
  }
 
  bool Enviroment::hayPlantaCerca(Hervivoro* her) const { //creo que no se está necesitando
@@ -305,6 +364,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 int tickGlobal = 0;
 	 int maxTicks = maxTick;
 	 char continuar = 's';
+	 int interRegeneracion = generarIntervaloDeRegeneracionRecursos();
 
 	 while (continuar == 's' || continuar == 'S') {
 
@@ -317,6 +377,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 			 // Cambios al clima 
 			 if (tickGlobal % ticksPorDia == 0) {
+				 
 				 int nuevoClima = rand() % 3 + 1;
 				 setClima(nuevoClima);
 				 if (estacion == "Primavera") estacion = "Verano";

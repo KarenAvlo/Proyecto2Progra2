@@ -3,6 +3,7 @@
 #include <chrono>   // Para chrono::seconds
 #include "Lista.h"
 #include "Mapa.h"
+#include "Recursos.h"
 
 class Hervivoro;
 class Omnivoro;
@@ -14,15 +15,16 @@ class Meat;
 class Enviroment { // singleton
 
 protected:
-	static unique_ptr<Enviroment> instancia;
+	int nivelAguita; 
+	int nivelSol; 
 
 	string clima;
-
 	string estacion;
-
 	shared_ptr<Mapa> mapa;
-
+	shared_ptr<Recursos> recurso; 
+	static unique_ptr<Enviroment> instancia;
 	lista<shared_ptr<Objeto>> objetos;
+
 
 	Enviroment(); // constructor privado para el singleton
 
@@ -40,11 +42,19 @@ public:
 	//setters
 	void setClima(int cli);
 	void setEstacion(string est);
+	//agua, sol
+	void setNivelAgua(int nivel);
+	void setNivelSol(int nivel);
+
 
 	//getters
 	string getClima();
 	string getEstacion();
+	int getNivelAgua() const;
+	int getNivelSol() const;
 
+	int getAnchoMapa() const;
+	int getAltoMapa() const;
 
 	const lista<shared_ptr<Objeto>>* getLista() const;
 	shared_ptr<lista<shared_ptr<Creatura>>>mostrarCreaturas() const;
@@ -53,6 +63,9 @@ public:
 	shared_ptr<Mapa> getMapa() const;
 
 	virtual string toString() const;
+
+	int generarIntervaloDeRegeneracionRecursos()const;
+	void generarRecursos();
 
 	bool hayPlantaCerca(Hervivoro* her) const;
 	shared_ptr<Planta> getPlantaCerca(shared_ptr<Creatura> hervivoro);

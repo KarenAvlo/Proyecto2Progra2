@@ -10,15 +10,15 @@ protected:
 	bool disponible; // para saber si está disponible para comerlo (opcional) ver después
 
 public:
-	Recursos(int, int, int);
+	Recursos(int=0, int=0, int=0);
 
 	virtual ~Recursos();
 
-	virtual string getEtiqueta() const = 0;
+	virtual string getEtiqueta() const;
 
-	virtual void regenerarse() = 0;
+	virtual void regenerarse();
 
-	virtual string toString() const = 0;
+	virtual string toString() const;
 
 	virtual void consumir(Creatura*c);
 

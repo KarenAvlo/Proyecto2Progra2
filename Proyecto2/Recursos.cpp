@@ -1,12 +1,21 @@
 #include "Recursos.h"
 #include "Creature.h"
 
-Recursos::Recursos(int xx, int yy, int ee):Objeto(xx,yy),EnergyValue(ee),disponible(true){
-	
+Recursos::Recursos(int xx, int yy, int ee)
+	:Objeto(xx, yy), EnergyValue(ee), disponible(true) {
 }
 
 Recursos::~Recursos(){}
 
+string Recursos::getEtiqueta() const
+{
+	return ":";
+}
+
+//string Recursos::toString() const
+//{
+//	return "";
+//}
 
 void Recursos::consumir(Creatura* c) {
 	if (disponible) {
