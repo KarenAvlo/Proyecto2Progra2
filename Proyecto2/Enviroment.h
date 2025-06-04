@@ -63,8 +63,11 @@ public:
 	bool hayCreaturaDebilCerca(Creatura* cre) const;
 
 	//ticks de tiempo
-	void simularTiempo(int n);
+	//void simularTiempo(int n);
 	void simularTickTiempo(int maxTicks);
+
+	//entornos aleatorios
+	void generarAleatorio(int ancho, int alto, int cantCriaturas, int cantRecursos, int nivelAgua, int nivelSol);
 
 
 

@@ -10,14 +10,23 @@ Sistema::~Sistema(){
 
 
 void Sistema::visualMenuPrincipal(){
-	cout<<"    ---[ Menu Principal ]---   "<<endl;
-
-	cout << "[1] - Submenu Registro de Datos" << endl;
-	cout << "[2] - Entorno e Interacciones" << endl;
-	cout << "[3] - Submenu Reporte de Datos" << endl;
-	cout << "[4] - Submenu Persistencia De Datos" << endl;
+	cout << ("   ---[ Menu Principal ]---   ") << endl;
+	cout << "[1] - Generar entorno aleatorio." << endl;
+	cout << "[2] - Generar Entorno personalidado." << endl;
+	cout << "[3] - Modificacion de Datos" << endl;
+	//aqui pienso que como solo hay un entorno a la vez, no se deberia modificar,
+	//si se quiere modificar pienso que lo ideal seria matar el entorno actual y crear uno nuevo
+	//para mantener la coerencia de un entorno por vez
+	cout << "[4] - Submenu Reporte de Datos" << endl;
+	cout << "[5] - Submenu Persistencia De Datos" << endl;
 
 	cout << "[0] - Salir del sistema" << endl << endl;
+}
+void Sistema::visualGenerarAleatorio() {
+	cout << ("   ---[ Generar aleatorio ]---   ") << endl;
+	cout << "(1) - Generar." << endl;
+	cout << "(2) - Ver entorno." << endl;
+	cout << "[0] - Volver a Menu Principal" << endl << endl;
 }
 
 void Sistema::visualsubmenuRegistro(){
@@ -61,7 +70,7 @@ void Sistema::mostrarMenuPrincipal(){
 		while (!(cin >> opcion) || opcion < 0 || opcion > 4) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			cout << "Opción inválida. Ingrese 0, 1 o 2: ";
+			cerr << "Opcion invalida. Ingrese 0, 1 o 2: ";
 		}
 		//un try catch por aqui
 
@@ -94,6 +103,37 @@ void Sistema::mostrarMenuPrincipal(){
 	} while (opcion != 0);
 
 }
+//por hacer, primero tengo que hacer cosas antes
+//void Sistema::visualGenerarAleatorio() {
+//	int opcion;
+//	do {
+//		system("cls");
+//		visualGenerarAleatorio();
+//
+//		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
+//			cin.clear();
+//			cin.ignore(1000, '\n');
+//			cerr << "Opcion invalida. Ingrese 0, 1 o 2: ";
+//		}
+//		system("cls");
+//		switch (opcion) {
+//		case 0:
+//			break;
+//		case 1:
+//			system("cls");
+//			i->generarAleatorio();
+//			break;
+//		case 2:
+//			system("cls");
+//			i->MostrarEntornoAndInteractions();
+//			cout << "\nPresione Enter para continuar...";
+//			cin.ignore();
+//			cin.get();
+//			break;
+//		}
+//	} while (opcion != 0);
+//}
+
 void Sistema::mostrarSubmenuRegistroDatos(){
 	int opcion;
 
@@ -105,7 +145,7 @@ void Sistema::mostrarSubmenuRegistroDatos(){
 		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			cout << "Opción inválida. Ingrese 0, 1 o 2: ";
+			cerr << "Opcion invalida. Ingrese 0, 1 o 2: ";
 		}
 
 		system("cls");
@@ -140,7 +180,7 @@ void Sistema::mostrarSubmenuReportes(){
 		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			cout << "Opción inválida. Ingrese 0, 1 o 2: ";
+			cout << "Opcion invalida. Ingrese 0, 1 o 2: ";
 		}
 	
 
@@ -186,7 +226,7 @@ void Sistema::mostrarSubmenuPersistenciaDeDatos(){
 		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			cout << "Opción inválida. Ingrese 0, 1 o 2: ";
+			cout << "Opcion invalida. Ingrese 0, 1 o 2: ";
 		}
 
 		switch (opcion) {

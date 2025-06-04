@@ -50,7 +50,7 @@ static string obtenerEntrada(const string& mensajeP)
         cout << endl;
 
         if (entrada.empty()) {
-            cout << "Error: Debe ingresar una entrada valida." << endl << endl;
+            cerr << "Error: Debe ingresar una entrada valida." << endl << endl;
         }
 
     } while (entrada.empty());
@@ -70,7 +70,7 @@ static int obtenerNumero()
 
         if (cin.fail() || numero < 0) {
 
-            cout << "Error: Debe ingresar un entero no negativo." << endl << endl;
+            cerr << "Error: Debe ingresar un entero no negativo." << endl << endl;
 
             cin.clear();
 
@@ -96,7 +96,7 @@ static int obtenerMes()
 
         if (cin.fail() || mes < 1 || mes > 12) {
 
-            cout << "Error: Debe ingresar un mes valido." << endl << endl;
+            cerr << "Error: Debe ingresar un mes valido." << endl << endl;
             cin.clear();
 
             cin.ignore(numeric_limits<streamsize>::max(), '\n');

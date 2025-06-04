@@ -3,25 +3,32 @@
 Interfaz::Interfaz(){}
 Interfaz::~Interfaz(){}
 
+void Interfaz::generarAleatorio()
+{
+	//para entornos completamente aleatorios
+	cout << "   --- Generando Entorno Aleatorio ---   " << endl;
+
+}
+
 void Interfaz::ingresarCreatura(){
 	int opcion = 0;
 	int tipo = 0;
 
 	do {
-		cout << "   ---Ingresar Creatura---   " << endl;
+		cout << "   --- Ingresar Creatura ---   " << endl;
 
-		cout << "Seleccione el tipo de Creatura (1:Hervivoro , 2: Carnivoro, 3:Omnivoro). ";
+		cout << "Seleccione el tipo de Creatura (1:Hervivoro , 2:Carnivoro, 3:Omnivoro). ";
 		cin >> tipo;
 
 		if (cin.fail()) {
 			cin.clear();                // Limpia el error
 			cin.ignore(1000, '\n');     // Ignora entrada inválida hasta el salto de línea
-			cout << "Entrada invalida, por favor ingrese un numero." << endl;
+			cerr << "Entrada invalida, por favor ingrese un numero." << endl;
 			continue;
 		}
 
 		if (tipo < 1 || tipo > 3) {
-			cout << "Tipo inválido. Intente de nuevo." << endl;
+			cout << "Tipo invalido. Intente de nuevo." << endl;
 			continue;
 		}
 
@@ -31,7 +38,7 @@ void Interfaz::ingresarCreatura(){
 			cout << "Creatura agregada exitosamente " << nueva->toString() << endl;
 		}
 		catch (const std::exception& e) {
-			cout << "Error al crear la creatura: " << e.what() << endl;
+			cerr << "Error al crear la creatura: " << e.what() << endl;
 			continue;
 		}
 
@@ -40,7 +47,7 @@ void Interfaz::ingresarCreatura(){
 		cout<<Enviroment::getInstancia()->getLista()->toString();
 
 	
-			cout << "Desea agregar otra creatura? (1: Sí, 0: No): ";
+			cout << "Desea agregar otra creatura? (1: Si, 0: No): ";
 			cin >> opcion;
 
 			while (cin.fail() || (opcion != 0 && opcion != 1)) {
@@ -59,9 +66,9 @@ void Interfaz::ingresarRecurso() {
 
 
 	do {
-		cout << "   ---Ingresar Recurso---   " << endl;
+		cout << "   --- Ingresar Recurso ---   " << endl;
 
-		cout << "Seleccione el tipo de Recurso (1: Agua , 2: Planta, 3: Meat). ";
+		cout << "Seleccione el tipo de Recurso (1: Agua , 2: Planta, 3: Carne). ";
 		cin >> tipo;
 
 		if (cin.fail()) {
@@ -72,7 +79,7 @@ void Interfaz::ingresarRecurso() {
 		}
 
 		if (tipo < 1 || tipo > 3) {
-			cout << "Tipo inválido. Intente de nuevo." << endl;
+			cerr << "Tipo invalido. Intente de nuevo." << endl;
 			continue;
 		}
 

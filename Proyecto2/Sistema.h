@@ -10,6 +10,7 @@ public:
 	~Sistema();
 
 	static void visualMenuPrincipal();
+	static void visualGenerarAleatorio();
 	static void visualsubmenuRegistro();
 	static void visualsubmenuReportes();
 	static void visualsubmenuPersistenciaDeDatos();

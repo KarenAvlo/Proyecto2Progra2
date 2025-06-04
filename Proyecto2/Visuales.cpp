@@ -19,33 +19,36 @@ static void visualMenuPrincipal()
 {
 	generarTitulos("---[ Menu Principal ]---", "");
 
-	cout << "[1] - Submenu Registro de Datos" << endl;
-	cout << "[2] - Submenu Modificacion de Datos" << endl;
-
-	cout << "[3] - Submenu Reporte de Datos" << endl;
-	cout << "[4] - Submenu Persistencia De Datos" << endl;
+	cout << "[1] - Generar entorno aleatorio." << endl;
+	cout << "[2] - Generar Entorno personalidado." << endl;
+	cout << "[3] - Modificacion de Datos" << endl;
+	//aqui pienso que como solo hay un entorno a la vez, no se deberia modificar,
+	//si se quiere modificar pienso que lo ideal seria matar el entorno actual y crear uno nuevo
+	//para mantener la coerencia de un entorno por vez
+	cout << "[4] - Submenu Reporte de Datos" << endl;
+	cout << "[5] - Submenu Persistencia De Datos" << endl;
 
 	cout << "[0] - Salir del sistema" << endl << endl;
 }
 
-static void visualsubmenuRegistro()
+static void visualGenerarAleatorio()
 {
-	generarTitulos("Submenu Registro de Datos", "");
+	generarTitulos("Generar aleatorio", "");
 
-	cout << "(1) - Ingresar Material" << endl;
-	cout << "(2) - Ingresar Usuarios" << endl;
-	cout << "(3) - Ingresar Solicitud Prestamo" << endl;
-	cout << "(4) - Devolver Prestamo" << endl;
+	cout << "(1) - Generar." << endl;
+	cout << "(2) - Ver entorno." << endl;
 
 	cout << "[0] - Volver a Menu Principal" << endl << endl;
 }
 
-static void visualsubmenuModificacion()
+static void visualGenerarPersonalizado()
 {
-	generarTitulos("Submenu Modificacion Datos", "");
+	generarTitulos("Generar entorno personalizado", "");
 
-	cout << "(1) - Modificar Datos Material" << endl;
-	cout << "(2) - Modificar Datos Usuario" << endl;
+	cout << "(1) - Ingresar tamanio entorno." << endl;
+	cout << "(2) - Ingresar Criaturas." << endl;
+	cout << "(3) - Nivel de agua." << endl;
+	cout << "(4) - Nivel de sol." << endl;
 
 	cout << "[0] - Volver a Menu Principal" << endl << endl;
 }

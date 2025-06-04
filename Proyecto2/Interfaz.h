@@ -7,6 +7,7 @@ public:
 	Interfaz();
 	~Interfaz();
 
+	void generarAleatorio();
 	void ingresarCreatura();
 	void ingresarRecurso();
 
