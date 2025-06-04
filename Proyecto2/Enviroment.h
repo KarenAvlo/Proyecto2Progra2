@@ -1,6 +1,7 @@
 #pragma once
 #include <thread>   // Para this_thread::sleep_for
-#include <chrono>   // Para chrono::seconds
+#include <chrono>  // Para chrono::seconds
+#include <fstream>
 #include "Lista.h"
 #include "Mapa.h"
 #include "Recursos.h"
@@ -82,7 +83,7 @@ public:
 	//entornos aleatorios
 	void generarAleatorio(int ancho, int alto, int cantCriaturas, int cantRecursos, int nivelAgua, int nivelSol);
 
-
+	void guardarCreaturasEnArchivo(const string& nombreArchivo) const;
 
 };
 

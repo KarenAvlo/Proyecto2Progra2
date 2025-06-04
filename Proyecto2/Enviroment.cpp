@@ -417,4 +417,24 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
  {
  }
  
+
+ void Enviroment::guardarCreaturasEnArchivo(const string& nombreArchivo) const 
+ {
+	 ofstream archivo(nombreArchivo);
+
+	 if (!archivo.is_open()) { 
+		 cerr << "Error al abrir el archivo para guardar.\n"; 
+		 return;
+	 }
+
+	 for (const auto& obj : objetos) {   
+		 auto criatura = std::dynamic_pointer_cast<Creatura>(obj); 
+		 if (criatura && !criatura->isDead()) {  // Solo guardamos si NO está muerta 
+			 criatura->guardarDatos(archivo); 
+		 }
+	 }
+
+	 archivo.close(); 
+ }
+
  

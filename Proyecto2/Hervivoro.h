@@ -17,5 +17,7 @@ public:
 	void alimentarse() override;
 
 	void atacar() override;
+
+	void guardarDatos(ofstream& archivo) const override;
 };
 

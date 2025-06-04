@@ -27,3 +27,7 @@ void Hervivoro::atacar() {
 	// los hervivoros no atacan
 
 }
+
+void Hervivoro::guardarDatos(std::ofstream& archivo) const {
+	archivo << "Hervivoro," << getX() << "," << getY() << "," << energia << "," << edad << "\n";
+}

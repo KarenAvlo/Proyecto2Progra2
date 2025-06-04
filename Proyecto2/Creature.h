@@ -3,6 +3,7 @@
 #include "Estrategia.h"
 #include "Enviroment.h"
 #include <memory>
+#include <fstream>
 
 #define MAX_ENERGIA 100 // energia máxima que puede tener una criatura
 
@@ -43,5 +44,7 @@ public:
 	bool isDead();
 	virtual string toString() const override;
 	string getEtiqueta() const override;
+
+	virtual void guardarDatos(ofstream& archivo) const = 0;
 };
 

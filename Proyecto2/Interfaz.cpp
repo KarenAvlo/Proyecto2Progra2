@@ -123,8 +123,68 @@ void Interfaz::MostrarReporteRecursos(){
 	cout << Enviroment::getInstancia()->mostrarCreaturas() << endl;
 }
 
-void Interfaz::GuardarCreaturas(){}
-void Interfaz::GuardarRecursos(){}
+void Interfaz::GuardarCreaturas() {
+	ofstream archivo("creaturas_guardadas.txt"); 
+	if (!archivo.is_open()) { 
+		cerr << "Error al abrir archivo para guardar criaturas\n"; 
+		return;
+	}
 
-void Interfaz::CargarCreaturas(){}
+	// Obtener todas las criaturas y guardarlas si están vivas
+	auto listaCreaturas = Enviroment::getInstancia()->mostrarCreaturas(); 
+
+	for (const auto& c : *listaCreaturas) { 
+		if (!c->isDead()) {
+			c->guardarDatos(archivo); 
+		} 
+	}
+	archivo.close(); 
+	cout << "Creaturas guardadas correctamente.\n"; 
+}
+
+void Interfaz::GuardarRecursos(){} 
+
+void Interfaz::CargarCreaturas() {
+	std::ifstream archivo("creaturas_guardadas.txt");
+	if (!archivo.is_open()) {
+		std::cerr << "Error al abrir archivo para cargar criaturas\n";
+		return;
+	}
+
+	Enviroment* env = Enviroment::getInstancia();
+
+	std::string linea;
+	while (std::getline(archivo, linea)) {
+		std::stringstream ss(linea);
+		std::string tipo;
+		std::getline(ss, tipo, ',');
+
+		int x, y, energia, edad;
+		char coma;
+
+		ss >> x >> coma >> y >> coma >> energia >> coma >> edad;
+
+		// Crear instancia dependiendo del tipo
+		shared_ptr<Creatura> nueva;
+
+		if (tipo == "Hervivoro") {
+			nueva = make_shared<Hervivoro>(x, y, energia, edad);
+		}
+		else if (tipo == "Carnivoro") {
+			nueva = make_shared<Carnívoro>(x, y, energia, edad);
+		}
+		else if (tipo == "Omnivoro") {
+			nueva = make_shared<Omnivoro>(x, y, energia, edad);
+		}
+		else {
+			std::cerr << "Tipo desconocido: " << tipo << "\n";
+			continue;
+		}
+
+		env->agregarCreatura(nueva);
+	}
+	archivo.close();
+	std::cout << "Creaturas cargadas correctamente.\n";
+}
+
 void Interfaz::CargarRecursos(){}

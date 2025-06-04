@@ -33,3 +33,7 @@ void Omnivoro::atacar() {
 	}
 
 }
+
+void Omnivoro::guardarDatos(std::ofstream& archivo) const {
+	archivo << "Carnivoro," << getX() << "," << getY() << "," << energia << "," << edad << "\n";
+}

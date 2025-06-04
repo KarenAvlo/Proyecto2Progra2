@@ -214,46 +214,41 @@ void Sistema::mostrarSubmenuEntornoyInteracciones(){
 
 }
 
-void Sistema::mostrarSubmenuPersistenciaDeDatos(){
-
+void Sistema::mostrarSubmenuPersistenciaDeDatos() {
 	int opcion;
 
 	do {
-
 		system("cls");
 		visualsubmenuPersistenciaDeDatos();
 
-		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
+		while (!(cin >> opcion) || opcion < 0 || opcion > 4) {  
 			cin.clear();
 			cin.ignore(1000, '\n');
-			cout << "Opcion invalida. Ingrese 0, 1 o 2: ";
+			cout << "Opcion invalida, ingrese 0 a 4: ";
 		}
 
 		switch (opcion) {
-		case 0:
-			break;
-
+		case 0: break;
 		case 1:
 			system("cls");
-			i->GuardarCreaturas();
+			i->GuardarCreaturas(); // no dejar que guarde si no hay creaturas
+			system("pause");
 			break;
-
 		case 2:
 			system("cls");
-			i->CargarCreaturas();
+			i->CargarCreaturas(); // no cargar creaturas si esta vacio // carga raro, arreglar
+			system("pause");
 			break;
-
 		case 3:
 			system("cls");
-			i->GuardarRecursos();
+			i->GuardarRecursos(); // falta implementar esto
+			system("pause");
 			break;
-
 		case 4:
 			system("cls");
-			i->CargarRecursos();
+			i->CargarRecursos(); // falta implementar esto
+			system("pause");
 			break;
-
-		} 
-
+		}
 	} while (opcion != 0);
 }

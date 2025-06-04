@@ -16,5 +16,7 @@ public:
 
 	void atacar() override;
 
+	void guardarDatos(ofstream& archivo) const override;
+
 };
 
