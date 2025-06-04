@@ -53,6 +53,19 @@ bool Mapa::posValida(int x, int y) {
 	return true;
 }
 
+int Mapa::espaciosLibres() 
+{
+	int espaciosLibres = 0;
+	for (int i = 0; i < alto; i++) {
+		for (int j = 0; j < ancho; j++) {
+			if (mapa[i][j] == nullptr) {
+				espaciosLibres++;
+			}
+		}
+	}
+	return espaciosLibres;
+}
+
 shared_ptr<Objeto> Mapa::hayObjetoEnMapa(int x, int y)
 {
 	if (x < 0 || x >= ancho || y < 0 || y >= alto) {

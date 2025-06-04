@@ -176,6 +176,42 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 }
  }
 
+ //agrega directamente una cantidad de recursos al inicio
+ void Enviroment::agregarRecursoPorCan(int n)
+ {
+	 int agregados = 0;
+	 int intentos = 0;
+	 int maxIntentos = 100; //evita que quede enclochado
+	 const int max = 5;
+	 int libres = mapa->espaciosLibres();
+
+	 if (libres < n) {
+		 cerr << "No hay suficientes espacios libres en el mapa. Espacios libres: " << libres << endl;
+		 return;
+	 }
+	 if (n < 0 || n > max) {
+		 cerr << "Cantidad invalida. Debe ser entre 0 y " << max << "." << endl;
+		 return;
+	 }
+
+	 while (agregados < n && intentos < maxIntentos) {
+		 int x = rand() % mapa->getAncho();
+		 int y = rand() % mapa->getAlto();
+
+		 // Verificar si la posicion esta libre
+		 if (!mapa->hayObjetoEnMapa(x, y)) {
+			 shared_ptr<Recursos> recurs = make_shared<Recursos>(x, y, 100);
+			 agregarRecurso(recurs);
+			 agregados++;
+		 }
+		 intentos++;
+	 }
+	 if (agregados < n) {
+		 cerr << "Solo se pudieron agregar " << agregados << " recursos despues de " << intentos << " intentos." << endl;
+	 }
+ }
+
+
  bool Enviroment::hayPlantaCerca(Hervivoro* her) const { //creo que no se está necesitando
 
 	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {

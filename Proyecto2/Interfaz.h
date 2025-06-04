@@ -8,8 +8,8 @@ public:
 	~Interfaz();
 
 	void generarAleatorio();
-	void ingresarCreatura();
-	void ingresarRecurso();
+	void ingresarCreatura(int);
+	void ingresarRecurso(int, int);
 
 	void MostrarEntornoAndInteractions();
 

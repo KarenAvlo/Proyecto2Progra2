@@ -69,6 +69,8 @@ public:
 
 	void generarRecursos();
 
+	void agregarRecursoPorCan(int n);
+
 	bool hayPlantaCerca(Hervivoro* her) const;
 
 	shared_ptr<Planta> getPlantaCerca(shared_ptr<Creatura> hervivoro);

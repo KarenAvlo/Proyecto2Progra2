@@ -10,13 +10,13 @@ void Interfaz::generarAleatorio()
 
 }
 
-void Interfaz::ingresarCreatura() {
-	int opcion = 0;
+void Interfaz::ingresarCreatura(int op) {
+	int opcion = op;
 	int tipo = 0;
 
 	do {
 		system("cls"); 
-		cout << "   --- Ingresar Creatura ---   " << endl;
+		cout << "   ---[ Generar Creatura ]---   " << endl;
 
 		cout << "Seleccione el tipo de Creatura (1:Hervivoro , 2:Carnivoro, 3:Omnivoro): ";
 		cin >> tipo;
@@ -54,7 +54,7 @@ void Interfaz::ingresarCreatura() {
 
 		cout << endl;
 		cout << "Mostrando los objetos del entorno..." << endl;
-		cout << Enviroment::getInstancia()->getLista()->toString();
+		cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
 
 		cout << "Desea agregar otra creatura? (1: Si, 0: No): ";
 		cin >> opcion;
@@ -69,53 +69,89 @@ void Interfaz::ingresarCreatura() {
 	} while (opcion != 0);
 }
 
-void Interfaz::ingresarRecurso() {
+void Interfaz::ingresarRecurso(int a, int s) {
 	int opcion = 0;
-	int agua = 0;
-	int sol = 0;
+	int maxRecursoPosible = 5;
+	int agua = a;
+	int sol = s;
+	int cantRecurso = 0;
 
-	do {
-		cout << "   --- Generar Recurso ---   " << endl;
+	cout << "Los niveles actuales de AGUA y SOL son:" << endl;
+	cout << "Agua: " << agua << ", Sol: " << sol << endl;
+	cout << "Desea cambiarlos? (1: Si, 0: No): ";
+	cin >> opcion;
+	cout << string(50, '-') << endl;
 
-		cout << "Nivel de AGUA: [(0)Nada, (1)Poca, (2)Mucha] ";
-		cin >> agua;
+	while (cin.fail() || (opcion != 0 && opcion != 1)) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Opcion invalida, ingrese 0 o 1: ";
+		cin >> opcion;
+	}
 
-		if (cin.fail()) {
-			cin.clear();                // Limpia el error
-			cin.ignore(1000, '\n');     // Ignora entrada inválida hasta el salto de línea
-			cout << "Entrada invalida, por favor ingrese un numero." << endl;
-			continue;
-		}
+	if (opcion == 1) {
+		do {
+			cout << "Nivel de AGUA: [(0)Nada, (1)Poca, (2)Mucha]: ";
+			cin >> agua;
 
-		if (agua < 0 || agua > 2) {
-			cerr << "Tipo invalido. Intente de nuevo." << endl;
-			continue;
-		}
+			if (cin.fail() || agua < 0 || agua > 2) {
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cout << "Entrada invalida, ingrese un numero entre 0 y 2." << endl;
+			}
+			else break;
+		} while (true);
 
-		cout << "Nivel de SOL: [(0)De noche, (1)Nublado, (2)Soleado] " << endl;
-		cin >> sol;
+		do {
+			cout << "Nivel de SOL: [(0)De noche, (1)Nublado, (2)Soleado]: ";
+			cin >> sol;
+
+			if (cin.fail() || sol < 0 || sol > 2) {
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cout << "Entrada invalida, ingrese un numero entre 0 y 2." << endl;
+			}
+			else break;
+		} while (true);
 		Enviroment::getInstancia()->setNivelAgua(agua);
 		Enviroment::getInstancia()->setNivelSol(sol);
-		cout << "Recurso agregado exitosamente "<<endl;
+		cout << "Niveles actualizados exitosamente." << endl;
+	}
 
-		Enviroment::getInstancia()->generarRecursos(); // Genera recursos basados en los niveles de agua y sol
+	// Generar automaticamente los recursos segun los niveles de agua y sol
+	Enviroment::getInstancia()->generarRecursos();
 
-		cout << endl;
-		cout << "Mostrando los objetos del entorno" << endl;
-		cout << Enviroment::getInstancia()->getLista()->toString();
-		break;
-		//cout << "Desea agregar otro Recurso? (1: Si, 0: No): ";
-		//cin >> opcion;
+	//pos si quiere agregar recursos manualmente pero en cant
+	cout << "Desea agregar recursos manualmente? (1: Si, 0: No): ";
+	cin >> opcion;
 
-		while (cin.fail() || (opcion != 0 && opcion != 1)) {
-			cin.clear();
-			cin.ignore(1000, '\n');
-			cout << "Opcion invalida, ingrese 0 o 1: ";
-			cin >> opcion;
-		}
+	while (cin.fail() || (opcion != 0 && opcion != 1)) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Opcion invalida, ingrese 0 o 1: ";
+		cin >> opcion;
+	}
 
-	} while (opcion != 0); // si el usuario marca 0 sale del ciclo
+	if (opcion == 1) {
+		do {
+			cout << "Ingrese la cantidad de recursos a agregar (max " << maxRecursoPosible << "): ";
+			cin >> cantRecurso;
+
+			if (cin.fail() || cantRecurso < 0 || cantRecurso > maxRecursoPosible) {
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cout << "Cantidad invalida. Debe ser entre 0 y " << maxRecursoPosible << "." << endl;
+			}
+			else break;
+		} while (true);
+
+		Enviroment::getInstancia()->agregarRecursoPorCan(cantRecurso); // Agrega recursos manuales
+	}
+
+	cout << "\nRecursos generados. Mostrando el entorno:\n";
+	cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
 }
+
 
 
 void Interfaz::MostrarEntornoAndInteractions(){}

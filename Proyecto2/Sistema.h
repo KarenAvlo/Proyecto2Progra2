@@ -11,14 +11,14 @@ public:
 
 	static void visualMenuPrincipal();
 	static void visualGenerarAleatorio();
-	static void visualsubmenuRegistro();
+	static void visualMenuCrearPersonalizado();
 	static void visualsubmenuReportes();
 	static void visualsubmenuPersistenciaDeDatos();
 
 	// Lógica de los submenús:
 	void mostrarMenuPrincipal();
 	void mostrarSubmenuAleatorio();
-	void mostrarSubmenuRegistro();
+	void mostrarMenuCrearPersonalizado();
 	void mostrarSubmenuRegistroDatos();
 	void mostrarSubmenuReportes();
 	void mostrarSubmenuEntornoyInteracciones();

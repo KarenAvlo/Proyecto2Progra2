@@ -11,7 +11,7 @@ void Sistema::visualMenuPrincipal(){
 	cout << ("   ---[ Menu Principal ]---   ") << endl;
 	cout << "[1] - Generar entorno aleatorio." << endl;
 	cout << "[2] - Generar Entorno personalidado." << endl;
-	cout << "[3] - Modificacion de Datos" << endl;
+	cout << "[3] - Ver Entorno en movimiento..." << endl;
 	//aqui pienso que como solo hay un entorno a la vez, no se deberia modificar,
 	//si se quiere modificar pienso que lo ideal seria matar el entorno actual y crear uno nuevo
 	//para mantener la coerencia de un entorno por vez
@@ -27,11 +27,12 @@ void Sistema::visualGenerarAleatorio() {
 	cout << "[0] - Volver a Menu Principal" << endl << endl;
 }
 
-void Sistema::visualsubmenuRegistro(){
-	cout<<("   ---[ Submenu Registro de Datos ]---   ")<<endl;
+void Sistema::visualMenuCrearPersonalizado(){
+	cout<<("   ---[ Submenu Generar Entorno Personalizado ]---   ")<<endl;
 	cout << "(1) - Generar Creatura(s)" << endl;
 	cout << "(2) - Generar niveles: AGUA/SOL (afecta a la regeneracion de recursos) " << endl;
 	cout << "[0] - Volver a Menu Principal" << endl << endl;
+	cout << "Ingrese la opcion: " << endl;
 }
 
  void Sistema::visualsubmenuReportes(){
@@ -56,7 +57,10 @@ void Sistema::visualsubmenuPersistenciaDeDatos() {
 
 // Lógica de los submenús:
 void Sistema::mostrarMenuPrincipal(){
-	int opcion;
+	int opcion = 0;
+	int sol = 0;
+	int agua = 0;
+	int tipo = 0;
 
 	do {
 		system("cls");
@@ -80,13 +84,32 @@ void Sistema::mostrarMenuPrincipal(){
 
 		case 1:
 			visualGenerarAleatorio();
+			cin >> opcion;
 			cout << "\nPresione Enter para continuar...";
 			cin.ignore();
 			cin.get();
 			break;
 
 		case 2:
-			visualsubmenuRegistro();
+			visualMenuCrearPersonalizado();
+			cin >> opcion;
+			while (cin.fail() || opcion < 0 || opcion > 2) {
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cout << "Opcion invalida, ingrese 0 a 2: ";
+				cin >> opcion;
+			}
+			switch (opcion) {
+			case 1: {
+				i->ingresarCreatura(tipo);
+			}break;
+			case 2: {
+				i->ingresarRecurso(sol, agua);
+			}break;
+
+			default: { cout << "Entrada invalida..."; }break;
+
+			}
 			cout << "\nPresione Enter para continuar...";
 			cin.ignore();
 			cin.get();
@@ -144,14 +167,15 @@ void Sistema::mostrarSubmenuAleatorio() {
 	} while (opcion != 0);
 }
 
-void Sistema::mostrarSubmenuRegistro()
+void Sistema::mostrarMenuCrearPersonalizado()
 {
 	int opcion;
+	int tipo = 0;
+	int sol = 0;
+	int agua = 0;
 	do {
 		system("cls");
-		visualsubmenuRegistro();
-
-
+		mostrarMenuCrearPersonalizado();
 
 		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
 			cin.clear();
@@ -161,16 +185,20 @@ void Sistema::mostrarSubmenuRegistro()
 		switch (opcion) {
 		case 1:
 			cout << "Generar criaturas" << endl;
-			i->ingresarCreatura();
-			/*cout << "\nPresione Enter para continuar...";
-			cin.ignore();
-			cin.get();*/
+			while (!(cin >> tipo) || opcion < 1 || opcion >3)
+			{
+				i->ingresarCreatura(tipo);
+			}
 			break;
 		case 2:
-			i->ingresarRecurso();
-			/*cout << "\nPresione Enter para continuar...";
+			cout << "Generar recursos" << endl;
+			while (!(cin >> sol, agua) || agua < 0 || agua > 2 && sol < 0 || sol > 2)
+			{
+				i->ingresarRecurso(sol, agua);
+			}
+			cout << "\nPresione Enter para continuar...";
 			cin.ignore();
-			cin.get();*/
+			cin.get();
 			break;
 		}
 	} while (opcion != 0);
@@ -183,7 +211,7 @@ void Sistema::mostrarSubmenuRegistroDatos(){
 	do {
 
 		system("cls");
-		visualsubmenuRegistro();
+		visualMenuCrearPersonalizado();
 
 		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
 			cin.clear();
@@ -200,12 +228,12 @@ void Sistema::mostrarSubmenuRegistroDatos(){
 
 		case 1:
 			system("cls");
-			i->ingresarCreatura();
+			/*i->ingresarCreatura();*/
 			break;
 
 		case 2:
 			system("cls");
-			i->ingresarRecurso();
+			/*i->ingresarRecurso();*/
 			break;
 		}
 	}   while (opcion != 0);
