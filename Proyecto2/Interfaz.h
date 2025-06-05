@@ -10,6 +10,7 @@ public:
 	void generarAleatorio();
 	void ingresarCreatura(int);
 	void ingresarRecurso(int, int);
+	void mostrarEntorno();
 
 	void MostrarEntornoAndInteractions();
 

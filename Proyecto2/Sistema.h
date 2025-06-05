@@ -19,6 +19,8 @@ public:
 	void mostrarMenuPrincipal();
 	void mostrarSubmenuAleatorio();
 	void mostrarMenuCrearPersonalizado();
+	void mostrarEntorno();
+	void ejecutarSimulacion(int tickTiempo);
 	void mostrarSubmenuRegistroDatos();
 	void mostrarSubmenuReportes();
 	void mostrarSubmenuEntornoyInteracciones();

@@ -8,6 +8,7 @@ void Interfaz::generarAleatorio()
 	//para entornos completamente aleatorios
 	cout << "   --- Generando Entorno Aleatorio ---   " << endl;
 
+
 }
 
 void Interfaz::ingresarCreatura(int op) {
@@ -152,7 +153,15 @@ void Interfaz::ingresarRecurso(int a, int s) {
 	cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
 }
 
-
+void Interfaz::mostrarEntorno()
+{
+	cout << "   --- Entorno Actual ---   " << endl;
+	cout << Enviroment::getInstancia()->getMapa()->mostrarMapa() << endl;
+	cout << "Clima: " << Enviroment::getInstancia()->getClima() << endl;
+	cout << "Estacion: " << Enviroment::getInstancia()->getEstacion() << endl;
+	cout << "Nivel de Agua: " << Enviroment::getInstancia()->getNivelAgua() << endl;
+	cout << "Nivel de Sol: " << Enviroment::getInstancia()->getNivelSol() << endl;
+}
 
 void Interfaz::MostrarEntornoAndInteractions(){}
 
