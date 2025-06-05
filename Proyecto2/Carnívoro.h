@@ -12,6 +12,8 @@ public:
 
 	string getEtiqueta() const override;
 
+	void reproducirse() override;
+
 	void alimentarse() override;
 
 	void atacar() override;

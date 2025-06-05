@@ -25,7 +25,7 @@ void Hervivoro::reproducirse() {
 		setEstrategia(make_shared<EstrategiaReproduccion>());
 		if (E) {
 			E->EjecutarEstrategia(shared_from_this());
-		/*	cout << "REPRODUCIENDO COMO HERVIVORO\n";*/
+
 		}
 	}
 }

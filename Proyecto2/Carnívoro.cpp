@@ -15,6 +15,19 @@ string Carnívoro::getEtiqueta() const {
 }
 
 
+void Carnívoro::reproducirse() {
+	if (Enviroment::getInstancia()->hayCarnivoroCerca(shared_from_this())) {
+		//si hay un animal de su mismo tipo, entonces reproduzcase
+
+
+		setEstrategia(make_shared<EstrategiaReproduccion>());
+		if (E) {
+			E->EjecutarEstrategia(shared_from_this());
+		}
+	}
+
+}
+
 void Carnívoro::alimentarse() {
 	setEstrategia(make_shared <EstrategiaAlimentacionC>());
 
