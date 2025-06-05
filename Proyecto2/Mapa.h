@@ -29,7 +29,7 @@ public:
 
 	bool agregarObjeto(int, int, shared_ptr<Objeto> loquesea);
 
-	void colocarObjeto(int x, int y, shared_ptr<Objeto> obj);  //para el movimiento de las criaturas
+	bool colocarObjeto(int x, int y, shared_ptr<Objeto> obj);  //para el movimiento de las criaturas
 
 	bool eliminarObjeto(int x, int y);
 

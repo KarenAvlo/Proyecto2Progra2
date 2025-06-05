@@ -81,6 +81,13 @@ public:
 
 	bool hayCreaturaDebilCerca(Creatura* cre) const;
 
+	bool hayHerviroroCerca(shared_ptr<Creatura> cre) const;
+
+	bool hayCarnivoroCerca(shared_ptr<Creatura> cre) const;
+
+	bool hayOmnivoroCerca(shared_ptr<Creatura> cre) const;
+
+
 	//ticks de tiempo
 	void simularTiempoAleatorio();
 

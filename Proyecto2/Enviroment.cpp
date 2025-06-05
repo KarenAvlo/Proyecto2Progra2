@@ -31,11 +31,19 @@ void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
 	int x = creatura->getX();
 	int y = creatura->getY();
 
-	if (mapa->agregarObjeto(x, y, creatura) && mapa->posValida(x,y)) {
-		objetos.agregar(creatura);
+	cout << "Intentando agregar criatura en (" << x << ", " << y << ")" << endl;
+
+	if (mapa->posValida(x, y) && !mapa->hayObjetoEnMapa(x, y)) {
+		if (mapa->agregarObjeto(x, y, creatura)) {
+			objetos.agregar(creatura);
+			cout << "Criatura agregada correctamente." << endl;
+		}
+		else {
+			cerr << "Fallo al agregar la creatura en el mapa, posiblemente un error interno." << endl;
+		}
 	}
 	else {
-		cerr << " No se pudo agregar la Creatura en ( " << x << "," << y << ") , posicion invalida o ocupada" << endl;
+		cerr << " No se pudo agregar la Creatura en (" << x << "," << y << ") , posicion invalida o ocupada" << endl;
 	}
 }
 
@@ -328,7 +336,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 		// Intenta convertir a Hervivoro
 		 shared_ptr<Hervivoro> her = dynamic_pointer_cast<Hervivoro>(obj);
-		 if (her && her.get() != cre) {
+		 if (her && her.get()!= cre) {
 			 double dist = hypot(her->getX() - cre->getX(), her->getY() - cre->getY());
 			 if (dist <= 3.0) return true;
 		 }
@@ -341,6 +349,61 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 }
 	 }
 	 return false;
+ }
+
+ bool Enviroment::hayHerviroroCerca(shared_ptr<Creatura> cre) const {
+	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+
+		 shared_ptr<Objeto> obj = *it;
+
+		 //el hypot calcula la formula de la distancia
+
+
+		// Intenta convertir a Hervivoro
+		 shared_ptr<Hervivoro> her = dynamic_pointer_cast<Hervivoro>(obj);
+		 if (her && her!= cre) {
+			 double dist = hypot(her->getX() - cre->getX(), her->getY() - cre->getY());
+			 if (dist <= 5) return true;
+		 }
+	 }
+	 return false;
+ }
+
+ bool Enviroment::hayCarnivoroCerca(shared_ptr<Creatura> cre) const {
+	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+
+		 shared_ptr<Objeto> obj = *it;
+
+		 //el hypot calcula la formula de la distancia
+
+		 // Intenta convertir a Omnivoro
+		 shared_ptr<Carnívoro> car = dynamic_pointer_cast<Carnívoro>(obj);
+		 if (car && car != cre) {
+			 double dist = hypot(car->getX() - cre->getX(), car->getY() - cre->getY());
+			 if (dist <= 2) return true;
+		 }
+	 }
+	 return false;
+
+
+ }
+
+ bool Enviroment::hayOmnivoroCerca(shared_ptr<Creatura> cre) const {
+	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+
+		 shared_ptr<Objeto> obj = *it;
+
+		 //el hypot calcula la formula de la distancia
+
+		 // Intenta convertir a Omnivoro
+		 shared_ptr<Omnivoro> om = dynamic_pointer_cast<Omnivoro>(obj);
+		 if (om && om != cre) {
+			 double dist = hypot(om->getX() - cre->getX(), om->getY() - cre->getY());
+			 if (dist <= 1.5) return true;
+		 }
+	 }
+	 return false;
+
  }
 
  void Enviroment::simularTiempoAleatorio()

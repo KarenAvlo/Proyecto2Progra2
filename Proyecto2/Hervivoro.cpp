@@ -16,6 +16,20 @@ string Hervivoro::getEtiqueta() const{
 	return "Hervivoro";
 }
 
+void Hervivoro::reproducirse() {
+	
+	if (Enviroment::getInstancia()->hayHerviroroCerca(shared_from_this())) {
+		//si hay un animal de su mismo tipo, entonces reproduzcase
+
+
+		setEstrategia(make_shared<EstrategiaReproduccion>());
+		if (E) {
+			E->EjecutarEstrategia(shared_from_this());
+		/*	cout << "REPRODUCIENDO COMO HERVIVORO\n";*/
+		}
+	}
+}
+
 void Hervivoro::alimentarse() {
 	setEstrategia(make_shared<EstrategiaAlimentacionH>());
 	if (E) {

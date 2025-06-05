@@ -25,9 +25,10 @@ void Carnívoro::alimentarse() {
 
 void Carnívoro::atacar() {
 	setEstrategia(make_shared <EstrategiaAtaque>());
-
-	if (E) {
-		E->EjecutarEstrategia(shared_from_this());
+	if (energia >= 15) {
+		if (E) {
+			E->EjecutarEstrategia(shared_from_this());
+		}
 	}
 
 }

@@ -28,7 +28,7 @@ public:
 
 	virtual void atacar() = 0;
 
-	void reproducirse();
+	virtual void reproducirse();
 
 	int getEnergia();
 

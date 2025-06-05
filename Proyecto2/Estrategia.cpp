@@ -2,10 +2,8 @@
 
 void EstrategiaReproduccion::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
-	if (c->getEdad() > 20 && c->getEnergia() > 90) {
-
 		//se crea una creatura por defecto...
-
+    if (c->getEdad() > 20 && c->getEnergia() >90) {
 		int tipo = FactoryCreature::etiquetaToTipo(c->getEtiqueta());
 
 		//llamamos a factory para crear una creatura
@@ -13,8 +11,14 @@ void EstrategiaReproduccion::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 		// luego se introduce al ambiente...
 		//pues lo que se hace es crear una creatura de su mismo tipo
+
+		cout << "Criatura creada para reproducción en (" << cre->getX() << "," << cre->getY() << ")\n";
+
 		Enviroment::getInstancia()->agregarCreatura(cre);
 	}
+	/*else {
+		cout << "No cumple requisitos para reproducirse (edad > 20, energía > 90)\n";
+	}*/
 }
 
 void EstrategiaMovimiento::EjecutarEstrategia(shared_ptr<Creatura> c) {
@@ -32,12 +36,14 @@ void EstrategiaMovimiento::EjecutarEstrategia(shared_ptr<Creatura> c) {
 		int nuevaY = c->getY() + dy;
 
 		// Si es válida y libre, mover
-		if (mapa->posValida(nuevaX, nuevaY) && mapa->hayObjetoEnMapa(nuevaX, nuevaY) == nullptr) {
+		if (nuevaX >= 0 && nuevaX < Enviroment::getInstancia()->getAnchoMapa() && nuevaY >= 0 && nuevaY < Enviroment::getInstancia()->getAltoMapa()
+			&& !mapa->hayObjetoEnMapa(nuevaX, nuevaY)) {
+
 			mapa->eliminarObjeto(c->getX(), c->getY());
 			c->setX(nuevaX);
 			c->setY(nuevaY);
 			mapa->colocarObjeto(nuevaX, nuevaY, c);
-			return; // Movimiento hecho
+			return;
 		}
 	}
 

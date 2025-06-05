@@ -90,11 +90,19 @@ bool Mapa::agregarObjeto(int x, int y, shared_ptr<Objeto> obj1){
 	return true;
 }
 
-void Mapa::colocarObjeto(int x, int y, shared_ptr<Objeto> obj){
+bool Mapa::colocarObjeto(int x, int y, shared_ptr<Objeto> obj){
 
-		if (posValida(x, y)) {
-			mapa[y][x] = obj;
-		}
+	if (!posValida(x, y)) {
+		cerr << "[ERROR] Intento de colocar objeto fuera de los límites: (" << x << ", " << y << ")\n";
+		return false;
+	}
+	if (hayObjetoEnMapa(x, y)) {
+		cerr << "[ERROR] Ya hay un objeto en esa posición: (" << x << ", " << y << ")\n";
+		return false;
+	}
+
+	mapa[y][x] = obj;
+	return true;
 }
 
 
