@@ -1,10 +1,12 @@
-#pragma once
+﻿#pragma once
 #include "Recursos.h"
 
 class Planta: public Recursos{
+protected: 
+	string etiqueta; 
 public:
 
-	Planta(int = 0, int = 0, int = 0);
+	Planta(int = 0, int = 0, int = 0, string = "🌱");
 
 	void regenerarse() override;
 

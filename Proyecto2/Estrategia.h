@@ -35,7 +35,7 @@ public:
 
 
 
-class EstrategiaDefensa :public Estrategia {
+class EstrategiaDefensa :public Estrategia {  // esta en veremos si se usa
 public:
 	virtual void EjecutarEstrategia(shared_ptr<Creatura> c) override;
 };

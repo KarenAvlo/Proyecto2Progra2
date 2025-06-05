@@ -31,11 +31,11 @@ void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
 	int x = creatura->getX();
 	int y = creatura->getY();
 
-	if (mapa->agregarObjeto(x, y, creatura)) {
+	if (mapa->agregarObjeto(x, y, creatura) && mapa->posValida(x,y)) {
 		objetos.agregar(creatura);
 	}
 	else {
-		cerr << " No se pudo agregar la Creatura en ( " << x << "," << y << ") , posicion inválida o ocupada" << endl;
+		cerr << " No se pudo agregar la Creatura en ( " << x << "," << y << ") , posicion invalida o ocupada" << endl;
 	}
 }
 
@@ -166,13 +166,18 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
  void Enviroment::generarRecursos()
  {
-	 // generar un recurso aleatorio en una posición libre del mapa
-	 int x = rand() % mapa->getAncho();
-	 int y = rand() % mapa->getAlto();
+	 int maxIntentos = 100; // para evitar un bucle infinito
 
-	 if (!mapa->hayObjetoEnMapa(x, y)) {
-		 shared_ptr<Recursos> recurs = make_shared<Recursos>(x, y, 100);
-		 agregarRecurso(recurs);
+	 // generar un recurso aleatorio en una posición libre del mapa
+	 for (int i = 0; i < maxIntentos; i++) {
+		 int x = rand() % mapa->getAncho();
+		 int y = rand() % mapa->getAlto();
+		 // Verificar si la posicion esta libre
+		 if (!mapa->hayObjetoEnMapa(x, y)) {
+			 shared_ptr<Recursos> recurs = make_shared<Recursos>(x, y, 100);
+			 agregarRecurso(recurs);
+			 return; 
+		 }
 	 }
  }
 
@@ -357,34 +362,32 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
  void Enviroment::simularTickTiempo(int maxTick)
  {
-
-	 int ticksPorDia = 10; // Cada 10 ticks cambia clima/estación
+	 int ticksPorDia = 10;
 	 int tickGlobal = 0;
 	 int maxTicks = maxTick;
 	 char continuar = 's';
-	 int interRegeneracion = generarIntervaloDeRegeneracionRecursos();
+
+	 int ticksDesdeUltimoRecurso = 0; // contador individual
 
 	 while (continuar == 's' || continuar == 'S') {
 
 		 for (int tick = 0; tick < maxTicks; ++tick, ++tickGlobal) {
 
-			 cout << endl;
-			 cout << "Tick: " << tickGlobal + 1 << endl;
+			 cout << "\nTick: " << tickGlobal + 1 << endl;
 			 cout << "Clima actual: " << clima << endl;
 			 cout << "Estacion actual: " << estacion << endl;
 
-			 // Cambios al clima 
+			 // Cambio de clima y estación
 			 if (tickGlobal % ticksPorDia == 0) {
-				 
 				 int nuevoClima = rand() % 3 + 1;
 				 setClima(nuevoClima);
+
 				 if (estacion == "Primavera") estacion = "Verano";
 				 else if (estacion == "Verano") estacion = "Otonio";
 				 else if (estacion == "Otonio") estacion = "Invierno";
 				 else estacion = "Primavera";
 			 }
-
-			 // criaturas
+			 // Acciones de criaturas
 			 for (auto& obj : objetos) {
 				 shared_ptr<Creatura> criatura = dynamic_pointer_cast<Creatura>(obj);
 				 if (criatura) {
@@ -392,29 +395,31 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 					 criatura->alimentarse();
 					 criatura->reproducirse();
 					 criatura->atacar();
-
 				 }
-			 }		
-			 //falta simular recursos
-			 if (tickGlobal % interRegeneracion == 0) {
-				 generarRecursos(); // Genera recursos basados en los niveles de agua y sol
 			 }
+			 // Simulación de recursos (por intervalo)
+			 ticksDesdeUltimoRecurso++;
+			 int interRegeneracion = generarIntervaloDeRegeneracionRecursos();
 
+			 if (ticksDesdeUltimoRecurso >= interRegeneracion) {
+				 generarRecursos();
+				 ticksDesdeUltimoRecurso = 0;
+			 }
+			 // Mostrar mapa
 			 cout << mapa->mostrarMapa() << endl;
-			 std::this_thread::sleep_for(std::chrono::seconds(1)); // para simular los segundos
+			 std::this_thread::sleep_for(std::chrono::seconds(1));
 		 }
 
-		
 		 cout << "\n¿Desea continuar la simulacion por mas segundos? (s/n): ";
 		 cin >> continuar;
-		 if (continuar == 'n') {
-			 break;
-		 }else if (continuar == 's' || continuar == 'S') {
+
+		 if (continuar == 's' || continuar == 'S') {
 			 cout << "¿Cuantos segundos quiere?: ";
 			 cin >> maxTicks;
 		 }
 	 }
  }
+
  
 
  void Enviroment::guardarCreaturasEnArchivo(const string& nombreArchivo) const 

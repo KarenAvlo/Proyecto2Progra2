@@ -89,7 +89,7 @@ void Interfaz::ingresarRecurso(int a, int s) {
 		cout << "Opcion invalida, ingrese 0 o 1: ";
 		cin >> opcion;
 	}
-
+	cout << endl;
 	if (opcion == 1) {
 		do {
 			cout << "Nivel de AGUA: [(0)Nada, (1)Poca, (2)Mucha]: ";
@@ -102,6 +102,7 @@ void Interfaz::ingresarRecurso(int a, int s) {
 			}
 			else break;
 		} while (true);
+		cout << endl;
 
 		do {
 			cout << "Nivel de SOL: [(0)De noche, (1)Nublado, (2)Soleado]: ";
@@ -114,9 +115,11 @@ void Interfaz::ingresarRecurso(int a, int s) {
 			}
 			else break;
 		} while (true);
+		cout << endl;
 		Enviroment::getInstancia()->setNivelAgua(agua);
 		Enviroment::getInstancia()->setNivelSol(sol);
 		cout << "Niveles actualizados exitosamente." << endl;
+		cout << endl;
 	}
 
 	// Generar automaticamente los recursos segun los niveles de agua y sol

@@ -1,4 +1,4 @@
-#include "Recursos.h"
+﻿#include "Recursos.h"
 #include "Creature.h"
 
 Recursos::Recursos(int xx, int yy, int ee)
@@ -9,7 +9,7 @@ Recursos::~Recursos(){}
 
 string Recursos::getEtiqueta() const
 {
-	return ":";
+	return "_*_";
 }
 
 void Recursos::regenerarse()
@@ -19,7 +19,7 @@ void Recursos::regenerarse()
 
 string Recursos::toString() const
 {
-	return "";
+	return "_*_";
 }
 
 void Recursos::consumir(Creatura* c) {

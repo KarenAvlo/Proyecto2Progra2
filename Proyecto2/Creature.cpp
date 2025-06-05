@@ -29,8 +29,8 @@ void Creatura::reproducirse() {
 
 	setEstrategia(make_shared <EstrategiaReproduccion>());
 
-	if (energia >= 10) {
-		ReducirEnergia(10);
+	if (energia >= 90) {
+		ReducirEnergia(90);
 		E->EjecutarEstrategia(shared_from_this());
 	}
 }

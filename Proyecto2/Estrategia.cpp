@@ -2,7 +2,7 @@
 
 void EstrategiaReproduccion::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
-	if (c->getEdad() > 20 && c->getEnergia() > 10) {
+	if (c->getEdad() > 20 && c->getEnergia() > 90) {
 
 		//se crea una creatura por defecto...
 
@@ -66,9 +66,6 @@ void EstrategiaAtaque::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 void EstrategiaDefensa::EjecutarEstrategia(shared_ptr<Creatura> c) {
 	// me falta
-
-
-
 
 }
 

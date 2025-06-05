@@ -42,6 +42,10 @@ void Sistema::mostrarEntorno()
 
 void Sistema::ejecutarSimulacion(int tickTiempo)
 {
+	if (tickTiempo <= 0) {
+		cerr << "El tick de tiempo debe ser un numero positivo." << endl;
+		return;
+	}
 	Enviroment::getInstancia()->simularTickTiempo(tickTiempo);
 	cout << "Simulacion ejecutada por " << tickTiempo << " ticks de tiempo." << endl;
 	cout << "Mostrando el entorno actual:" << endl;
@@ -72,6 +76,7 @@ void Sistema::visualsubmenuPersistenciaDeDatos() {
 void Sistema::mostrarMenuPrincipal() {
 	int opcion = -1;
 	int tickTiempo = 0;
+	int iniciarSimulacion = 0;
 
 	do {
 		system("cls");
@@ -94,8 +99,8 @@ void Sistema::mostrarMenuPrincipal() {
 		case 1:
 			visualGenerarAleatorio();
 			cout << "\nPresione Enter para continuar...";
-			cin.ignore(); // limpia '\n' pendiente
-			cin.get();    // espera Enter
+			cin.ignore(); 
+			cin.get();   
 			break;
 
 		case 2: {
@@ -122,19 +127,32 @@ void Sistema::mostrarMenuPrincipal() {
 			break;
 		}
 
-		case 3:
+		case 3: {
 			mostrarEntorno();
-			cout << "Ingrese los ticks de tiempo para ejecutar la simulacion: " << endl;
-			while (!(cin >> tickTiempo) || tickTiempo < 0) {
+			cout << "Desea iniciar la simulacion? (1: Si, 0: No): " << endl;
+			while (!(cin >> iniciarSimulacion) || (iniciarSimulacion != 0 && iniciarSimulacion != 1)) {
 				cin.clear();
 				cin.ignore(1000, '\n');
-				cerr << "Entrada invalida. Ingrese un numero positivo: ";
+				cerr << "Entrada invalida. Ingrese 0 o 1: ";
+			}if (iniciarSimulacion == 1) {
+				cout << "Ingrese los ticks de tiempo para ejecutar la simulacion: " << endl;
+				while (!(cin >> tickTiempo) || tickTiempo < 0) {
+					cin.clear();
+					cin.ignore(1000, '\n');
+					cerr << "Entrada invalida. Ingrese un numero positivo: ";
+				}
+				ejecutarSimulacion(tickTiempo);
+				cout << "\nPresione Enter para continuar...";
+				cin.ignore();
+				cin.get();
 			}
-			ejecutarSimulacion(tickTiempo);
-			cout << "\nPresione Enter para continuar...";
-			cin.ignore();
-			cin.get();
-			break;
+			else {
+				cout << "Simulacion no iniciada, regresando..." << endl;
+				cout << "\nPresione Enter para continuar...";
+				cin.ignore(); // limpia '\n' pendiente
+				cin.get();    // espera Enter
+			}
+		}break;
 
 		case 4:
 			mostrarSubmenuPersistenciaDeDatos();

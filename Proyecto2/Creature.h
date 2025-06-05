@@ -12,9 +12,7 @@ class Estrategia;
 class Creatura: public Objeto, public enable_shared_from_this<Creatura> {
 protected:
 	int energia;
-
 	int edad;
-
 	shared_ptr<Estrategia> E;
 
 public:
