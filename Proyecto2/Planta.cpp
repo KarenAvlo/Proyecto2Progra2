@@ -1,8 +1,8 @@
 ﻿#include "Planta.h"
 
 
-Planta::Planta(int xx, int yy, int ee, string eti)
-	:Recursos(xx, yy, ee), etiqueta(eti) 
+Planta::Planta(int xx, int yy, int ee)
+	:Recursos(xx, yy, ee), etiqueta("_+_")
 {}
 
 void Planta::regenerarse() {
@@ -13,7 +13,7 @@ void Planta::regenerarse() {
 
 string Planta::toString() const {
 	stringstream s;
-	s << "🌱(" << x << "," << y << ") E:" << EnergyValue; // P de Planta, sus coordenadas y respectiva energía
+	s << "_+_ (" << x << "," << y << ") E:" << EnergyValue; // P de Planta, sus coordenadas y respectiva energía
 	return s.str();
 }
 

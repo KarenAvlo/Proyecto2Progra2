@@ -182,7 +182,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 int y = rand() % mapa->getAlto();
 		 // Verificar si la posicion esta libre
 		 if (!mapa->hayObjetoEnMapa(x, y)) {
-			 shared_ptr<Recursos> recurs = make_shared<Recursos>(x, y, 100);
+			 shared_ptr<Recursos> recurs = make_shared<Planta>(x, y, 100);
 			 agregarRecurso(recurs);
 			 return; 
 		 }
@@ -213,7 +213,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 		 // Verificar si la posicion esta libre
 		 if (!mapa->hayObjetoEnMapa(x, y)) {
-			 shared_ptr<Recursos> recurs = make_shared<Recursos>(x, y, 100);
+			 shared_ptr<Recursos> recurs = make_shared<Planta>(x, y, 100);
 			 agregarRecurso(recurs);
 			 agregados++;
 		 }

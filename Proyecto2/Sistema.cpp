@@ -149,8 +149,8 @@ void Sistema::mostrarMenuPrincipal() {
 			else {
 				cout << "Simulacion no iniciada, regresando..." << endl;
 				cout << "\nPresione Enter para continuar...";
-				cin.ignore(); // limpia '\n' pendiente
-				cin.get();    // espera Enter
+				cin.ignore(); 
+				cin.get();  
 			}
 		}break;
 

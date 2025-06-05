@@ -6,7 +6,7 @@ protected:
 	string etiqueta; 
 public:
 
-	Planta(int = 0, int = 0, int = 0, string = "🌱");
+	Planta(int = 0, int = 0, int = 0);
 
 	void regenerarse() override;
 
