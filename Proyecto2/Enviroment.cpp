@@ -363,7 +363,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 shared_ptr<Hervivoro> her = dynamic_pointer_cast<Hervivoro>(obj);
 		 if (her && her!= cre) {
 			 double dist = hypot(her->getX() - cre->getX(), her->getY() - cre->getY());
-			 if (dist <= 5) return true;
+			 if (dist <= 1.5) return true;
 		 }
 	 }
 	 return false;
@@ -380,7 +380,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 shared_ptr<Carnívoro> car = dynamic_pointer_cast<Carnívoro>(obj);
 		 if (car && car != cre) {
 			 double dist = hypot(car->getX() - cre->getX(), car->getY() - cre->getY());
-			 if (dist <= 2) return true;
+			 if (dist <= 1.5) return true;
 		 }
 	 }
 	 return false;
