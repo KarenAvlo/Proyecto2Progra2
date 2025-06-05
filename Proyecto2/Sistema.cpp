@@ -83,10 +83,10 @@ void Sistema::mostrarMenuPrincipal() {
 		visualMenuPrincipal();
 
 		// Validar entrada
-		while (!(cin >> opcion) || opcion < 0 || opcion > 4) {
+		while (!(cin >> opcion) || opcion < 0 || opcion > 5) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			cerr << "Opcion invalida. Ingrese un numero entre 0 y 4: ";
+			cerr << "Opcion invalida. Ingrese un numero entre 1 y 5 o 0: ";
 		}
 
 		system("cls");
@@ -97,13 +97,15 @@ void Sistema::mostrarMenuPrincipal() {
 			break;
 
 		case 1:
+			// Generar entorno aleatorio
 			visualGenerarAleatorio();
 			cout << "\nPresione Enter para continuar...";
-			cin.ignore(); 
-			cin.get();   
+			cin.ignore();
+			cin.get();
 			break;
 
 		case 2: {
+			// Generar entorno personalizado
 			int subopcion = -1;
 			visualMenuCrearPersonalizado();
 			while (!(cin >> subopcion) || subopcion < 0 || subopcion > 2) {
@@ -128,6 +130,7 @@ void Sistema::mostrarMenuPrincipal() {
 		}
 
 		case 3: {
+			//mostrar simulacion
 			mostrarEntorno();
 			cout << "Desea iniciar la simulacion? (1: Si, 0: No): " << endl;
 			while (!(cin >> iniciarSimulacion) || (iniciarSimulacion != 0 && iniciarSimulacion != 1)) {
@@ -149,20 +152,35 @@ void Sistema::mostrarMenuPrincipal() {
 			else {
 				cout << "Simulacion no iniciada, regresando..." << endl;
 				cout << "\nPresione Enter para continuar...";
-				cin.ignore(); 
-				cin.get();  
+				cin.ignore();
+				cin.get();
 			}
 		}break;
 
-		case 4:
+		case 4: {
+			//reporte de datos
 			mostrarSubmenuPersistenciaDeDatos();
 			cout << "\nPresione Enter para continuar...";
 			cin.ignore();
 			cin.get();
-			break;
-		}
+		}break;
 
-	} while (opcion != 0);
+		case 5: {
+			//persistencia de datos
+			mostrarSubmenuReportes();
+			cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();
+		}break;
+
+		default: {
+			cerr << "Opcion invalida. Ingrese un numero entre 0 y 5." << endl;
+			cout << "\nPresione Enter para continuar...";
+			cin.ignore();
+			cin.get();
+		}break;
+		}
+		} while (opcion != 0);
 }
 
 //por hacer, primero tengo que hacer cosas antes
