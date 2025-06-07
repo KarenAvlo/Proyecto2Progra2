@@ -10,19 +10,12 @@ Sistema::~Sistema() {
 void Sistema::visualMenuPrincipal() {
 	cout << ("   ---[ Menu Principal ]---   ") << endl;
 
-	cout << "[1] - Generar entorno aleatorio." << endl;
-	cout << "[2] - Generar Entorno personalizado." << endl;
-	cout << "[3] - Mostrar Entorno Actual" << endl;
-	cout << "[4] - Limpiar Entorno" << endl;
-	cout << "[5] - Reporte de Datos" << endl;
-	cout << "[6] - Persistencia De Datos" << endl;
+	cout << "[1] - Generar Entorno personalizado." << endl;
+	cout << "[2] - Mostrar Entorno Actual" << endl;
+	cout << "[3] - Limpiar Entorno" << endl;
+	cout << "[4] - Reporte de Datos" << endl;
+	cout << "[5] - Persistencia De Datos" << endl;
 	cout << "[0] - Salir del sistema" << endl << endl;
-	cout << "Ingrese la opcion: " << endl;
-}
-void Sistema::visualGenerarAleatorio() {
-	cout << ("   ---[ Generar aleatorio ]---   ") << endl;
-	cout << "[1] - Generar." << endl;
-	cout << "[0] - Volver a Menu Principal" << endl << endl;
 	cout << "Ingrese la opcion: " << endl;
 }
 
@@ -30,7 +23,7 @@ void Sistema::visualMenuCrearPersonalizado() {
 	cout << ("   ---[ Submenu Generar Entorno Personalizado ]---   ") << endl;
 	cout << "[1] - Generar Creaturas" << endl;
 	cout << "[2] - Generar Recursos" << endl;
-	cout << "[3] - Generar Recursos Aleatorios " << endl;
+	cout << "[3] - Generar Recursos Aleatorios(con, sol y agua) " << endl;
 	cout << "[0] - Volver a Menu Principal" << endl << endl;
 	cout << "Ingrese la opcion: " << endl;
 }
@@ -85,43 +78,32 @@ void Sistema::mostrarMenuPrincipal() {
 			cout << "Salida exitosa..." << endl;
 			break;
 
-		case 1:
-			// Generar entorno aleatorio
-			visualGenerarAleatorio();
-
-
-			//porfavor esto, ponerlo dentro de la interfaz, no aqui
-			cout << "\nPresione Enter para continuar...";
-			cin.ignore();
-			cin.get();
-			break;
-
-		case 2: {
+		case 1: {
 			// Generar entorno personalizado
 			visualMenuCrearPersonalizado();
 			i->entornoPersonalizado();
 			break;
 		}
 
-		case 3: {
+		case 2: {
 			//mostrar simulacion
 			mostrarEntorno();
 			i->iniciarSimulacion();
 			break;
 		}
 
-		case 4: {
+		case 3: {
 			i->limpiarEntorno();
 			break;
 		}
 
-		case 5: {
+		case 4: {
 			//reporte de datos
 			mostrarSubmenuReportes();
 			break;
 		}
 
-		case 6: {
+		case 5: {
 			//persistencia de datos
 			mostrarSubmenuPersistenciaDeDatos();
 			break;
@@ -137,34 +119,6 @@ void Sistema::mostrarMenuPrincipal() {
 		}
 	} while (opcion != 0);
 }
-
-//por hacer, primero tengo que hacer cosas antes
-void Sistema::mostrarSubmenuAleatorio() {
-	int opcion;
-	do {
-		system("cls");
-		visualGenerarAleatorio();
-
-		while (!(cin >> opcion) || opcion < 0 || opcion > 2) {
-			cin.clear();
-			cin.ignore(1000, '\n');
-			cerr << "Opcion invalida. Ingrese 0, 1 o 2: ";
-		}
-		system("cls");
-		switch (opcion) {
-		case 0:
-			break;
-		case 1:
-			system("cls");
-			i->generarAleatorio();
-			/*cout << "\nPresione Enter para continuar...";
-			cin.ignore();
-			cin.get();*/
-			break;
-		}
-	} while (opcion != 0);
-}
-
 
 void Sistema::mostrarSubmenuReportes() {
 

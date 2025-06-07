@@ -3,10 +3,6 @@
 Interfaz::Interfaz(){}
 Interfaz::~Interfaz(){}
 
-void Interfaz::generarAleatorio(){
-	//para entornos completamente aleatorios
-	cout << "   --- Generando Entorno Aleatorio ---   " << endl;
-}
 
 void Interfaz::ingresarCreatura() {
 	int opcion = -1;
@@ -71,7 +67,6 @@ void Interfaz::ingresarRecurso() {
 	int opcion = 0;
 	int tipo = 0;
 
-
 	do {
 		system("cls");
 		cout << "   ---[ Ingresar Recurso ]---   " << endl;
@@ -135,6 +130,7 @@ void Interfaz::ingresarRecursoAleatorios() {
 
 	cout << "Desea modificarlos? (1: Si, 0: No): ";
 	cin >> opcion;
+	cout << endl;
 
 	while (cin.fail() || (opcion != 0 && opcion != 1)) {
 		cin.clear();
@@ -147,6 +143,7 @@ void Interfaz::ingresarRecursoAleatorios() {
 		do {
 			cout << "Ingrese el nivel de AGUA [(0) Nada, (1) Poca, (2) Mucha]: ";
 			cin >> agua;
+			cout << endl;
 
 			if (cin.fail() || agua < 0 || agua > 2) {
 				cin.clear();
@@ -170,13 +167,13 @@ void Interfaz::ingresarRecursoAleatorios() {
 
 		Enviroment::getInstancia()->setNivelAgua(agua);
 		Enviroment::getInstancia()->setNivelSol(sol);
+		cout << endl;
 		cout << "Niveles actualizados exitosamente.\n\n";
 	}
+	//se quita mas bien, lo de crear recursos aleatorios, aqui depende del sol y el aguita, mas los tick de tiempo
+	//factoryResources::crearRecursos();
 
-	// Generar recursos automáticos según niveles
-	Enviroment::getInstancia()->generarRecursos();  // cambiar si usas factory
-
-	cout << "¿Desea agregar recursos manualmente? (1: Sí, 0: No): ";
+	cout << "¿Desea agregar recursos manualmente? (1: Si, 0: No): ";
 	cin >> opcion;
 
 	while (cin.fail() || (opcion != 0 && opcion != 1)) {
@@ -188,7 +185,7 @@ void Interfaz::ingresarRecursoAleatorios() {
 
 	if (opcion == 1) {
 		do {
-			cout << "Ingrese la cantidad de recursos a agregar (máx " << maxRecursoPosible << "): ";
+			cout << "Ingrese la cantidad de recursos a agregar (max " << maxRecursoPosible << "): ";
 			cin >> cantRecurso;
 
 			if (cin.fail() || cantRecurso < 0 || cantRecurso > maxRecursoPosible) {
@@ -199,7 +196,7 @@ void Interfaz::ingresarRecursoAleatorios() {
 			else break;
 		} while (true);
 
-		Enviroment::getInstancia()->agregarRecursoPorCan(cantRecurso);
+		FactoryResources::crearRecursosPorCan(cantRecurso);
 	}
 
 	cout << "\nRecursos generados. Mostrando el entorno:\n";

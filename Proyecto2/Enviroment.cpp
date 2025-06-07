@@ -171,63 +171,84 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 if (nivelSol == 0 && nivelAguita == 1) return 9;
 	 if (nivelSol == 1 && nivelAguita == 0) return 9;
 	 if (nivelSol == 0 && nivelAguita == 0) return 15;
+
+	 //este No se mueve a factory
  }
 
- void Enviroment::generarRecursos() {
-	 int maxIntentos = 100; // para evitar un bucle infinito
+ void Enviroment::ticksDeRecursos()
+ {
+	 tickGlobal++;
+	 int canRecurso = generarIntervaloDeRegeneracionRecursos();
 
-	 // generar un recurso aleatorio en una posición libre del mapa
-	 for (int i = 0; i < maxIntentos; i++) {
-		 int x = rand() % mapa->getAncho();
-		 int y = rand() % mapa->getAlto();
-		 // Verificar si la posicion esta libre
-		 if (!mapa->hayObjetoEnMapa(x, y)) {
-			 shared_ptr<Recursos> recurs = make_shared<PlantaFlor>(x, y, 20);
+	 if (tickGlobal >= canRecurso) {
+		 int cantidad = rand() % 3 + 1; 
 
-			 // shared_ptr<Recursos> recurs = make_shared<PlantaRosa>(x, y, 20);
-
-			 // mas bien llamar a Factoryyy, porque tambien podemos crear carne si quisieramos
-
-			 agregarRecurso(recurs);
-			 return; 
+		 for (int i = 0; i < cantidad; i++) {
+			 int tipo = rand() % 3 + 1; 
+			 try {
+				 shared_ptr<Recursos> recurso = FactoryResources::crearInstancia(tipo);
+				 agregarRecurso(recurso);
+			 }
+			 catch (const std::exception& e) {
+				 cerr << "Error generando recurso: " << e.what() << endl;
+			 }
 		 }
+		 tickGlobal = 0;
 	 }
  }
+
+ //void Enviroment::generarRecursos() {
+	// int maxIntentos = 100; // para evitar un bucle infinito
+
+	// // generar un recurso aleatorio en una posición libre del mapa
+	// for (int i = 0; i < maxIntentos; i++) {
+	//	 int x = rand() % mapa->getAncho();
+	//	 int y = rand() % mapa->getAlto();
+	//	 // Verificar si la posicion esta libre
+	//	 if (!mapa->hayObjetoEnMapa(x, y)) {
+	//		 int tipo = rand() % 3 + 1; // tipo de recurso aleatorio entre 1 y 3
+	//		 shared_ptr<Recursos> recurs = FactoryResources::crearInstancia(tipo);
+	//		 agregarRecurso(recurs);
+	//		 return; 
+	//	 }
+	// }
+ //}
 
  //agrega directamente una cantidad de recursos al inicio
- void Enviroment::agregarRecursoPorCan(int n)
- {
-	 int agregados = 0;
-	 int intentos = 0;
-	 int maxIntentos = 100; //evita que quede enclochado
-	 const int max = 5;
-	 int libres = mapa->espaciosLibres();
+ //void Enviroment::agregarRecursoPorCan(int n)
+ //{
+	// int agregados = 0;
+	// int intentos = 0;
+	// int maxIntentos = 100; //evita que quede enclochado
+	// const int max = 5;
+	// int libres = mapa->espaciosLibres();
 
-	 if (libres < n) {
-		 cerr << "No hay suficientes espacios libres en el mapa. Espacios libres: " << libres << endl;
-		 return;
-	 }
-	 if (n < 0 || n > max) {
-		 cerr << "Cantidad invalida. Debe ser entre 0 y " << max << "." << endl;
-		 return;
-	 }
+	// if (libres < n) {
+	//	 cerr << "No hay suficientes espacios libres en el mapa. Espacios libres: " << libres << endl;
+	//	 return;
+	// }
+	// if (n < 0 || n > max) {
+	//	 cerr << "Cantidad invalida. Debe ser entre 0 y " << max << "." << endl;
+	//	 return;
+	// }
 
-	 while (agregados < n && intentos < maxIntentos) {
-		 int x = rand() % mapa->getAncho();
-		 int y = rand() % mapa->getAlto();
+	// while (agregados < n && intentos < maxIntentos) {
+	//	 int x = rand() % mapa->getAncho();
+	//	 int y = rand() % mapa->getAlto();
 
-		 // Verificar si la posicion esta libre
-		 if (!mapa->hayObjetoEnMapa(x, y)) {
-			 shared_ptr<Recursos> recurs = make_shared<PlantaFlor>(x, y, 100);
-			 agregarRecurso(recurs);
-			 agregados++;
-		 }
-		 intentos++;
-	 }
-	 if (agregados < n) {
-		 cerr << "Solo se pudieron agregar " << agregados << " recursos despues de " << intentos << " intentos." << endl;
-	 }
- }
+	//	 // Verificar si la posicion esta libre
+	//	 if (!mapa->hayObjetoEnMapa(x, y)) {
+	//		 int tipo = rand() % 3 + 1; // tipo de recurso aleatorio entre 1 y 3	
+	//		 shared_ptr<Recursos> recurs = FactoryResources::crearInstancia(tipo); // crea un recurso aleatorio
+	//		 agregarRecurso(recurs);
+	//		 agregados++;
+	//	 }
+	//	 intentos++;
+	// }
+	// if (agregados < n) {
+	//	 cerr << "Solo se pudieron agregar " << agregados << " recursos despues de " << intentos << " intentos." << endl;
+	// }
+ //}
 
 
  bool Enviroment::hayPlantaCerca(Herbivoro* her) const {
@@ -489,7 +510,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 					 criatura->atacar();
 				 }
 			 }
-			 //convertir a las creaturas muertas en carne
+			 //convertir a las creaturas muertas en carnitas asadas
 			 isDeadtoMeat();
 
 			 // Simulación de recursos (por intervalo)
@@ -497,7 +518,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 			 int interRegeneracion = generarIntervaloDeRegeneracionRecursos();
 
 			 if (ticksDesdeUltimoRecurso >= interRegeneracion) {
-				 generarRecursos();
+				 FactoryResources::crearRecursos();
 				 ticksDesdeUltimoRecurso = 0;
 			 }
 			 // Mostrar mapa

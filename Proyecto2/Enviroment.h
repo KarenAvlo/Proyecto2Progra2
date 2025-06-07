@@ -13,6 +13,8 @@ class Planta;
 class Recursos;
 class Meat;
 
+static int tickGlobal = 0;
+
 class Enviroment { // singleton
 
 protected:
@@ -25,6 +27,8 @@ protected:
 	shared_ptr<Recursos> recurso; 
 	static unique_ptr<Enviroment> instancia;
 	lista<shared_ptr<Objeto>> objetos;
+
+
 
 
 	Enviroment(); // constructor privado para el singleton
@@ -67,9 +71,12 @@ public:
 
 	int generarIntervaloDeRegeneracionRecursos()const;
 
-	void generarRecursos();
+	//void generarRecursos();
+	// 
+	//para cuando se crea el recurso no genere muchos de golpe
+	void ticksDeRecursos();
 
-	void agregarRecursoPorCan(int n);
+	//void agregarRecursoPorCan(int n);
 
 	bool hayPlantaCerca(Herbivoro* her) const;
 

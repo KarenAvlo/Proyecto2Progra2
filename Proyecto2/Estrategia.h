@@ -2,13 +2,11 @@
 class Creatura;
 class Enviroment;
 
-
 class Estrategia {
 public:
 	virtual void EjecutarEstrategia(shared_ptr<Creatura> c) = 0;
 	virtual ~Estrategia() = default;
 };
-
 
 //--------------------derivadas de estrategia------------------------
 
