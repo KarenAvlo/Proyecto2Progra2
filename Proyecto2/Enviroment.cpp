@@ -343,32 +343,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
  }
 
- //bool Enviroment::hayCreaturaDebilCerca(Creatura* cre) const{
-
-	// for (auto it = objetos.begin(); it != objetos.end(); ++it) {
-
-	//	 shared_ptr<Objeto> obj = *it;
-
-	//	 //el hypot calcula la formula de la distancia
-
-
-	//	// Intenta convertir a Herbivoro
-	//	 shared_ptr<Herbivoro> her = dynamic_pointer_cast<Herbivoro>(obj);
-	//	 if (her && her.get()!= cre) {
-	//		 double dist = hypot(her->getX() - cre->getX(), her->getY() - cre->getY());
-	//		 if (dist <= 3.0) return true;
-	//	 }
-
-	//	 // Intenta convertir a Omnivoro
-	//	 shared_ptr<Omnivoro> om = dynamic_pointer_cast<Omnivoro>(obj);
-	//	 if (om && om.get() != cre) {
-	//		 double dist = hypot(om->getX() - cre->getX(), om->getY() - cre->getY());
-	//		 if (dist <= 3.0) return true;
-	//	 }
-	// }
-	// return false;
- //}
-
+ 
  bool Enviroment::hayHerviroroCerca(shared_ptr<Creatura> cre) const {
 	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
 
@@ -450,6 +425,14 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 }
 	 }
  }
+
+
+ void Enviroment::eliminarTodo() {
+	 objetos.eliminarTodos();
+	 mapa->limpiarCeldas();
+ }
+
+
 
  void Enviroment::simularTiempoAleatorio()
  {

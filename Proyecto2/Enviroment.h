@@ -79,8 +79,6 @@ public:
 
 	shared_ptr<Creatura> getCreaturaDebilCerca(shared_ptr<Creatura> depredador);
 
-	//bool hayCreaturaDebilCerca(Creatura* cre) const;
-
 	bool hayHerviroroCerca(shared_ptr<Creatura> cre) const;
 
 	bool hayCarnivoroCerca(shared_ptr<Creatura> cre) const;
@@ -88,6 +86,8 @@ public:
 	bool hayOmnivoroCerca(shared_ptr<Creatura> cre) const;
 
 	void isDeadtoMeat();
+
+	void eliminarTodo();
 
 
 	//ticks de tiempo

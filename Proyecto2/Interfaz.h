@@ -16,6 +16,7 @@ public:
 	void ejecutarSimulacion(int tickTiempo);
 	void entornoPersonalizado();
 	void iniciarSimulacion();
+	void limpiarEntorno();
 
 	void MostrarReporteCreaturas();
 	void MostrarReporteRecursos();

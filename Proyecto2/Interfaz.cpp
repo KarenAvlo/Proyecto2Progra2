@@ -286,6 +286,20 @@ void Interfaz::iniciarSimulacion() {
 
 }
 
+void Interfaz::limpiarEntorno() {
+
+	Enviroment::getInstancia()->eliminarTodo();
+
+	cout << "Entorno limpio" << endl;
+
+	mostrarEntorno();
+
+	cout << "\nPresione Enter para continuar...";
+	cin.ignore();
+	cin.get();
+	
+}
+
 
 
 void Interfaz::MostrarReporteCreaturas(){

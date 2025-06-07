@@ -33,6 +33,8 @@ public:
 
 	bool eliminarObjeto(int x, int y);
 
+	void limpiarCeldas();
+
 private:
 	int ancho;
 	int alto;

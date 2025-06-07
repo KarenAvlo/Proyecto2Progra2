@@ -34,13 +34,11 @@ string Mapa::mostrarMapa() const {
 	return ss.str();
 }
 
-int Mapa::getAncho() const
-{
+int Mapa::getAncho() const{
 	return ancho;
 }
 
-int Mapa::getAlto() const
-{
+int Mapa::getAlto() const{
 	return alto;
 }
 
@@ -53,8 +51,7 @@ bool Mapa::posValida(int x, int y) {
 	return true;
 }
 
-int Mapa::espaciosLibres() 
-{
+int Mapa::espaciosLibres() {
 	int espaciosLibres = 0;
 	for (int i = 0; i < alto; i++) {
 		for (int j = 0; j < ancho; j++) {
@@ -123,3 +120,11 @@ bool Mapa::eliminarObjeto(int x, int y) {
 	}
 }
 
+
+void Mapa::limpiarCeldas() {
+	for (int i = 0; i < alto; ++i) {
+		for (int j = 0; j < ancho; ++j) {
+			mapa[i][j] = nullptr;
+		}
+	}
+}
