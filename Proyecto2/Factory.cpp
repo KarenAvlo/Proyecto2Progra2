@@ -13,14 +13,13 @@ shared_ptr<Recursos> FactoryResources::crearInstancia(int t){
 			shared_ptr<Recursos> re = nullptr;
 
 			switch (t) {
-			//case 0:
-			///*	re = make_shared<Agua>(newX, newY, 20);*/
-			//	
-			//	break;
 			case 1:
-				re = make_shared<Planta>(newX, newY, 20);
+				re = make_shared<PlantaFlor>(newX, newY, 20);
 				break;
 			case 2:
+				re = make_shared<PlantaRosa>(newX, newY, 20);
+				break;
+			case 3:
 				re = make_shared<Meat>(newX, newY, 20);
 				break;
 			default:
@@ -39,26 +38,26 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 	int alto = mapa->getAlto();
 
 	const int maxIntentos = 100;
-	int newX, newY, edad;
+	int newX, newY;
 	shared_ptr<Estrategia> e1 = make_shared<EstrategiaMovimiento>();
 
 	for (int intentos = 0; intentos < maxIntentos; intentos++) {
 		newX = rand() % ancho;
 		newY = rand() % alto;
-		edad = rand() % 100;
+	
 
 		if (mapa->posValida(newX, newY) && !mapa->hayObjetoEnMapa(newX, newY)) {
 			shared_ptr<Creatura> creatura = nullptr;
 
 			switch (t) {
 			case 1:
-				creatura = make_shared<Hervivoro>(newX, newY, 100, edad, e1);
+				creatura = make_shared<Herbivoro>(newX, newY, 100, 0, e1);
 				break;
 			case 2:
-				creatura = make_shared<Carnívoro>(newX, newY, 100, edad, e1);
+				creatura = make_shared<Carnivoro>(newX, newY, 100, 0, e1);
 				break;
 			case 3:
-				creatura = make_shared<Omnivoro>(newX, newY, 100, edad, e1);
+				creatura = make_shared<Omnivoro>(newX, newY, 100, 0, e1);
 				break;
 			default:
 				throw invalid_argument("Tipo de creatura desconocido");
@@ -67,10 +66,11 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 		}
 	}
 	cerr<<("No se encontró posición válida para crear criatura.");
+	return nullptr;
 }
 
 int FactoryCreature::etiquetaToTipo(const string& etiqueta) {
-	if (etiqueta == "Hervivoro") return 1;
+	if (etiqueta == "Herbivoro") return 1;
 	if (etiqueta == "Carnivoro") return 2;
 	if (etiqueta == "Omnivoro")return 3;
 

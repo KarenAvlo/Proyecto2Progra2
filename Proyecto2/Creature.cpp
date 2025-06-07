@@ -38,6 +38,11 @@ int Creatura::getEnergia() { return energia; }
 
 int Creatura::getEdad() { return edad; }
 
+
+void Creatura::AumentarEdad(){
+	edad++;
+}
+
 void Creatura::AumentarEnergia(int e){
 	if (e >= 0 && e <= MAX_ENERGIA) {
 		energia += e;
@@ -71,16 +76,17 @@ string Creatura::toString() const {
 	return s.str();
 }
 
-string Creatura::getEtiqueta() const {
-	return "Creatura";
-}
 
-bool Creatura::isDead() { 
-	if (energia < 0) {
+
+bool Creatura::isDead() const { 
+	if (energia <= 0) {
 		return true;
 	}
 	return false;
 }
 
+string Creatura::getEtiqueta() const{
+	return "Creatura";
+}
 
 

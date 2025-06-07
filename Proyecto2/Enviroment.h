@@ -6,7 +6,7 @@
 #include "Mapa.h"
 #include "Recursos.h"
 
-class Hervivoro;
+class Herbivoro;
 class Omnivoro;
 class Creatura;
 class Planta;
@@ -71,21 +71,23 @@ public:
 
 	void agregarRecursoPorCan(int n);
 
-	bool hayPlantaCerca(Hervivoro* her) const;
+	bool hayPlantaCerca(Herbivoro* her) const;
 
-	shared_ptr<Planta> getPlantaCerca(shared_ptr<Creatura> hervivoro);
+	shared_ptr<Recursos> getPlantaCerca(shared_ptr<Creatura> hervivoro);
 
 	shared_ptr<Meat>getCarneCerca(shared_ptr<Creatura> depredador);
 
 	shared_ptr<Creatura> getCreaturaDebilCerca(shared_ptr<Creatura> depredador);
 
-	bool hayCreaturaDebilCerca(Creatura* cre) const;
+	//bool hayCreaturaDebilCerca(Creatura* cre) const;
 
 	bool hayHerviroroCerca(shared_ptr<Creatura> cre) const;
 
 	bool hayCarnivoroCerca(shared_ptr<Creatura> cre) const;
 
 	bool hayOmnivoroCerca(shared_ptr<Creatura> cre) const;
+
+	void isDeadtoMeat();
 
 
 	//ticks de tiempo

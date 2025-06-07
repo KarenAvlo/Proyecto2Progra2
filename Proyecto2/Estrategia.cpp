@@ -16,9 +16,6 @@ void EstrategiaReproduccion::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 		Enviroment::getInstancia()->agregarCreatura(cre);
 	}
-	/*else {
-		cout << "No cumple requisitos para reproducirse (edad > 20, energía > 90)\n";
-	}*/
 }
 
 void EstrategiaMovimiento::EjecutarEstrategia(shared_ptr<Creatura> c) {
@@ -70,10 +67,11 @@ void EstrategiaAtaque::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 }
 
-void EstrategiaDefensa::EjecutarEstrategia(shared_ptr<Creatura> c) {
-	// me falta
-
-}
+//
+//void EstrategiaDefensa::EjecutarEstrategia(shared_ptr<Creatura> c) { //no la usaremos
+//	// me falta
+//
+//}
 
 
 void EstrategiaAlimentacionC::EjecutarEstrategia(shared_ptr<Creatura> c) {
@@ -91,7 +89,7 @@ void EstrategiaAlimentacionC::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 void EstrategiaAlimentacionH::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
-	shared_ptr<Planta> alimento = Enviroment::getInstancia()->getPlantaCerca(c);
+	shared_ptr<Recursos> alimento = Enviroment::getInstancia()->getPlantaCerca(c);
 
 	if (!alimento) return;
 
@@ -118,13 +116,13 @@ void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 	}
 
 
-	shared_ptr<Planta> alimento = Enviroment::getInstancia()->getPlantaCerca(c);
+	shared_ptr<Recursos> alimento = Enviroment::getInstancia()->getPlantaCerca(c);
 
 	if (alimento) { //alguna planta
 
 		c->AumentarEnergia(20);
 
-		Enviroment::getInstancia()->eliminarRecurso(alimento);
+		Enviroment::getInstancia()->eliminarRecurso(static_pointer_cast<Objeto>(alimento));
 
 		return;
 	}

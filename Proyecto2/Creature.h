@@ -34,15 +34,22 @@ public:
 
 	int getEdad();
 
+	void AumentarEdad();
+
 	virtual void AumentarEnergia(int);
+
 	void ReducirEnergia(int);
-	void setEdad(int);
+
+	void setEdad(int); //no necesitamos cambiar la edad
+
 	void setEstrategia(shared_ptr<Estrategia>);
 
-	bool isDead();
+	virtual bool isDead() const;
+
 	virtual string toString() const override;
-	string getEtiqueta() const override;
 
 	virtual void guardarDatos(ofstream& archivo) const = 0;
+
+	virtual string getEtiqueta() const override;
 };
 

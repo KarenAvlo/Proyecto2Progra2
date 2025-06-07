@@ -1,17 +1,29 @@
 ﻿#pragma once
 #include "Recursos.h"
 
-class Planta: public Recursos{
-protected: 
-	string etiqueta; 
+class PlantaFlor: public Recursos{
+
 public:
 
-	Planta(int = 0, int = 0, int = 0);
-
-	void regenerarse() override;
+	PlantaFlor(int = 0, int = 0, int = 0);
 
 	string toString() const override;
 
-	string getEtiqueta() const override; // muestra la etiqueta en el mapa
+	string getEtiqueta() const override; // muestra la etiqueta en el mapa // ya no se usa
 };
+
+
+
+class PlantaRosa : public Recursos {
+
+public:
+
+	PlantaRosa(int = 0, int = 0, int = 0);
+
+	string toString() const override;
+
+	string getEtiqueta() const override; // muestra la etiqueta en el mapa // ya no se usa
+
+};
+
 

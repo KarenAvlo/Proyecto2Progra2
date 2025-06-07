@@ -1,21 +1,21 @@
-#include "Carnívoro.h"
+#include "Carnivoro.h"
 
-Carnívoro::Carnívoro(int x, int  y , int energia , int edad , shared_ptr<Estrategia> E):
+Carnivoro::Carnivoro(int x, int  y , int energia , int edad , shared_ptr<Estrategia> E):
 	Creatura(x, y, energia, edad,E){}
 
 
-string Carnívoro::toString() const {
+string Carnivoro::toString() const {
 	stringstream s;
 	s << "C(" << x << "," << y << ") E:" << energia; // C de carnivoro, sus coordenadas y respectiva energía
 	return s.str();
 }
 
-string Carnívoro::getEtiqueta() const {
+string Carnivoro::getEtiqueta() const {
 	return "Carnivoro";
 }
 
 
-void Carnívoro::reproducirse() {
+void Carnivoro::reproducirse() {
 	if (Enviroment::getInstancia()->hayCarnivoroCerca(shared_from_this())) {
 		//si hay un animal de su mismo tipo, entonces reproduzcase
 
@@ -28,7 +28,7 @@ void Carnívoro::reproducirse() {
 
 }
 
-void Carnívoro::alimentarse() {
+void Carnivoro::alimentarse() {
 	setEstrategia(make_shared <EstrategiaAlimentacionC>());
 
 	if (E) {
@@ -36,7 +36,7 @@ void Carnívoro::alimentarse() {
 	}
 }
 
-void Carnívoro::atacar() {
+void Carnivoro::atacar() {
 	setEstrategia(make_shared <EstrategiaAtaque>());
 	if (energia >= 15) {
 		if (E) {
@@ -46,6 +46,6 @@ void Carnívoro::atacar() {
 
 }
 
-void Carnívoro::guardarDatos(std::ofstream& archivo) const {
+void Carnivoro::guardarDatos(ofstream& archivo) const {
 	archivo << "Carnivoro," << getX() << "," << getY() << "," << energia << "," << edad << "\n";
 }

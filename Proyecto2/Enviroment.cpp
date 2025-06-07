@@ -5,6 +5,8 @@ unique_ptr<Enviroment> Enviroment::instancia = nullptr;
 Enviroment::Enviroment() :clima("Lluvioso"), estacion("Primavera") {
 	
 	mapa = make_shared<Mapa>(10, 10); 
+	nivelAguita=0;
+	nivelSol=0;
 
 }
 
@@ -31,12 +33,12 @@ void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
 	int x = creatura->getX();
 	int y = creatura->getY();
 
-	cout << "Intentando agregar criatura en (" << x << ", " << y << ")" << endl;
+	//cout << "Intentando agregar criatura en (" << x << ", " << y << ")" << endl;
 
 	if (mapa->posValida(x, y) && !mapa->hayObjetoEnMapa(x, y)) {
 		if (mapa->agregarObjeto(x, y, creatura)) {
 			objetos.agregar(creatura);
-			cout << "Criatura agregada correctamente." << endl;
+			//cout << "Criatura agregada correctamente." << endl;
 		}
 		else {
 			cerr << "Fallo al agregar la creatura en el mapa, posiblemente un error interno." << endl;
@@ -157,8 +159,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 return s.str();
  }
 
- int Enviroment::generarIntervaloDeRegeneracionRecursos()const
- {
+ int Enviroment::generarIntervaloDeRegeneracionRecursos()const {
  //los niveles de agua y sol son 0, 1 o 2
 // y el numero que retorna son los ticks de tiempo que tarda en regenerarse el recurso
 	 if (nivelSol == 2 && nivelAguita == 2) return 2;
@@ -172,8 +173,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 if (nivelSol == 0 && nivelAguita == 0) return 15;
  }
 
- void Enviroment::generarRecursos()
- {
+ void Enviroment::generarRecursos() {
 	 int maxIntentos = 100; // para evitar un bucle infinito
 
 	 // generar un recurso aleatorio en una posición libre del mapa
@@ -182,7 +182,12 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 int y = rand() % mapa->getAlto();
 		 // Verificar si la posicion esta libre
 		 if (!mapa->hayObjetoEnMapa(x, y)) {
-			 shared_ptr<Recursos> recurs = make_shared<Planta>(x, y, 100);
+			 shared_ptr<Recursos> recurs = make_shared<PlantaFlor>(x, y, 20);
+
+			 // shared_ptr<Recursos> recurs = make_shared<PlantaRosa>(x, y, 20);
+
+			 // mas bien llamar a Factoryyy, porque tambien podemos crear carne si quisieramos
+
 			 agregarRecurso(recurs);
 			 return; 
 		 }
@@ -213,7 +218,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 		 // Verificar si la posicion esta libre
 		 if (!mapa->hayObjetoEnMapa(x, y)) {
-			 shared_ptr<Recursos> recurs = make_shared<Planta>(x, y, 100);
+			 shared_ptr<Recursos> recurs = make_shared<PlantaFlor>(x, y, 100);
 			 agregarRecurso(recurs);
 			 agregados++;
 		 }
@@ -225,44 +230,57 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
  }
 
 
- bool Enviroment::hayPlantaCerca(Hervivoro* her) const { //creo que no se está necesitando
+ bool Enviroment::hayPlantaCerca(Herbivoro* her) const {
+	 if (!her) return false;
 
-	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+	 for (const auto& obj : objetos) {
+		 // PlantaFlor
+		 shared_ptr<PlantaFlor> flor = dynamic_pointer_cast<PlantaFlor>(obj);
+		 if (flor) {
+			 double dist = hypot(flor->getX() - her->getX(), flor->getY() - her->getY());
+			 if (dist <= 3.0) return true;
+		 }
 
-		 shared_ptr<Objeto> obj = *it;
-
-		 shared_ptr<Planta> planta = std::dynamic_pointer_cast<Planta>(obj);
-
-		 if (planta) {
-			 double dist = std::hypot(planta->getX() - her->getX(), planta->getY() - her->getY());
+		 // PlantaRosa
+		 shared_ptr<PlantaRosa> rosa = dynamic_pointer_cast<PlantaRosa>(obj);
+		 if (rosa) {
+			 double dist = hypot(rosa->getX() - her->getX(), rosa->getY() - her->getY());
 			 if (dist <= 3.0) return true;
 		 }
 	 }
+
 	 return false;
  }
 
- shared_ptr<Planta> Enviroment::getPlantaCerca(shared_ptr<Creatura> hervivoro) {
-	 if (!hervivoro) return nullptr;
+ shared_ptr<Recursos> Enviroment::getPlantaCerca(shared_ptr<Creatura> herbivoro) {
+	 if (!herbivoro) return nullptr;
 
-	 shared_ptr<Planta> presaMasCercana = nullptr;
-	 double distanciaPresa = 0.0;
+	 shared_ptr<Recursos> plantaMasCercana = nullptr;
+	 double distanciaMinima = std::numeric_limits<double>::max();
 
 	 for (const auto& obj : objetos) {
-		 // Intentar convertir el objeto a una Planta
-		 shared_ptr<Planta> planta = dynamic_pointer_cast<Planta>(obj);
+		 // PlantaFlor
+		 shared_ptr<PlantaFlor> flor = dynamic_pointer_cast<PlantaFlor>(obj);
+		 if (flor) {
+			 double dist = hypot(flor->getX() - herbivoro->getX(), flor->getY() - herbivoro->getY());
+			 if (dist <= 1.0 && dist < distanciaMinima) {
+				 plantaMasCercana = flor;
+				 distanciaMinima = dist;
+			 }
+		 }
 
-		 // Si es una planta válida y no es el mismo objeto que el hervívoro
-		 if (planta && obj != hervivoro) {
-			 double dist = hypot(planta->getX() - hervivoro->getX(),
-				 planta->getY() - hervivoro->getY());
-
-			 if (dist <= 1.0 && (!presaMasCercana || dist < distanciaPresa)) {
-				 presaMasCercana = planta;
-				 distanciaPresa = dist;
+		 // PlantaRosa
+		 shared_ptr<PlantaRosa> rosa = dynamic_pointer_cast<PlantaRosa>(obj);
+		 if (rosa) {
+			 double dist = hypot(rosa->getX() - herbivoro->getX(), rosa->getY() - herbivoro->getY());
+			 if (dist <= 1.0 && dist < distanciaMinima) {
+				 plantaMasCercana = rosa;
+				 distanciaMinima = dist;
 			 }
 		 }
 	 }
-	 return presaMasCercana;
+
+	 return plantaMasCercana;
  }
 
 
@@ -302,7 +320,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 shared_ptr<Objeto> obj = *it;
 
 		 // Herbívoro
-		 shared_ptr<Hervivoro> her = dynamic_pointer_cast<Hervivoro>(obj);
+		 shared_ptr<Herbivoro> her = dynamic_pointer_cast<Herbivoro>(obj);
 		 if (her && her.get() != depredador.get()) {
 			 double dist = hypot(her->getX() - depredador->getX(), her->getY() - depredador->getY());
 			 if (dist <= 3.0 && (presaMasCercana == nullptr || dist < distanciaPresa)) {
@@ -325,31 +343,31 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
  }
 
- bool Enviroment::hayCreaturaDebilCerca(Creatura* cre) const{
+ //bool Enviroment::hayCreaturaDebilCerca(Creatura* cre) const{
 
-	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+	// for (auto it = objetos.begin(); it != objetos.end(); ++it) {
 
-		 shared_ptr<Objeto> obj = *it;
+	//	 shared_ptr<Objeto> obj = *it;
 
-		 //el hypot calcula la formula de la distancia
+	//	 //el hypot calcula la formula de la distancia
 
 
-		// Intenta convertir a Hervivoro
-		 shared_ptr<Hervivoro> her = dynamic_pointer_cast<Hervivoro>(obj);
-		 if (her && her.get()!= cre) {
-			 double dist = hypot(her->getX() - cre->getX(), her->getY() - cre->getY());
-			 if (dist <= 3.0) return true;
-		 }
+	//	// Intenta convertir a Herbivoro
+	//	 shared_ptr<Herbivoro> her = dynamic_pointer_cast<Herbivoro>(obj);
+	//	 if (her && her.get()!= cre) {
+	//		 double dist = hypot(her->getX() - cre->getX(), her->getY() - cre->getY());
+	//		 if (dist <= 3.0) return true;
+	//	 }
 
-		 // Intenta convertir a Omnivoro
-		 shared_ptr<Omnivoro> om = dynamic_pointer_cast<Omnivoro>(obj);
-		 if (om && om.get() != cre) {
-			 double dist = hypot(om->getX() - cre->getX(), om->getY() - cre->getY());
-			 if (dist <= 3.0) return true;
-		 }
-	 }
-	 return false;
- }
+	//	 // Intenta convertir a Omnivoro
+	//	 shared_ptr<Omnivoro> om = dynamic_pointer_cast<Omnivoro>(obj);
+	//	 if (om && om.get() != cre) {
+	//		 double dist = hypot(om->getX() - cre->getX(), om->getY() - cre->getY());
+	//		 if (dist <= 3.0) return true;
+	//	 }
+	// }
+	// return false;
+ //}
 
  bool Enviroment::hayHerviroroCerca(shared_ptr<Creatura> cre) const {
 	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
@@ -359,8 +377,8 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 //el hypot calcula la formula de la distancia
 
 
-		// Intenta convertir a Hervivoro
-		 shared_ptr<Hervivoro> her = dynamic_pointer_cast<Hervivoro>(obj);
+		// Intenta convertir a Herbivoro
+		 shared_ptr<Herbivoro> her = dynamic_pointer_cast<Herbivoro>(obj);
 		 if (her && her!= cre) {
 			 double dist = hypot(her->getX() - cre->getX(), her->getY() - cre->getY());
 			 if (dist <= 1.5) return true;
@@ -377,7 +395,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 //el hypot calcula la formula de la distancia
 
 		 // Intenta convertir a Omnivoro
-		 shared_ptr<Carnívoro> car = dynamic_pointer_cast<Carnívoro>(obj);
+		 shared_ptr<Carnivoro> car = dynamic_pointer_cast<Carnivoro>(obj);
 		 if (car && car != cre) {
 			 double dist = hypot(car->getX() - cre->getX(), car->getY() - cre->getY());
 			 if (dist <= 1.5) return true;
@@ -404,6 +422,33 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 }
 	 return false;
 
+ }
+
+
+
+
+ void Enviroment::isDeadtoMeat() {
+
+	 // Recorremos la lista de objetos
+	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+
+		 shared_ptr<Objeto> obj = *it;
+
+		 // Intentamos convertir a Creatura
+		 shared_ptr<Creatura> criatura = dynamic_pointer_cast<Creatura>(obj);
+
+		 // Si es una criatura y está muerta
+		 if (criatura && criatura->isDead()) {
+			 // Eliminamos la criatura del entorno
+			 eliminarCreatura(criatura);
+
+			 // Creamos carne en su lugar
+			 shared_ptr<Meat> carne = make_shared<Meat>(criatura->getX(), criatura->getY(), 50);
+
+			 // Agregamos el recurso carne al entorno
+			 Enviroment::getInstancia()->agregarRecurso(carne);
+		 }
+	 }
  }
 
  void Enviroment::simularTiempoAleatorio()
@@ -454,12 +499,16 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 			 for (auto& obj : objetos) {
 				 shared_ptr<Creatura> criatura = dynamic_pointer_cast<Creatura>(obj);
 				 if (criatura) {
+					 criatura->AumentarEdad();
 					 criatura->moverse();
 					 criatura->alimentarse();
 					 criatura->reproducirse();
 					 criatura->atacar();
 				 }
 			 }
+			 //convertir a las creaturas muertas en carne
+			 isDeadtoMeat();
+
 			 // Simulación de recursos (por intervalo)
 			 ticksDesdeUltimoRecurso++;
 			 int interRegeneracion = generarIntervaloDeRegeneracionRecursos();

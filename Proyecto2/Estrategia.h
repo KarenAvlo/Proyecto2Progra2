@@ -32,14 +32,6 @@ class EstrategiaAtaque :public Estrategia {
 public:
 	virtual void EjecutarEstrategia(shared_ptr<Creatura> c) override;
 };
-
-
-
-class EstrategiaDefensa :public Estrategia {  // esta en veremos si se usa
-public:
-	virtual void EjecutarEstrategia(shared_ptr<Creatura> c) override;
-};
-
  
  
 //---derivada de alimentación, canívoro, hervíboro y omnivoro

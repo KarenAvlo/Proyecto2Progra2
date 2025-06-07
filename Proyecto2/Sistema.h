@@ -18,13 +18,15 @@ public:
 	// Lógica de los submenús:
 	void mostrarMenuPrincipal();
 	void mostrarSubmenuAleatorio();
-	void mostrarMenuCrearPersonalizado();
 	void mostrarEntorno();
-	void ejecutarSimulacion(int tickTiempo);
-	void mostrarSubmenuRegistroDatos();
+	
+	//void mostrarSubmenuRegistroDatos();
 	void mostrarSubmenuReportes();
-	void mostrarSubmenuEntornoyInteracciones();
 	void mostrarSubmenuPersistenciaDeDatos();
+
+	//otro
+
+    void ejecutarSimulacion(int tickTiempo);
 
 private:
 	shared_ptr<Interfaz> i;

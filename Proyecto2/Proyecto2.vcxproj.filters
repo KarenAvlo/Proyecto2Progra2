@@ -27,9 +27,6 @@
     <ClCompile Include="Planta.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Agua.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="Meat.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -51,7 +48,7 @@
     <ClCompile Include="Estrategia.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Carnívoro.cpp">
+    <ClCompile Include="Carnivoro.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="Omnivoro.cpp">
@@ -83,9 +80,6 @@
     <ClInclude Include="Planta.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Agua.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Meat.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -110,7 +104,7 @@
     <ClInclude Include="Estrategia.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Carnívoro.h">
+    <ClInclude Include="Carnivoro.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Omnivoro.h">

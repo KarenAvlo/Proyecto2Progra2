@@ -8,11 +8,14 @@ public:
 	~Interfaz();
 
 	void generarAleatorio();
-	void ingresarCreatura(int);
-	void ingresarRecurso(int, int);
+	void ingresarCreatura();
+	void ingresarRecurso();
+	void ingresarRecursoAleatorios();
 	void mostrarEntorno();
 
-	void MostrarEntornoAndInteractions();
+	void ejecutarSimulacion(int tickTiempo);
+	void entornoPersonalizado();
+	void iniciarSimulacion();
 
 	void MostrarReporteCreaturas();
 	void MostrarReporteRecursos();

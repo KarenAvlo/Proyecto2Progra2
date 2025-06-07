@@ -127,8 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Agua.cpp" />
-    <ClCompile Include="Carnívoro.cpp" />
+    <ClCompile Include="Carnivoro.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Enviroment.cpp" />
     <ClCompile Include="Estrategia.cpp" />
@@ -147,8 +146,7 @@
     <ClCompile Include="Visuales.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Agua.h" />
-    <ClInclude Include="Carnívoro.h" />
+    <ClInclude Include="Carnivoro.h" />
     <ClInclude Include="clases.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Enviroment.h" />

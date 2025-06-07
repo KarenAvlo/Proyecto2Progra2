@@ -4,11 +4,9 @@
 class Meat: public Recursos{
 
 public:
-	Meat(int=0 , int=0, int=0);
+	Meat(int = 0, int = 0, int = 0);
 
-	void regenerarse() override;
-
-	virtual string getEtiqueta() const override;
+	string getEtiqueta() const override;
 
 	string toString() const override;
 };

@@ -3,23 +3,20 @@
 Interfaz::Interfaz(){}
 Interfaz::~Interfaz(){}
 
-void Interfaz::generarAleatorio()
-{
+void Interfaz::generarAleatorio(){
 	//para entornos completamente aleatorios
 	cout << "   --- Generando Entorno Aleatorio ---   " << endl;
-
-
 }
 
-void Interfaz::ingresarCreatura(int op) {
-	int opcion = op;
+void Interfaz::ingresarCreatura() {
+	int opcion = -1;
 	int tipo = 0;
 
 	do {
 		system("cls"); 
 		cout << "   ---[ Generar Creatura ]---   " << endl;
 
-		cout << "Seleccione el tipo de Creatura (1:Hervivoro , 2:Carnivoro, 3:Omnivoro): ";
+		cout << "Seleccione el tipo de Creatura (1:Herbivoro , 2:Carnivoro, 3:Omnivoro): ";
 		cin >> tipo;
 
 		if (cin.fail()) {
@@ -70,94 +67,152 @@ void Interfaz::ingresarCreatura(int op) {
 	} while (opcion != 0);
 }
 
-void Interfaz::ingresarRecurso(int a, int s) {
+void Interfaz::ingresarRecurso() {
+	int opcion = 0;
+	int tipo = 0;
+
+
+	do {
+		system("cls");
+		cout << "   ---[ Ingresar Recurso ]---   " << endl;
+
+		cout << "Seleccione el tipo de Recurso (1:Planta flor , 2: Planta Rosa, 3: Meat ). ";
+		cin >> tipo;
+
+		if (cin.fail()) {
+			cin.clear();                // Limpia el error
+			cin.ignore(1000, '\n');     // Ignora entrada invalida hasta el salto de linea
+			cout << "Entrada invalida, por favor ingrese un numero." << endl;
+			continue;
+		}
+
+		if (tipo < 1 || tipo > 3) {
+			cout << "Tipo invalido. Intente de nuevo." << endl;
+			continue;
+		}
+
+		try {
+			shared_ptr<Recursos> nueva = FactoryResources::crearInstancia(tipo);
+			Enviroment::getInstancia()->agregarRecurso(nueva);
+			cout << "Recurso agregado exitosamente " << nueva->toString() << endl;
+		}
+		catch (const std::exception& e) {
+			cout << "Error al crear el Recurso: " << e.what() << endl;
+			continue;
+		}
+
+		cout << endl;
+		cout << "Mostrando los objetos del entorno" << endl;
+		cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
+
+
+		cout << "Desea agregar otro Recurso? (1: Si, 0: No): ";
+		cin >> opcion;
+
+		while (cin.fail() || (opcion != 0 && opcion != 1)) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Opcion invalida, ingrese 0 o 1: ";
+			cin >> opcion;
+		}
+
+	} while (opcion != 0); // si el usuario marca 0 sale del ciclo
+
+	cout << "\nPresione Enter para continuar...";
+	cin.ignore();
+	cin.get();
+}
+
+void Interfaz::ingresarRecursoAleatorios() {
 	int opcion = 0;
 	int maxRecursoPosible = 5;
-	int agua = a;
-	int sol = s;
+	int agua = 0;
+	int sol = 0;
 	int cantRecurso = 0;
 
-	cout << "Los niveles actuales de AGUA y SOL son:" << endl;
+	cout << "Niveles actuales de agua y sol:\n";
 	cout << "Agua: " << agua << ", Sol: " << sol << endl;
-	cout << "Desea cambiarlos? (1: Si, 0: No): ";
+
+	cout << "Desea modificarlos? (1: Si, 0: No): ";
 	cin >> opcion;
-	cout << string(50, '-') << endl;
 
 	while (cin.fail() || (opcion != 0 && opcion != 1)) {
 		cin.clear();
 		cin.ignore(1000, '\n');
-		cout << "Opcion invalida, ingrese 0 o 1: ";
+		cout << "Opcion invalida. Ingrese 0 o 1: ";
 		cin >> opcion;
 	}
-	cout << endl;
+
 	if (opcion == 1) {
 		do {
-			cout << "Nivel de AGUA: [(0)Nada, (1)Poca, (2)Mucha]: ";
+			cout << "Ingrese el nivel de AGUA [(0) Nada, (1) Poca, (2) Mucha]: ";
 			cin >> agua;
 
 			if (cin.fail() || agua < 0 || agua > 2) {
 				cin.clear();
 				cin.ignore(1000, '\n');
-				cout << "Entrada invalida, ingrese un numero entre 0 y 2." << endl;
+				cout << "Entrada invalida. Intente nuevamente.\n";
 			}
 			else break;
 		} while (true);
-		cout << endl;
 
 		do {
-			cout << "Nivel de SOL: [(0)De noche, (1)Nublado, (2)Soleado]: ";
+			cout << "Ingrese el nivel de SOL [(0) De noche, (1) Nublado, (2) Soleado]: ";
 			cin >> sol;
 
 			if (cin.fail() || sol < 0 || sol > 2) {
 				cin.clear();
 				cin.ignore(1000, '\n');
-				cout << "Entrada invalida, ingrese un numero entre 0 y 2." << endl;
+				cout << "Entrada invalida. Intente nuevamente.\n";
 			}
 			else break;
 		} while (true);
-		cout << endl;
+
 		Enviroment::getInstancia()->setNivelAgua(agua);
 		Enviroment::getInstancia()->setNivelSol(sol);
-		cout << "Niveles actualizados exitosamente." << endl;
-		cout << endl;
+		cout << "Niveles actualizados exitosamente.\n\n";
 	}
 
-	// Generar automaticamente los recursos segun los niveles de agua y sol
-	Enviroment::getInstancia()->generarRecursos();
+	// Generar recursos automáticos según niveles
+	Enviroment::getInstancia()->generarRecursos();  // cambiar si usas factory
 
-	//pos si quiere agregar recursos manualmente pero en cant
-	cout << "Desea agregar recursos manualmente? (1: Si, 0: No): ";
+	cout << "¿Desea agregar recursos manualmente? (1: Sí, 0: No): ";
 	cin >> opcion;
 
 	while (cin.fail() || (opcion != 0 && opcion != 1)) {
 		cin.clear();
 		cin.ignore(1000, '\n');
-		cout << "Opcion invalida, ingrese 0 o 1: ";
+		cout << "Opción invalida. Ingrese 0 o 1: ";
 		cin >> opcion;
 	}
 
 	if (opcion == 1) {
 		do {
-			cout << "Ingrese la cantidad de recursos a agregar (max " << maxRecursoPosible << "): ";
+			cout << "Ingrese la cantidad de recursos a agregar (máx " << maxRecursoPosible << "): ";
 			cin >> cantRecurso;
 
 			if (cin.fail() || cantRecurso < 0 || cantRecurso > maxRecursoPosible) {
 				cin.clear();
 				cin.ignore(1000, '\n');
-				cout << "Cantidad invalida. Debe ser entre 0 y " << maxRecursoPosible << "." << endl;
+				cout << "Cantidad invalida. Intente nuevamente.\n";
 			}
 			else break;
 		} while (true);
 
-		Enviroment::getInstancia()->agregarRecursoPorCan(cantRecurso); // Agrega recursos manuales
+		Enviroment::getInstancia()->agregarRecursoPorCan(cantRecurso);
 	}
 
 	cout << "\nRecursos generados. Mostrando el entorno:\n";
 	cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
+
+
+	cout << "\nPresione Enter para continuar...";
+	cin.ignore();
+	cin.get();
 }
 
-void Interfaz::mostrarEntorno()
-{
+
+void Interfaz::mostrarEntorno(){
 	cout << "   --- Entorno Actual ---   " << endl;
 	cout << Enviroment::getInstancia()->getMapa()->mostrarMapa() << endl;
 	cout << "Clima: " << Enviroment::getInstancia()->getClima() << endl;
@@ -166,18 +221,101 @@ void Interfaz::mostrarEntorno()
 	cout << "Nivel de Sol: " << Enviroment::getInstancia()->getNivelSol() << endl;
 }
 
-void Interfaz::MostrarEntornoAndInteractions(){}
+void Interfaz::ejecutarSimulacion(int tickTiempo){
+	if (tickTiempo <= 0) {
+		cerr << "El tick de tiempo debe ser un numero positivo." << endl;
+		return;
+	}
+	Enviroment::getInstancia()->simularTickTiempo(tickTiempo);
+	cout << "Simulacion ejecutada por " << tickTiempo << " ticks de tiempo." << endl;
+	cout << "Mostrando el entorno actual:" << endl;
+	cout << Enviroment::getInstancia()->getMapa()->mostrarMapa() << endl;
+}
+
+void  Interfaz::entornoPersonalizado() {
+	int subopcion = -1;
+	while (!(cin >> subopcion) || subopcion < 0 || subopcion > 3) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Opcion invalida, ingrese 0 a 2: ";
+	}
+
+	if (subopcion == 1) {
+		ingresarCreatura();
+	}
+	if (subopcion == 2) {
+		ingresarRecurso();
+	}
+	else if (subopcion == 3) {
+		ingresarRecursoAleatorios();
+	}
+
+}
+
+void Interfaz::iniciarSimulacion() {
+
+	int tickTiempo = 0;
+	int iniciarSimulacion = 0;
+
+	cout << "Desea iniciar la simulacion? (1: Si, 0: No): " << endl;
+
+	while (!(cin >> iniciarSimulacion) || (iniciarSimulacion != 0 && iniciarSimulacion != 1)) {
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cerr << "Entrada invalida. Ingrese 0 o 1: ";
+	}
+
+	if (iniciarSimulacion == 1) {
+		cout << "Ingrese los ticks de tiempo para ejecutar la simulacion: " << endl;
+		while (!(cin >> tickTiempo) || tickTiempo < 0) {
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cerr << "Entrada invalida. Ingrese un numero positivo: ";
+		}
+		ejecutarSimulacion(tickTiempo);
+		cout << "\nPresione Enter para continuar...";
+		cin.ignore();
+		cin.get();
+	}
+	else {
+		cout << "Simulacion no iniciada, regresando..." << endl;
+		cout << "\nPresione Enter para continuar...";
+		cin.ignore();
+		cin.get();
+	}
+
+}
+
+
 
 void Interfaz::MostrarReporteCreaturas(){
-	
 
 	cout<< Enviroment::getInstancia()->mostrarCreaturas()->toString() << endl;
+	cout << "\nPresione Enter para continuar...";
+	cin.ignore();
+	cin.get();
+
 }
 void Interfaz::MostrarReporteRecursos(){
-	cout << Enviroment::getInstancia()->mostrarCreaturas() << endl;
+
+	cout << Enviroment::getInstancia()->mostrarRecursos()->toString() << endl;
+	cout << "\nPresione Enter para continuar...";
+	cin.ignore();
+	cin.get();
+
 }
 
 void Interfaz::GuardarCreaturas() {
+
+	// hay que hacer una linea de verificacion tipo,
+
+	//if (Enviroment::getInstancia()->getLista()->estaVacia()) {
+	//	cout << "No hay elementos a guardar" << endl;
+	//}
+	//else {
+	//	Enviroment::getInstancia()->guardarCreaturasEnArchivo("nombre del archivo");
+	//}
+
 	ofstream archivo("creaturas_guardadas.txt"); 
 	if (!archivo.is_open()) { 
 		cerr << "Error al abrir archivo para guardar criaturas\n"; 
@@ -196,7 +334,17 @@ void Interfaz::GuardarCreaturas() {
 	cout << "Creaturas guardadas correctamente.\n"; 
 }
 
-void Interfaz::GuardarRecursos(){} 
+void Interfaz::GuardarRecursos(){
+	// hay que hacer una linea de verificacion tipo,
+
+		//if (Enviroment::getInstancia()->getLista()->estaVacia()) {
+		//	cout << "No hay elementos a guardar" << endl;
+		//}
+		//else {
+		//	Enviroment::getInstancia()->guardarEnArchivo("nombre del archivo");
+		//}
+
+} 
 
 void Interfaz::CargarCreaturas() {
 	std::ifstream archivo("creaturas_guardadas.txt");
@@ -221,11 +369,11 @@ void Interfaz::CargarCreaturas() {
 		// Crear instancia dependiendo del tipo
 		shared_ptr<Creatura> nueva;
 
-		if (tipo == "Hervivoro") {
-			nueva = make_shared<Hervivoro>(x, y, energia, edad);
+		if (tipo == "Herbivoro") {
+			nueva = make_shared<Herbivoro>(x, y, energia, edad);
 		}
 		else if (tipo == "Carnivoro") {
-			nueva = make_shared<Carnívoro>(x, y, energia, edad);
+			nueva = make_shared<Carnivoro>(x, y, energia, edad);
 		}
 		else if (tipo == "Omnivoro") {
 			nueva = make_shared<Omnivoro>(x, y, energia, edad);
