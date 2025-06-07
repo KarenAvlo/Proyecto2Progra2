@@ -142,8 +142,6 @@
     <ClCompile Include="Planta.cpp" />
     <ClCompile Include="Recursos.cpp" />
     <ClCompile Include="Sistema.cpp" />
-    <ClCompile Include="utilitarios.cpp" />
-    <ClCompile Include="Visuales.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Carnivoro.h" />
@@ -162,8 +160,6 @@
     <ClInclude Include="Planta.h" />
     <ClInclude Include="Recursos.h" />
     <ClInclude Include="Sistema.h" />
-    <ClInclude Include="utilitarios.h" />
-    <ClInclude Include="visuales.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
