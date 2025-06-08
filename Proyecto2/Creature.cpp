@@ -26,6 +26,17 @@ void Creatura::moverse() {
 	}
 }
 
+EstrategiaAtaque* Creatura::getEstrategiaAtaque() const
+{
+	if (E2) {
+		return E2.get();
+	}
+	else {
+		cerr << "No hay estrategia de ataque definida." << endl;
+		return nullptr;
+	}
+}
+
 void Creatura::setEstrategiaAtaque(shared_ptr<EstrategiaAtaque> estrategia)
 {
 	E2 = estrategia;
@@ -40,6 +51,16 @@ void Creatura::recibirDanio(int danio)
 void Creatura::atacar(Creatura&)
 {
 	// Los ataques se manejan en las estrategias de ataque específicas
+}
+
+void Creatura::ejecutarEstrategia()
+{
+	if (E) {
+		E->EjecutarEstrategia(shared_from_this());
+	}
+	else {
+		cerr << "No hay estrategia definida para la criatura." << endl;
+	}
 }
 
 void Creatura::reproducirse() {

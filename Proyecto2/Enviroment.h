@@ -28,14 +28,15 @@ protected:
 	static unique_ptr<Enviroment> instancia;
 	lista<shared_ptr<Objeto>> objetos;
 
-
-
-
 	Enviroment(); // constructor privado para el singleton
 
 public:
 	//singleton
 	static Enviroment* getInstancia();
+
+	~Enviroment() = default; // destructor por defecto
+
+
 
 	//metodos de mapa
 	void agregarRecurso(shared_ptr<Objeto> recurso);
@@ -61,6 +62,8 @@ public:
 	int getAnchoMapa() const;
 	int getAltoMapa() const;
 
+	/*int getCantidadObjetos() const;*/ //era para ver si ataque se estaba asiendo bien
+
 	const lista<shared_ptr<Objeto>>* getLista() const;
 	shared_ptr<lista<shared_ptr<Creatura>>>mostrarCreaturas() const;
 	shared_ptr < lista < shared_ptr < Recursos >> > mostrarRecursos() const;
@@ -85,6 +88,7 @@ public:
 	shared_ptr<Meat>getCarneCerca(shared_ptr<Creatura> depredador);
 
 	shared_ptr<Creatura> getCreaturaDebilCerca(shared_ptr<Creatura> depredador);
+
 	shared_ptr<Creatura> getCreaturaFuerteCerca(shared_ptr<Creatura> depredador);
 
 	bool hayHerviroroCerca(shared_ptr<Creatura> cre) const;
@@ -97,6 +101,7 @@ public:
 
 	void eliminarTodo();
 
+	/*void verAtaques();*/ //era para ver si servia bien los ataques
 
 	//ticks de tiempo
 	void simularTiempoAleatorio();

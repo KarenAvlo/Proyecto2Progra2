@@ -210,12 +210,14 @@ void Interfaz::ingresarRecursoAleatorios() {
 
 
 void Interfaz::mostrarEntorno(){
-	cout << "   --- Entorno Actual ---   " << endl;
+	cout << "   ---[ Entorno Actual ]---   " << endl;
 	cout << Enviroment::getInstancia()->getMapa()->mostrarMapa() << endl;
 	cout << "Clima: " << Enviroment::getInstancia()->getClima() << endl;
 	cout << "Estacion: " << Enviroment::getInstancia()->getEstacion() << endl;
 	cout << "Nivel de Agua: " << Enviroment::getInstancia()->getNivelAgua() << endl;
 	cout << "Nivel de Sol: " << Enviroment::getInstancia()->getNivelSol() << endl;
+	cout << "Estadisticas de ataque: " << endl;
+	
 }
 
 void Interfaz::ejecutarSimulacion(int tickTiempo){
@@ -296,7 +298,6 @@ void Interfaz::limpiarEntorno() {
 	cin.get();
 	
 }
-
 
 
 void Interfaz::MostrarReporteCreaturas(){

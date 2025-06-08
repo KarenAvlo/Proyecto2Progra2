@@ -45,7 +45,7 @@ int Mapa::getAlto() const{
 bool Mapa::posValida(int x, int y) {
 	
 	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
-		cerr << "Coordenadas fuera de los límites del mapa: (" << x << ", " << y << ")\n";
+		cerr << "Coordenadas fuera de los limites del mapa: (" << x << ", " << y << ")\n";
 		return false;
 	}
 	return true;
@@ -90,11 +90,11 @@ bool Mapa::agregarObjeto(int x, int y, shared_ptr<Objeto> obj1){
 bool Mapa::colocarObjeto(int x, int y, shared_ptr<Objeto> obj){
 
 	if (!posValida(x, y)) {
-		cerr << "[ERROR] Intento de colocar objeto fuera de los límites: (" << x << ", " << y << ")\n";
+		cerr << "[ERROR] Intento de colocar objeto fuera de los limites: (" << x << ", " << y << ")\n";
 		return false;
 	}
 	if (hayObjetoEnMapa(x, y)) {
-		cerr << "[ERROR] Ya hay un objeto en esa posición: (" << x << ", " << y << ")\n";
+		cerr << "[ERROR] Ya hay un objeto en esa posicion: (" << x << ", " << y << ")\n";
 		return false;
 	}
 
@@ -115,7 +115,7 @@ bool Mapa::eliminarObjeto(int x, int y) {
 		}
 	}
 	else {
-		cerr << "Coordenadas fuera de los límites del mapa.\n";
+		cerr << "Coordenadas fuera de los limites del mapa.\n";
 		return false;
 	}
 }

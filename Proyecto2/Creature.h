@@ -25,13 +25,15 @@ public:
 
 	void moverse();
 
+	EstrategiaAtaque* getEstrategiaAtaque() const;
+
 	virtual void setEstrategiaAtaque(shared_ptr<EstrategiaAtaque> estrategia);
 
 	virtual void recibirDanio(int danio);
 
 	virtual void atacar(Creatura&);
 
-	virtual void ejecutarEstrategia() = 0;
+	virtual void ejecutarEstrategia();
 
 	virtual void alimentarse() = 0;
 

@@ -111,6 +111,7 @@ int Enviroment::getAltoMapa() const
 	return mapa->getAlto();
 }
 
+
 string Enviroment::getClima() { return clima; }
 
 string Enviroment::getEstacion() { return estacion; }
@@ -156,6 +157,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 stringstream s;
 	 s << "Clima: " << clima << endl;
 	 s << "Estacion:" << estacion << endl;
+	
 	 return s.str();
  }
 
@@ -469,6 +471,30 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 mapa->limpiarCeldas();
  }
 
+ //void Enviroment::verAtaques()
+ //{
+	// cout << "--- Simulacion de ataques ---" << endl;
+
+	// for (int i = 0; i < objetos.getCan; ++i) {
+	//	 for (int j = 0; j < objetos.getCantidad(); ++j) {
+	//		 if (i == j) continue;
+
+	//		 shared_ptr<Creatura> atacante = dynamic_pointer_cast<Creatura>(objetos.getObjeto(i));
+	//		 shared_ptr<Creatura> objetivo = dynamic_pointer_cast<Creatura>(objetos.getObjeto(j));
+
+	//		 if (atacante && objetivo && atacante->getEnergia() && objetivo->estaViva()) {
+	//			 cout << atacante->getNombre() << " va a atacar a " << objetivo->getNombre() << endl;
+	//			 cout << "Energia antes: " << objetivo->getEnergia() << endl;
+
+	//			 atacante->atacar(*objetivo);
+
+	//			 cout << "Energia despues: " << objetivo->getEnergia() << endl;
+	//			 cout << "-----------------------------" << endl;
+	//		 }
+	//	 }
+	// }
+ //}
+
 
 
  void Enviroment::simularTiempoAleatorio()
@@ -504,6 +530,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 			 cout << "\nTick: " << tickGlobal + 1 << endl;
 			 cout << "Clima actual: " << clima << endl;
 			 cout << "Estacion actual: " << estacion << endl;
+			/* verAtaques();*/
 
 			 // Cambio de clima y estación
 			 if (tickGlobal % ticksPorDia == 0) {
