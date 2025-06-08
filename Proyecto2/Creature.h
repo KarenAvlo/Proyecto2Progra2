@@ -14,26 +14,20 @@ protected:
 	int energia;
 	int edad;
 	shared_ptr<Estrategia> E;
-	shared_ptr<EstrategiaAtaque> E2; // Estrategia de ataque
+	//shared_ptr<EstrategiaAtaque> E2; // Estrategia de ataque
 
 public:
 	Creatura();
 
-	Creatura(int, int, int, int, shared_ptr<Estrategia>, shared_ptr<EstrategiaAtaque>);
+	Creatura(int, int, int, int, shared_ptr<Estrategia>); /*, shared_ptr<EstrategiaAtaque>);*/
 
 	virtual ~Creatura();
 
 	void moverse();
 
-	EstrategiaAtaque* getEstrategiaAtaque() const;
-
-	virtual void setEstrategiaAtaque(shared_ptr<EstrategiaAtaque> estrategia);
-
 	virtual void recibirDanio(int danio);
 
-	virtual void atacar(Creatura&);
-
-	virtual void ejecutarEstrategia();
+	virtual void atacar();
 
 	virtual void alimentarse() = 0;
 

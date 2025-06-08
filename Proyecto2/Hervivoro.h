@@ -4,7 +4,7 @@
 class Herbivoro :public Creatura {
 public:
 	Herbivoro(int x = 0, int  y = 0, int energia = 0, int edad = 0, 
-		shared_ptr<Estrategia> E = nullptr, shared_ptr<EstrategiaAtaque> = nullptr);
+		shared_ptr<Estrategia> E = nullptr);
 
 	virtual ~Herbivoro() = default;
 
@@ -16,11 +16,7 @@ public:
 
 	void alimentarse() override;
 
-	void atacar(Creatura&) override;
-
-	void setEstrategiaAtaque(shared_ptr<EstrategiaAtaque> estrategia) override;
-
-	void recibirDanio(int danio) override;
+	void atacar() override;
 
 	void guardarDatos(ofstream& archivo) const override;
 };

@@ -125,81 +125,99 @@ void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 }
 //-------------------------------------HERVIVORO	--------------------------------------------
-void EstrategiaAtaqueH::EjecutarEstrategia(shared_ptr<Creatura> c)
-{
-	if (!c) return;
-	shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaFuerteCerca(c);
-	if (!presa || presa == c) return;
-	c->ReducirEnergia(15);
-	presa->ReducirEnergia(calcularDanio());
-	if (presa->isDead()) { // si la presa está muerta
-		Enviroment::getInstancia()->eliminarCreatura(presa); //eliminamos la creatura y luego se convierte a recurso Meat
-		shared_ptr<Meat> carne = make_shared<Meat>(presa->getX(), presa->getY(), 50);
-		Enviroment::getInstancia()->agregarRecurso(carne);
-	}
+void EstrategiaAtaqueH::EjecutarEstrategia(shared_ptr<Creatura> c){
+
+	//PENSARLO CRISTIAN
+
+	//if (!c) return;
+
+	//shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaFuerteCerca(c);
+
+	//if (!presa || presa == c) return;
+
+	//c->ReducirEnergia(15);
+
+	//presa->ReducirEnergia(calcularDanio());
+
+	//if (presa->isDead()) { // si la presa está muerta
+	//	Enviroment::getInstancia()->eliminarCreatura(presa); //eliminamos la creatura y luego se convierte a recurso Meat
+	//	shared_ptr<Meat> carne = make_shared<Meat>(presa->getX(), presa->getY(), 50);
+	//	Enviroment::getInstancia()->agregarRecurso(carne);
+	//}
+
+
 }
 
-int EstrategiaAtaqueH::calcularDanio()
-{
-	// Daño aleatorio: 5, 15
-	return (rand() % 2 == 0) ? 5 : 15;
-}
-
-string EstrategiaAtaqueH::getTipoAtaque()
-{
-	string danio = (calcularDanio() == 10) ? "Fuerte" : "Debil";
-	return  danio;
-}
 
 //-------------------------------------CARNIVORO--------------------------------------------
-void EstrategiaAtaqueC::EjecutarEstrategia(shared_ptr<Creatura> c)
-{
+void EstrategiaAtaqueC::EjecutarEstrategia(shared_ptr<Creatura> c){
+
 	if (!c) return;
 	shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
+
 	if (!presa || presa == c) return;
+
 	c->ReducirEnergia(15);
-	presa->ReducirEnergia(50);
-	if (presa->isDead()) { // si la presa está muerta
+
+
+	if (!presa->isDead()) {
+
+			int d = rand() % (50 - 25 + 1) + 25;
+
+			presa->ReducirEnergia(d);
+
+			string tipoAtaque = (d > 10) ? "Fuerte" : "Debil";
+
+			cout << "Ataque" << tipoAtaque
+				<< ", Inflige " << d << "% de danio." << endl;
+			cout << "C("<<c->getX()<<","<<c->getY()<<")"<<" ataco a la creatura" << "("<<presa->getX() << ", " << presa->getY() <<")"<< endl;
+
+	}
+
+	if (presa->isDead()) { 
+
 		Enviroment::getInstancia()->eliminarCreatura(presa); //eliminamos la creatura y luego se convierte a recurso Meat
+
 		shared_ptr<Meat> carne = make_shared<Meat>(presa->getX(), presa->getY(), 50);
+
 		Enviroment::getInstancia()->agregarRecurso(carne);
 	}
 }
 
-int EstrategiaAtaqueC::calcularDanio()
-{
-	// Daño aleatorio: 25 o 50
-	return (rand() % 2 == 0) ? 25 : 50;
-}
-
-string EstrategiaAtaqueC::getTipoAtaque()
-{
-	string danio = (calcularDanio() == 10) ? "Fuerte" : "Debil";
-	return  danio;
-}
 
 //-------------------------------------OMNIVORO--------------------------------------------
-void EstrategiaAtaqueO::EjecutarEstrategia(shared_ptr<Creatura> c)
-{
+void EstrategiaAtaqueO::EjecutarEstrategia(shared_ptr<Creatura> c){
+
 	if (!c) return;
 	shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
+
 	if (!presa || presa == c) return;
+
 	c->ReducirEnergia(15);
-	presa->ReducirEnergia(calcularDanio());
-	if (presa->isDead()) { // si la presa está muerta
+
+
+	if (!presa->isDead()) {
+
+	   int d= rand() % (25 - 15 + 1) + 15; // reduce entre un 15 a 25%
+
+		presa->ReducirEnergia(d);
+
+		string tipoAtaque = (d > 10) ? "Fuerte" : "Debil";
+
+		cout << "Ataque" << tipoAtaque
+			<< ", Inflige " << d << "% de danio." << endl;
+		cout << "O(" << c->getX() << "," << c->getY() << ")" << " ataco a la creatura" << "(" << presa->getX() << ", " << presa->getY() << ")" << endl;
+
+	}
+
+	if (presa->isDead()) {
+
 		Enviroment::getInstancia()->eliminarCreatura(presa); //eliminamos la creatura y luego se convierte a recurso Meat
+
 		shared_ptr<Meat> carne = make_shared<Meat>(presa->getX(), presa->getY(), 50);
+
 		Enviroment::getInstancia()->agregarRecurso(carne);
 	}
 }
 
-int EstrategiaAtaqueO::calcularDanio()
-{
-	return (rand() % 2 == 0) ? 15 : 25;
-}
 
-string EstrategiaAtaqueO::getTipoAtaque()
-{
-	string danio = (calcularDanio() == 10) ? "Fuerte" : "Debil";
-	return  danio;
-}

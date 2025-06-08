@@ -548,9 +548,10 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 				 if (criatura) {
 					 criatura->AumentarEdad();
 					 criatura->moverse();
+					 criatura->atacar();
 					 criatura->alimentarse();
 					 criatura->reproducirse();
-					 criatura->atacar(*criatura);
+					
 				 }
 			 }
 			 //convertir a las creaturas muertas en carnitas asadas
