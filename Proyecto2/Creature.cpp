@@ -8,7 +8,8 @@ Creatura::Creatura(){
 	E = nullptr;
 }
 
-Creatura::Creatura(int xx, int yy, int ener, int age, shared_ptr<Estrategia> e):Objeto(xx, yy), energia(ener), edad(age),E(e){}
+Creatura::Creatura(int xx, int yy, int ener, int age, shared_ptr<Estrategia> e, shared_ptr<EstrategiaAtaque> e2):
+	Objeto(xx, yy), energia(ener), edad(age),E(e), E2(e2){}
 
 
 Creatura::~Creatura() {}
@@ -23,6 +24,22 @@ void Creatura::moverse() {
 		ReducirEnergia(5);
 		E->EjecutarEstrategia(shared_from_this());
 	}
+}
+
+void Creatura::setEstrategiaAtaque(shared_ptr<EstrategiaAtaque> estrategia)
+{
+	E2 = estrategia;
+}
+
+void Creatura::recibirDanio(int danio)
+{
+	energia -= danio;
+	if (energia < 0) energia = 0; // Evitar energía negativa
+}
+
+void Creatura::atacar(Creatura&)
+{
+	// Los ataques se manejan en las estrategias de ataque específicas
 }
 
 void Creatura::reproducirse() {

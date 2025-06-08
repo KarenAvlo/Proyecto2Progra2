@@ -1,7 +1,9 @@
 #include "Carnivoro.h"
 
-Carnivoro::Carnivoro(int x, int  y , int energia , int edad , shared_ptr<Estrategia> E):
-	Creatura(x, y, energia, edad,E){}
+Carnivoro::Carnivoro(int x, int  y , int energia , int edad , shared_ptr<Estrategia> E, shared_ptr<EstrategiaAtaque> E2):
+	Creatura(x, y, energia, edad,E, E2) {
+	E2 = make_shared<EstrategiaAtaqueC>(); // Estrategia de ataque por defecto
+}
 
 
 string Carnivoro::toString() const {
@@ -36,14 +38,33 @@ void Carnivoro::alimentarse() {
 	}
 }
 
-void Carnivoro::atacar() {
-	setEstrategia(make_shared <EstrategiaAtaque>());
-	if (energia >= 15) {
-		if (E) {
-			E->EjecutarEstrategia(shared_from_this());
+
+///*setEstrategia(make_shared <EstrategiaAtaque>());
+//if (energia >= 15) {
+//	if (E) {
+//		E->EjecutarEstrategia(shared_from_this());
+//	}
+//}*/
+void Carnivoro::atacar(Creatura& objetivo) {
+
+	if (E2 && !objetivo.isDead()) {
+		for (int i = 0; i < 2 && !objetivo.isDead(); i++) {
+			int d = E2->calcularDanio();
+			objetivo.recibirDanio(d);
+			cout << "Ataque " << (i + 1) << " con " << E2->getTipoAtaque()
+				<< " inflige " << d << " de danio." << endl;
 		}
 	}
+}
 
+void Carnivoro::setEstrategiaAtaque(shared_ptr<EstrategiaAtaque> estrategia)
+{
+	E2 = estrategia;
+}
+
+void Carnivoro::recibirDanio(int danio) {
+	energia -= danio;
+	if (energia < 0) energia = 0; // Evitar energía negativa
 }
 
 void Carnivoro::guardarDatos(ofstream& archivo) const {

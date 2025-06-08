@@ -85,6 +85,7 @@ public:
 	shared_ptr<Meat>getCarneCerca(shared_ptr<Creatura> depredador);
 
 	shared_ptr<Creatura> getCreaturaDebilCerca(shared_ptr<Creatura> depredador);
+	shared_ptr<Creatura> getCreaturaFuerteCerca(shared_ptr<Creatura> depredador);
 
 	bool hayHerviroroCerca(shared_ptr<Creatura> cre) const;
 

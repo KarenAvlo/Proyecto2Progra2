@@ -361,7 +361,26 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 }
 	 }
 	 return presaMasCercana;
+ }
 
+ shared_ptr<Creatura> Enviroment::getCreaturaFuerteCerca(shared_ptr<Creatura> depredador)
+ {
+	 if (!depredador) return nullptr;
+	 shared_ptr<Creatura> presaMasCercana = nullptr;
+	 double distanciaPresa = 0;
+	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
+		 shared_ptr<Objeto> obj = *it;
+		 // Carnívoro
+		 shared_ptr<Carnivoro> car = dynamic_pointer_cast<Carnivoro>(obj);
+		 if (car && car.get() != depredador.get()) {
+			 double dist = hypot(car->getX() - depredador->getX(), car->getY() - depredador->getY());
+			 if (dist <= 1.0 && (presaMasCercana == nullptr || dist < distanciaPresa)) {
+				 presaMasCercana = car;
+				 distanciaPresa = dist;
+			 }
+		 }
+	 }
+	 return presaMasCercana;
  }
 
  
@@ -384,10 +403,9 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
  }
 
  bool Enviroment::hayCarnivoroCerca(shared_ptr<Creatura> cre) const {
+
 	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
-
 		 shared_ptr<Objeto> obj = *it;
-
 		 //el hypot calcula la formula de la distancia
 
 		 // Intenta convertir a Omnivoro
@@ -398,8 +416,6 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 }
 	 }
 	 return false;
-
-
  }
 
  bool Enviroment::hayOmnivoroCerca(shared_ptr<Creatura> cre) const {
@@ -507,7 +523,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 					 criatura->moverse();
 					 criatura->alimentarse();
 					 criatura->reproducirse();
-					 criatura->atacar();
+					 criatura->atacar(*criatura);
 				 }
 			 }
 			 //convertir a las creaturas muertas en carnitas asadas

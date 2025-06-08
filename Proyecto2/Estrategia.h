@@ -5,6 +5,7 @@ class Enviroment;
 class Estrategia {
 public:
 	virtual void EjecutarEstrategia(shared_ptr<Creatura> c) = 0;
+
 	virtual ~Estrategia() = default;
 };
 
@@ -26,11 +27,21 @@ public:
 };
 
 
+//--------------------derivadas de estrategia de ataque------------------------
 class EstrategiaAtaque :public Estrategia {
 public:
-	virtual void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+	virtual ~EstrategiaAtaque() = default;
+	virtual void EjecutarEstrategia(shared_ptr<Creatura> c) = 0;
+	virtual int calcularDanio() = 0;
+	virtual string getTipoAtaque() = 0;  //dos tipos, debil, fuerte  
 };
  
+class EstrategiaAtaqueAleatorio :public EstrategiaAtaque {
+public:
+	void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+	int calcularDanio() override;
+	string getTipoAtaque() override;
+};
  
 //---derivada de alimentación, canívoro, hervíboro y omnivoro
 
@@ -48,4 +59,27 @@ public:
 class EstrategiaAlimentacionO :public EstrategiaAlimentacion {
 public:
 	void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+};
+
+//------------------------ATAQUE----------------------------
+
+class EstrategiaAtaqueH :public EstrategiaAtaque {
+public:
+	void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+	int calcularDanio() override;
+	string getTipoAtaque() override;
+};
+
+class EstrategiaAtaqueC :public EstrategiaAtaque {
+public:
+	void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+	int calcularDanio() override;
+	string getTipoAtaque() override;
+};
+
+class EstrategiaAtaqueO :public EstrategiaAtaque {
+public:
+	void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+	int calcularDanio() override;
+	string getTipoAtaque() override;
 };
