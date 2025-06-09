@@ -1,0 +1,3 @@
+Carnivoro,7,8,85,3
+Omnivoro,3,7,90,3
+Herbivoro,1,1,100,0,0

@@ -106,8 +106,10 @@ public:
 
 	void simularTickTiempo(int maxTicks);
 
-	void guardarDatos(const string& nombreArchivo);
-	void cargarDatos(const string& nombreArchivo);
+	void guardarDatosCreaturas(const string& nombreArchivo);
+	void guardarDatosRecursos(const string& nombreArchivo);
+	void cargarDatosCreaturas(const string& nombreArchivo);
+	void cargarDatosRecursos(const string& nombreArchivo);
 
 };
 

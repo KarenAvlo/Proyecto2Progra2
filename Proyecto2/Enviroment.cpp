@@ -509,7 +509,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 }
  }
 
- void Enviroment::guardarDatos(const string& nombreArchivo) { // hacer un metodo extra para guardar recursos
+ void Enviroment::guardarDatosCreaturas(const string& nombreArchivo) {
 
 	 if (getLista()->estaVacia()) {
 		 cout << "No hay elementos a guardar" << std::endl;
@@ -529,18 +529,87 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 		 }
 	 }
 
+	 archivo.close();
+	 cout << "Creaturas guardadas correctamente.\n";
+ }
+
+ void Enviroment::guardarDatosRecursos(const string& nombreArchivo)
+ {
+	 if (getLista()->estaVacia()) {
+		 cout << "No hay elementos a guardar" << std::endl;
+		 return;
+	 }
+
+	 ofstream archivo(nombreArchivo);
+	 if (!archivo.is_open()) {
+		 cerr << "Error al abrir archivo para guardar criaturas\n";
+		 return;
+	 }
+
 	 auto listaRecursos = mostrarRecursos();  // Devuelve shared_ptr a lista/colección de recursos
 
 	 for (const auto& r : *listaRecursos) {
 		 r->guardarDatos(archivo);
 	 }
 
-
 	 archivo.close();
-	 cout << "Creaturas guardadas correctamente.\n";
+	 cout << "Recursos guardados correctamente.\n";
  }
 
- void Enviroment::cargarDatos(const string& nombreArchivo) { // hacer un metodo extra para cargar recursos 
+ void Enviroment::cargarDatosCreaturas(const string& nombreArchivo) {
+	 ifstream archivo(nombreArchivo);
+	 if (!archivo.is_open()) {
+		 cerr << "Error al abrir archivo para cargar criaturas\n";
+		 return;
+	 }
+
+	 auto env = Enviroment::getInstancia();
+
+	 string linea;
+	 while (getline(archivo, linea)) {
+		 stringstream ss(linea);
+		 string tipo;
+		 getline(ss, tipo, ',');
+
+		 int x, y, energia, edad;
+		 bool fueHerido = false; // solo se usa si es herbívoro
+		 char coma;
+
+		 // Leer los valores comunes
+		 if (!(ss >> x >> coma >> y >> coma >> energia >> coma >> edad)) { 
+			 cerr << "Error en formato de línea: " << linea << "\n";  
+			 continue;
+		 }
+
+		 shared_ptr<Creatura> nuevaCreatura; 
+
+		 if (tipo == "Herbivoro") {
+			 if (!(ss >> coma >> fueHerido)) {
+				 cerr << "Advertencia: Herbívoro sin información de 'fueHerido', usando false por defecto.\n";
+			 }
+			 auto nueva = make_shared<Herbivoro>(x, y, energia, edad, make_shared<EstrategiaAtaqueH>()); 
+			 nueva->setFueHerido(fueHerido); 
+			 nuevaCreatura = nueva; 
+		 }
+		 else if (tipo == "Carnivoro") {
+			 nuevaCreatura = make_shared<Carnivoro>(x, y, energia, edad, make_shared<EstrategiaAtaqueC>());
+		 }
+		 else if (tipo == "Omnivoro") {
+			 nuevaCreatura = make_shared<Omnivoro>(x, y, energia, edad, make_shared<EstrategiaAtaqueO>());
+		 }
+		 else {
+			 cerr << "Tipo desconocido: " << tipo << "\n";
+			 continue;
+		 }
+
+		 env->agregarCreatura(nuevaCreatura);
+	 }
+
+	 archivo.close();
+	 cout << "Creaturas cargadas correctamente.\n";
+ }
+
+ void Enviroment::cargarDatosRecursos(const string& nombreArchivo) { // hacer un metodo extra para cargar creaturas 
 
 
 	 ifstream archivo(nombreArchivo);

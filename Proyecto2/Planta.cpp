@@ -17,11 +17,9 @@ string PlantaFlor::getEtiqueta() const{ // creo que no se está usando
 
 void PlantaFlor::guardarDatos(ofstream& archivo) const
 {
-
-	archivo << "Planta Flor,  " << "Posicion en el eje X: " << x << ", " << "Posicion en el eje Y: " << y << ", " << "Valor energético : " << EnergyValue << endl;
-
-
+	archivo << "PlantaFlor," << x << "," << y << "," << EnergyValue << "\n";
 }
+
 
 //-----Planta Rosa------
 
@@ -40,9 +38,7 @@ string PlantaRosa::getEtiqueta() const { // creo que no se está usando
 	return "Planta";
 }
 
-void PlantaRosa::guardarDatos(ofstream& archivo) const
+void PlantaRosa::guardarDatos(ofstream& archivo) const 
 {
-
-	archivo << "Planta Rosa,  " << "Posicion en el eje X: " << x << ", " << "Posicion en el eje Y: " << y << ", " << "Valor energético : " << EnergyValue << endl;
-
+	archivo << "PlantaRosa," << x << "," << y << "," << EnergyValue << "\n"; 
 }

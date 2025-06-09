@@ -302,7 +302,7 @@ void Interfaz::limpiarEntorno() {
 
 void Interfaz::MostrarReporteCreaturas(){
 
-	cout<< Enviroment::getInstancia()->mostrarCreaturas()->toString() << endl;
+	cout<< Enviroment::getInstancia()->mostrarCreaturas()->toString() << endl; // hacer mas lindo
 	cout << "\nPresione Enter para continuar...";
 	cin.ignore();
 	cin.get();
@@ -321,38 +321,38 @@ void Interfaz::GuardarCreaturas() {
 
 	auto env = Enviroment::getInstancia(); 
 
-	if (env->getLista()->estaVacia()) { 
-		cout << "No hay elementos a guardar" << std::endl;
-	}
-	else {
-		const string nombreArchivo = "creaturasYrecursos.txt";
-		env->guardarDatos(nombreArchivo);
-		cout << "Creaturas guardadas en archivo: " << nombreArchivo << endl;
-	}
+	if (env->getLista()->estaVacia()) {
+		cout << "No hay creaturas para guardar. Ingrese una creatura(s) y vuelva a intentarlo." << endl;
+		return;
+	}	
+
+	const string nombreArchivo = "creaturas.txt";
+	env->guardarDatosCreaturas(nombreArchivo);
+	cout << "Creaturas guardadas en archivo: " << nombreArchivo << endl;
 }
 
 void Interfaz::GuardarRecursos(){
 	auto env = Enviroment::getInstancia();
 
-	if (env->getLista()->estaVacia()) {
-		cout << "No hay recursos a guardar" << endl;
+	if (env->mostrarRecursos()->estaVacia()) {
+		cout << "No hay recursos para guardar. Ingrese un recurso(s) y vuelva a intentarlo" << endl;
+		return;
 	}
-	else {
-		const string nombreArchivo = "creaturasYrecursos.txt"; 
 
-		env->guardarDatos(nombreArchivo);
+	const string nombreArchivo = "recursos.txt"; 
 
-		cout << "Recursos guardados en archivo: " << nombreArchivo << endl;
-	}
+	env->guardarDatosRecursos(nombreArchivo);
+
+	cout << "Recursos guardados en archivo: " << nombreArchivo << endl;
 
 } 
 
 void Interfaz::CargarCreaturas() {
-	const string nombreArchivo = "creaturasYrecursos.txt"; 
+	const string nombreArchivo = "creaturas.txt"; 
 
 	auto env = Enviroment::getInstancia(); 
 	
-	env->cargarDatos(nombreArchivo);
+	env->cargarDatosCreaturas(nombreArchivo);
 
 	cout << "Creaturas cargadas desde archivo: " << nombreArchivo << endl;
 
@@ -360,13 +360,11 @@ void Interfaz::CargarCreaturas() {
 
 void Interfaz::CargarRecursos(){
 
-	const string nombreArchivo = "creaturasYrecursos.txt";
+	const string nombreArchivo = "recursos.txt";
 
 	auto env = Enviroment::getInstancia(); 
 
-	env->cargarDatos(nombreArchivo);
+	env->cargarDatosRecursos(nombreArchivo);
 
 	cout << "Recursos cargados desde archivo: " << nombreArchivo << endl;
 }
-
-//hace falta implementar el cargar y guardar recursos y creaturas de los metodos enviroment 

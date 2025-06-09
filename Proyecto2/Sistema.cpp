@@ -171,22 +171,22 @@ void Sistema::mostrarSubmenuPersistenciaDeDatos() {
 		case 0: break;
 		case 1:
 			system("cls");
-			i->GuardarCreaturas(); // no dejar que guarde si no hay creaturas
+			i->GuardarCreaturas(); 
 			system("pause");
 			break;
 		case 2:
 			system("cls");
-			i->CargarCreaturas(); // no cargar creaturas si esta vacio // carga raro, arreglar
+			i->CargarCreaturas(); 
 			system("pause");
 			break;
 		case 3:
 			system("cls");
-			i->GuardarRecursos(); // falta implementar esto
+			i->GuardarRecursos();
 			system("pause");
 			break;
 		case 4:
 			system("cls");
-			i->CargarRecursos(); // falta implementar esto
+			i->CargarRecursos();
 			system("pause");
 			break;
 		}

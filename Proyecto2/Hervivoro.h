@@ -24,5 +24,7 @@ public:
 	void ReducirEnergia(int e) override;
 
 	void guardarDatos(ofstream& archivo) const override;
+
+	void setFueHerido(bool);
 };
 

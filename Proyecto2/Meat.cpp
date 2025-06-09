@@ -15,7 +15,6 @@ string Meat::toString() const {
 	return s.str();
 }
 
-void Meat::guardarDatos(ofstream& archivo) const
-{
-	archivo << "Meat,  " << "Posicion en el eje X: " << x << ", " << "Posicion en el eje Y: " << y << ", " << "Valor energético : " << EnergyValue << endl;
+void Meat::guardarDatos(ofstream& archivo) const { 
+	archivo << "Meat," << x << "," << y << "," << EnergyValue << "\n"; 
 }

@@ -54,7 +54,11 @@ void Herbivoro::ReducirEnergia(int danio)
 	if (energia < 0) energia = 0;
 	fueHerido = true;
 }
+ 
+void Herbivoro::guardarDatos(ofstream& archivo) const { 
+	archivo << "Herbivoro," << x << "," << y << "," << energia << "," << edad << "," << fueHerido << "\n"; 
+}
 
-void Herbivoro::guardarDatos(std::ofstream& archivo) const {
-	archivo << "Herbivoro, " << "Posicion en el eje X: " << getX() << ", " << "Posicion en el eje Y: " << getY() << ", " << "Energia del Herbivoro: " << energia << " , " << "Edad del Herbivoro: " << edad << ", " << "Fue herdido el Herbivoro: " << fueHerido << endl;
+void Herbivoro::setFueHerido(bool valor) {
+	fueHerido = valor;
 }

@@ -35,7 +35,6 @@ void Omnivoro::atacar() {
 	}
 }
 
-
-void Omnivoro::guardarDatos(std::ofstream& archivo) const {
-	archivo << "Omnivoro, " << "Posicion en el eje X: " << getX() << ", " << "Posicion en el eje Y: " << getY() << ", " << "Energia del Omnivoro: " << energia << " , " << "Edad del Omnivoro: " << edad << endl;
+void Omnivoro::guardarDatos(ofstream& archivo) const {
+	archivo << "Omnivoro," << x << "," << y << "," << energia << "," << edad << "\n";
 }
