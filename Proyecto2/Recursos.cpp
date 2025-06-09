@@ -27,6 +27,3 @@ string Recursos::formatear(){
 //falta;
 	return "";
 }
-void Recursos::cargar(){
-// falta
-}

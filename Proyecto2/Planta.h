@@ -10,6 +10,8 @@ public:
 	string toString() const override;
 
 	string getEtiqueta() const override; // muestra la etiqueta en el mapa // ya no se usa
+
+	void guardarDatos(ofstream& archivo) const;
 };
 
 
@@ -24,6 +26,7 @@ public:
 
 	string getEtiqueta() const override; // muestra la etiqueta en el mapa // ya no se usa
 
+	void guardarDatos(ofstream& archivo) const;
 };
 
 

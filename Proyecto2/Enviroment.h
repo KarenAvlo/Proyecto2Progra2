@@ -6,6 +6,7 @@
 #include "Mapa.h"
 #include "Recursos.h"
 
+
 class Herbivoro;
 class Omnivoro;
 class Creatura;
@@ -105,7 +106,8 @@ public:
 
 	void simularTickTiempo(int maxTicks);
 
-	void guardarCreaturasEnArchivo(const string& nombreArchivo) const;
+	void guardarDatos(const string& nombreArchivo);
+	void cargarDatos(const string& nombreArchivo);
 
 };
 

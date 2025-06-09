@@ -21,6 +21,6 @@ public:
 
 	string formatear();
 
-	void cargar();
+	virtual void guardarDatos(ofstream& archivo) const = 0;
 };
 

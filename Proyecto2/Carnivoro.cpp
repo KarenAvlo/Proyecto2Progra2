@@ -46,5 +46,5 @@ void Carnivoro::atacar() {
 }
 
 void Carnivoro::guardarDatos(ofstream& archivo) const {
-	archivo << "Carnivoro," << getX() << "," << getY() << "," << energia << "," << edad << "\n";
+	archivo << "Carnivoro, " << "Posicion en el eje X: " << getX() << ", " << "Posicion en el eje Y: " << getY() << ", " << "Energia del Carnivoro: " << energia << " , " << "Edad del Carnivoro: " << edad << endl;
 }

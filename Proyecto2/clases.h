@@ -12,5 +12,6 @@
 #include "Estrategia.h"
 #include "Sistema.h"
 #include "Interfaz.h"
+#include "Lista.h"
 
 

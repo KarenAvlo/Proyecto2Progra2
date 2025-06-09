@@ -7,7 +7,7 @@ private:
 	bool fueHerido = false; // Indica si fue herido en el último ataque = true;
 public:
 	Herbivoro(int x = 0, int  y = 0, int energia = 0, int edad = 0, 
-		shared_ptr<Estrategia> E = nullptr);
+		shared_ptr<Estrategia> estrategia = nullptr);
 
 	virtual ~Herbivoro() = default;
 

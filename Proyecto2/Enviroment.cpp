@@ -1,4 +1,5 @@
 #include "clases.h"
+#include <iostream>
 
 unique_ptr<Enviroment> Enviroment::instancia = nullptr;
 
@@ -508,25 +509,85 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 }
  }
 
- 
+ void Enviroment::guardarDatos(const string& nombreArchivo) { // hacer un metodo extra para guardar recursos
 
- void Enviroment::guardarCreaturasEnArchivo(const string& nombreArchivo) const 
- {
-	 ofstream archivo(nombreArchivo);
-
-	 if (!archivo.is_open()) { 
-		 cerr << "Error al abrir el archivo para guardar.\n"; 
+	 if (getLista()->estaVacia()) {
+		 cout << "No hay elementos a guardar" << std::endl;
 		 return;
 	 }
 
-	 for (const auto& obj : objetos) {   
-		 auto criatura = std::dynamic_pointer_cast<Creatura>(obj); 
-		 if (criatura && !criatura->isDead()) {  // Solo guardamos si NO está muerta 
-			 criatura->guardarDatos(archivo); 
+	 ofstream archivo(nombreArchivo);
+	 if (!archivo.is_open()) {
+		 cerr << "Error al abrir archivo para guardar criaturas\n";
+		 return;
+	 }
+
+	 auto listaCreaturas = mostrarCreaturas(); 
+	 for (const auto& c : *listaCreaturas) {
+		 if (!c->isDead()) {
+			 c->guardarDatos(archivo);
 		 }
 	 }
 
-	 archivo.close(); 
+	 auto listaRecursos = mostrarRecursos();  // Devuelve shared_ptr a lista/colección de recursos
+
+	 for (const auto& r : *listaRecursos) {
+		 r->guardarDatos(archivo);
+	 }
+
+
+	 archivo.close();
+	 cout << "Creaturas guardadas correctamente.\n";
+ }
+
+ void Enviroment::cargarDatos(const string& nombreArchivo) { // hacer un metodo extra para cargar recursos 
+
+
+	 ifstream archivo(nombreArchivo);
+	 if (!archivo.is_open()) {
+		 cerr << "Error al abrir archivo para cargar recursos\n";
+		 return;
+	 }
+
+	 // Asumimos singleton Enviroment con método agregarRecurso(shared_ptr<Recursos>)
+	 auto env = Enviroment::getInstancia();
+
+	 string linea;
+	 while (getline(archivo, linea)) {
+		 stringstream ss(linea);
+		 string tipo;
+		 getline(ss, tipo, ',');
+
+		 int x, y, energia;
+		 char coma;
+
+		 
+		 if (!(ss >> x >> coma >> y >> coma >> energia)) {
+			 cerr << "Error en formato de línea: " << linea << "\n";
+			 continue;
+		 }
+
+		 shared_ptr<Recursos> nuevoRecurso;
+
+		 if (tipo == "Meat") {
+			 nuevoRecurso = make_shared<Meat>(x, y, energia);
+		 }
+		 else if (tipo == "PlantaFlor") {
+			 nuevoRecurso = make_shared<PlantaFlor>(x, y, energia);
+		 }
+		 else if (tipo == "PlantaRosa") {
+			 nuevoRecurso = make_shared<PlantaRosa>(x, y, energia);
+		 }
+		 else {
+			 cerr << "Tipo desconocido: " << tipo << "\n";
+			 continue;
+		 }
+
+		 env->agregarRecurso(nuevoRecurso);
+	 }
+
+	 archivo.close();
+	 cout << "Recursos cargados correctamente.\n";
  }
 
  

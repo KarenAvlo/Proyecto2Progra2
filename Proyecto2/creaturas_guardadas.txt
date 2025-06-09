@@ -1,1 +1,3 @@
-Hervivoro,2,3,100,57
+Herbivoro, Posicion en el eje X: 2, Posicion en el eje Y: 5, Energia del Herbivoro: 100 , Edad del Herbivoro: 0, Fue herdido el Herbivoro: 0
+Carnivoro, Posicion en el eje X: 3, Posicion en el eje Y: 3, Energia del Carnivoro: 100 , Edad del Carnivoro: 0
+Omnivoro,Posicion en el eje X: 7, Posicion en el eje Y: 5, Energia del Omnivoro: 100 , Edad del Omnivoro: 0

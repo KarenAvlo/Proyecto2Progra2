@@ -319,86 +319,54 @@ void Interfaz::MostrarReporteRecursos(){
 
 void Interfaz::GuardarCreaturas() {
 
-	// hay que hacer una linea de verificacion tipo,
+	auto env = Enviroment::getInstancia(); 
 
-	//if (Enviroment::getInstancia()->getLista()->estaVacia()) {
-	//	cout << "No hay elementos a guardar" << endl;
-	//}
-	//else {
-	//	Enviroment::getInstancia()->guardarCreaturasEnArchivo("nombre del archivo");
-	//}
-
-	ofstream archivo("creaturas_guardadas.txt"); 
-	if (!archivo.is_open()) { 
-		cerr << "Error al abrir archivo para guardar criaturas\n"; 
-		return;
+	if (env->getLista()->estaVacia()) { 
+		cout << "No hay elementos a guardar" << std::endl;
 	}
-
-	// Obtener todas las criaturas y guardarlas si están vivas
-	auto listaCreaturas = Enviroment::getInstancia()->mostrarCreaturas(); 
-
-	for (const auto& c : *listaCreaturas) { 
-		if (!c->isDead()) {
-			c->guardarDatos(archivo); 
-		} 
+	else {
+		const string nombreArchivo = "creaturasYrecursos.txt";
+		env->guardarDatos(nombreArchivo);
+		cout << "Creaturas guardadas en archivo: " << nombreArchivo << endl;
 	}
-	archivo.close(); 
-	cout << "Creaturas guardadas correctamente.\n"; 
 }
 
 void Interfaz::GuardarRecursos(){
-	// hay que hacer una linea de verificacion tipo,
+	auto env = Enviroment::getInstancia();
 
-		//if (Enviroment::getInstancia()->getLista()->estaVacia()) {
-		//	cout << "No hay elementos a guardar" << endl;
-		//}
-		//else {
-		//	Enviroment::getInstancia()->guardarEnArchivo("nombre del archivo");
-		//}
+	if (env->getLista()->estaVacia()) {
+		cout << "No hay recursos a guardar" << endl;
+	}
+	else {
+		const string nombreArchivo = "creaturasYrecursos.txt"; 
+
+		env->guardarDatos(nombreArchivo);
+
+		cout << "Recursos guardados en archivo: " << nombreArchivo << endl;
+	}
 
 } 
 
 void Interfaz::CargarCreaturas() {
-	std::ifstream archivo("creaturas_guardadas.txt");
-	if (!archivo.is_open()) {
-		std::cerr << "Error al abrir archivo para cargar criaturas\n";
-		return;
-	}
+	const string nombreArchivo = "creaturasYrecursos.txt"; 
 
-	Enviroment* env = Enviroment::getInstancia();
+	auto env = Enviroment::getInstancia(); 
+	
+	env->cargarDatos(nombreArchivo);
 
-	std::string linea;
-	while (std::getline(archivo, linea)) {
-		std::stringstream ss(linea);
-		std::string tipo;
-		std::getline(ss, tipo, ',');
+	cout << "Creaturas cargadas desde archivo: " << nombreArchivo << endl;
 
-		int x, y, energia, edad;
-		char coma;
-
-		ss >> x >> coma >> y >> coma >> energia >> coma >> edad;
-
-		// Crear instancia dependiendo del tipo
-		shared_ptr<Creatura> nueva;
-
-		if (tipo == "Herbivoro") {
-			nueva = make_shared<Herbivoro>(x, y, energia, edad);
-		}
-		else if (tipo == "Carnivoro") {
-			nueva = make_shared<Carnivoro>(x, y, energia, edad);
-		}
-		else if (tipo == "Omnivoro") {
-			nueva = make_shared<Omnivoro>(x, y, energia, edad);
-		}
-		else {
-			std::cerr << "Tipo desconocido: " << tipo << "\n";
-			continue;
-		}
-
-		env->agregarCreatura(nueva);
-	}
-	archivo.close();
-	std::cout << "Creaturas cargadas correctamente.\n";
 }
 
-void Interfaz::CargarRecursos(){}
+void Interfaz::CargarRecursos(){
+
+	const string nombreArchivo = "creaturasYrecursos.txt";
+
+	auto env = Enviroment::getInstancia(); 
+
+	env->cargarDatos(nombreArchivo);
+
+	cout << "Recursos cargados desde archivo: " << nombreArchivo << endl;
+}
+
+//hace falta implementar el cargar y guardar recursos y creaturas de los metodos enviroment 

@@ -9,5 +9,7 @@ public:
 	string getEtiqueta() const override;
 
 	string toString() const override;
+
+	void guardarDatos(ofstream& archivo) const;
 };
 

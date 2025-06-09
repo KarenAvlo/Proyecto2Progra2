@@ -1,8 +1,8 @@
 #include "Hervivoro.h"
 
 
-Herbivoro::Herbivoro(int x, int  y, int energia, int edad, shared_ptr<Estrategia> E):
-	Creatura(x, y, energia, edad, E), fueHerido(false){
+Herbivoro::Herbivoro(int x, int  y, int energia, int edad, shared_ptr<Estrategia> estrategia):
+	Creatura(x, y, energia, edad, estrategia), fueHerido(false){
 	E = make_shared<EstrategiaAtaqueH>(); // 
 }
 
@@ -56,5 +56,5 @@ void Herbivoro::ReducirEnergia(int danio)
 }
 
 void Herbivoro::guardarDatos(std::ofstream& archivo) const {
-	archivo << "Herbivoro," << getX() << "," << getY() << "," << energia << "," << edad << "\n";
+	archivo << "Herbivoro, " << "Posicion en el eje X: " << getX() << ", " << "Posicion en el eje Y: " << getY() << ", " << "Energia del Herbivoro: " << energia << " , " << "Edad del Herbivoro: " << edad << ", " << "Fue herdido el Herbivoro: " << fueHerido << endl;
 }
