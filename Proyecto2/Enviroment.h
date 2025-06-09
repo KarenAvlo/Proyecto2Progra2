@@ -36,8 +36,6 @@ public:
 
 	~Enviroment() = default; // destructor por defecto
 
-
-
 	//metodos de mapa
 	void agregarRecurso(shared_ptr<Objeto> recurso);
 	void agregarCreatura(shared_ptr<Objeto> criatura);
@@ -104,7 +102,6 @@ public:
 	/*void verAtaques();*/ //era para ver si servia bien los ataques
 
 	//ticks de tiempo
-	void simularTiempoAleatorio();
 
 	void simularTickTiempo(int maxTicks);
 

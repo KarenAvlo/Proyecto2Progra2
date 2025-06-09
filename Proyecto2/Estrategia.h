@@ -54,11 +54,11 @@ public:
 
 };
 
-class EstrategiaAtaqueAleatorio :public EstrategiaAtaque {
-public:
-	void EjecutarEstrategia(shared_ptr<Creatura> c) override;
-
-};
+//class EstrategiaAtaqueAleatorio :public EstrategiaAtaque {
+//public:
+//	void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+//
+//};
 
 class EstrategiaAtaqueH :public EstrategiaAtaque {
 public:

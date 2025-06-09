@@ -124,29 +124,37 @@ void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 
 }
-//-------------------------------------HERVIVORO	--------------------------------------------
-void EstrategiaAtaqueH::EjecutarEstrategia(shared_ptr<Creatura> c){
+//-------------------------------------HERVIVORO--------------------------------------------
+void EstrategiaAtaqueH::EjecutarEstrategia(shared_ptr<Creatura> c) {
+	if (!c) return;
 
-	//PENSARLO CRISTIAN
+	shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaFuerteCerca(c);
+	if (!presa || presa == c) return;
 
-	//if (!c) return;
+	c->ReducirEnergia(10); 
 
-	//shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaFuerteCerca(c);
+	if (!presa->isDead()) {
+		int d = rand() % (15) + 10;
+		presa->ReducirEnergia(d);
 
-	//if (!presa || presa == c) return;
+		string tipoAtaque;
 
-	//c->ReducirEnergia(15);
+		if (d > 10) { tipoAtaque = " Fuerte"; }
+		else { tipoAtaque = " Debil"; }
+		
+		cout << "H(" << c->getX() << "," << c->getY() << ")";
+		cout << "::Se DEFENDIO de(" << presa->getX() << ", " << presa->getY() << ")" << endl;
+		cout << "Ataque" << tipoAtaque << ", Inflige " << d << "% de danio." << endl;
+		
+	}
 
-	//presa->ReducirEnergia(calcularDanio());
-
-	//if (presa->isDead()) { // si la presa está muerta
-	//	Enviroment::getInstancia()->eliminarCreatura(presa); //eliminamos la creatura y luego se convierte a recurso Meat
-	//	shared_ptr<Meat> carne = make_shared<Meat>(presa->getX(), presa->getY(), 50);
-	//	Enviroment::getInstancia()->agregarRecurso(carne);
-	//}
-
-
+	if (presa->isDead()) {
+		Enviroment::getInstancia()->eliminarCreatura(presa);
+		shared_ptr<Meat> carne = make_shared<Meat>(presa->getX(), presa->getY(), 50);
+		Enviroment::getInstancia()->agregarRecurso(carne);
+	}
 }
+
 
 
 //-------------------------------------CARNIVORO--------------------------------------------
@@ -159,19 +167,21 @@ void EstrategiaAtaqueC::EjecutarEstrategia(shared_ptr<Creatura> c){
 
 	c->ReducirEnergia(15);
 
-
 	if (!presa->isDead()) {
 
 			int d = rand() % (50 - 25 + 1) + 25;
 
 			presa->ReducirEnergia(d);
 
-			string tipoAtaque = (d > 10) ? "Fuerte" : "Debil";
+			string tipoAtaque;
+			if (d > 30) { tipoAtaque = " Fuerte"; }
+			else { tipoAtaque = " Debil"; }
 
+			cout << "C(" << c->getX() << "," << c->getY() << ")";
+			cout << "::ATACO a la creatura" << "(" << presa->getX() << ", " << presa->getY() << ")" << endl;
 			cout << "Ataque" << tipoAtaque
 				<< ", Inflige " << d << "% de danio." << endl;
-			cout << "C("<<c->getX()<<","<<c->getY()<<")"<<" ataco a la creatura" << "("<<presa->getX() << ", " << presa->getY() <<")"<< endl;
-
+			
 	}
 
 	if (presa->isDead()) { 
@@ -195,18 +205,21 @@ void EstrategiaAtaqueO::EjecutarEstrategia(shared_ptr<Creatura> c){
 
 	c->ReducirEnergia(15);
 
-
 	if (!presa->isDead()) {
 
 	   int d= rand() % (25 - 15 + 1) + 15; // reduce entre un 15 a 25%
 
 		presa->ReducirEnergia(d);
 
-		string tipoAtaque = (d > 10) ? "Fuerte" : "Debil";
+		string tipoAtaque;
+		if (d > 20) { tipoAtaque = " Fuerte"; }
+		else { tipoAtaque = " Debil"; }
 
+		
+		cout << "O(" << c->getX() << "," << c->getY() << ")";
+		cout << "::ATACO a la creatura" << "(" << presa->getX() << ", " << presa->getY() << ")" << endl;
 		cout << "Ataque" << tipoAtaque
 			<< ", Inflige " << d << "% de danio." << endl;
-		cout << "O(" << c->getX() << "," << c->getY() << ")" << " ataco a la creatura" << "(" << presa->getX() << ", " << presa->getY() << ")" << endl;
 
 	}
 

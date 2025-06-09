@@ -41,7 +41,7 @@ public:
 
 	virtual void AumentarEnergia(int);
 
-	void ReducirEnergia(int);
+	virtual void ReducirEnergia(int);
 
 	void setEdad(int); //no necesitamos cambiar la edad
 

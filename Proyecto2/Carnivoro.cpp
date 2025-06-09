@@ -43,7 +43,6 @@ void Carnivoro::atacar() {
 			E->EjecutarEstrategia(shared_from_this());
 		}
 	}
-	
 }
 
 void Carnivoro::guardarDatos(ofstream& archivo) const {

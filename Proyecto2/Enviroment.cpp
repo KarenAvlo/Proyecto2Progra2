@@ -199,59 +199,6 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 }
  }
 
- //void Enviroment::generarRecursos() {
-	// int maxIntentos = 100; // para evitar un bucle infinito
-
-	// // generar un recurso aleatorio en una posición libre del mapa
-	// for (int i = 0; i < maxIntentos; i++) {
-	//	 int x = rand() % mapa->getAncho();
-	//	 int y = rand() % mapa->getAlto();
-	//	 // Verificar si la posicion esta libre
-	//	 if (!mapa->hayObjetoEnMapa(x, y)) {
-	//		 int tipo = rand() % 3 + 1; // tipo de recurso aleatorio entre 1 y 3
-	//		 shared_ptr<Recursos> recurs = FactoryResources::crearInstancia(tipo);
-	//		 agregarRecurso(recurs);
-	//		 return; 
-	//	 }
-	// }
- //}
-
- //agrega directamente una cantidad de recursos al inicio
- //void Enviroment::agregarRecursoPorCan(int n)
- //{
-	// int agregados = 0;
-	// int intentos = 0;
-	// int maxIntentos = 100; //evita que quede enclochado
-	// const int max = 5;
-	// int libres = mapa->espaciosLibres();
-
-	// if (libres < n) {
-	//	 cerr << "No hay suficientes espacios libres en el mapa. Espacios libres: " << libres << endl;
-	//	 return;
-	// }
-	// if (n < 0 || n > max) {
-	//	 cerr << "Cantidad invalida. Debe ser entre 0 y " << max << "." << endl;
-	//	 return;
-	// }
-
-	// while (agregados < n && intentos < maxIntentos) {
-	//	 int x = rand() % mapa->getAncho();
-	//	 int y = rand() % mapa->getAlto();
-
-	//	 // Verificar si la posicion esta libre
-	//	 if (!mapa->hayObjetoEnMapa(x, y)) {
-	//		 int tipo = rand() % 3 + 1; // tipo de recurso aleatorio entre 1 y 3	
-	//		 shared_ptr<Recursos> recurs = FactoryResources::crearInstancia(tipo); // crea un recurso aleatorio
-	//		 agregarRecurso(recurs);
-	//		 agregados++;
-	//	 }
-	//	 intentos++;
-	// }
-	// if (agregados < n) {
-	//	 cerr << "Solo se pudieron agregar " << agregados << " recursos despues de " << intentos << " intentos." << endl;
-	// }
- //}
-
 
  bool Enviroment::hayPlantaCerca(Herbivoro* her) const {
 	 if (!her) return false;
@@ -495,25 +442,6 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	// }
  //}
 
-
-
- void Enviroment::simularTiempoAleatorio()
- {
-	 int ticksPorDia = 10; // Cada 10 ticks cambia clima/estación
-	 int tickGlobal = 0;
-	 srand(time(0)); // Inicializar la semilla aleatoria
-	 char continuar = 's';
-	 int maxTicks = 30; // Definir un número máximo de ticks para la simulación
-	 int interRegeneracion = generarIntervaloDeRegeneracionRecursos();
-
-	 //este va hacer casi todo en el aleatorio
-	 if (ticksPorDia % tickGlobal == 0) {
-
-	 }
-
-
- }
-
  void Enviroment::simularTickTiempo(int maxTick)
  {
 	 int ticksPorDia = 10;
@@ -530,7 +458,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 			 cout << "\nTick: " << tickGlobal + 1 << endl;
 			 cout << "Clima actual: " << clima << endl;
 			 cout << "Estacion actual: " << estacion << endl;
-			/* verAtaques();*/
+	
 
 			 // Cambio de clima y estación
 			 if (tickGlobal % ticksPorDia == 0) {

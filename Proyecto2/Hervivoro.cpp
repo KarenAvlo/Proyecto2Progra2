@@ -2,11 +2,9 @@
 
 
 Herbivoro::Herbivoro(int x, int  y, int energia, int edad, shared_ptr<Estrategia> E):
-	Creatura(x, y, energia, edad, E){
-
+	Creatura(x, y, energia, edad, E), fueHerido(false){
+	E = make_shared<EstrategiaAtaqueH>(); // 
 }
-
-
 
 string Herbivoro::toString() const{
 	stringstream s;
@@ -39,19 +37,22 @@ void Herbivoro::alimentarse() {
 }
 
 void Herbivoro::atacar() {
-	
+	setEstrategia(make_shared<EstrategiaAtaqueH>());
 
-	//CAMBIAR ESTO
+	if (E) {
+		E->EjecutarEstrategia(shared_from_this());
+		fueHerido = false; // Reseteamos el estado de herida después de atacar
+	}
+	else {
+		cout << "No hay estrategia de ataque definida." << endl;
+	}
+}
 
-
-	//if (E2 && !obj.isDead()) {
-	//	for (int i = 0; i < 2 && !obj.isDead(); i++) {
-	//		int d = E2->calcularDanio();
-	//		obj.recibirDanio(d);
-	//		cout << "Ataque " << (i + 1) << " con " << E2->getTipoAtaque()
-	//			<< " inflige " << d << " de danio." << endl;
-	//	}
-	//}
+void Herbivoro::ReducirEnergia(int danio)
+{
+	this->energia -= danio;
+	if (energia < 0) energia = 0;
+	fueHerido = true;
 }
 
 void Herbivoro::guardarDatos(std::ofstream& archivo) const {

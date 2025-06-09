@@ -18,7 +18,6 @@ void Creatura::moverse() {
 	//se cambia la estrategia para cada cosa
 	setEstrategia(make_shared < EstrategiaMovimiento>());
 	
-
 	//el moverse utiliza 5 de energia
 	if (energia >= 5) {
 		ReducirEnergia(5);
@@ -27,7 +26,7 @@ void Creatura::moverse() {
 }
 
 
-void Creatura::recibirDanio(int danio){ // esto es lo mismo que decirle al metodo reduzca la energía
+void Creatura::recibirDanio(int danio) { // esto lo usa el hervivoro nada más
 	energia -= danio;
 	if (energia < 0) energia = 0; // Evitar energía negativa
 }
@@ -79,7 +78,6 @@ void Creatura::setEstrategia(shared_ptr<Estrategia> ee) {
 	E = ee;
 }
 
-
 string Creatura::toString() const {
 	stringstream s;
 	s << "( " << x <<", " << y <<")" << endl;
@@ -87,8 +85,6 @@ string Creatura::toString() const {
 	s << "Edad: " << edad<<endl;
 	return s.str();
 }
-
-
 
 bool Creatura::isDead() const { 
 	if (energia <= 0) {
@@ -98,7 +94,7 @@ bool Creatura::isDead() const {
 }
 
 string Creatura::getEtiqueta() const{
-	return "Creatura";
+	return "Criatura";
 }
 
 

@@ -50,6 +50,7 @@ void Interfaz::ingresarCreatura() {
 		cout << "Mostrando los objetos del entorno..." << endl;
 		cout << Enviroment::getInstancia()->getMapa()->mostrarMapa();
 
+		cout << endl;
 		cout << "Desea agregar otra creatura? (1: Si, 0: No): ";
 		cin >> opcion;
 
@@ -216,7 +217,6 @@ void Interfaz::mostrarEntorno(){
 	cout << "Estacion: " << Enviroment::getInstancia()->getEstacion() << endl;
 	cout << "Nivel de Agua: " << Enviroment::getInstancia()->getNivelAgua() << endl;
 	cout << "Nivel de Sol: " << Enviroment::getInstancia()->getNivelSol() << endl;
-	cout << "Estadisticas de ataque: " << endl;
 	
 }
 
