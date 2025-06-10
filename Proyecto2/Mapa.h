@@ -19,13 +19,9 @@ public:
 
 	// Métodos para manipular el mapa
 	bool posValida(int, int);
-	int espaciosLibres();  //para debug, muestra los espacios libres del mapa
+	//int espaciosLibres();  //para debug, muestra los espacios libres del mapa
 
 	shared_ptr<Objeto> hayObjetoEnMapa(int x, int y);  //para evitar las colisiones
-
-	/*bool agregarRecurso(int x, int y, shared_ptr<Objeto> recurso);
-
-	bool agregarCreatura(int x, int y, shared_ptr<Objeto> criatura);*/
 
 	bool agregarObjeto(int, int, shared_ptr<Objeto> loquesea);
 

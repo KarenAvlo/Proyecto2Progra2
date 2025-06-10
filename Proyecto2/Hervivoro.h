@@ -14,7 +14,7 @@ class Herbivoro : public Creatura {
 		string toString() const override;
 		string getEtiqueta() const override;
 
-		void  reproducirse() override;
+		void reproducirse() override;
 		void alimentarse() override;
 		void atacar() override;
 

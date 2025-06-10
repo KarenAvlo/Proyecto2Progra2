@@ -19,8 +19,10 @@ string Omnivoro::getEtiqueta() const {
 void Omnivoro::alimentarse() {
 	setEstrategia(make_shared<EstrategiaAlimentacionO>());
 
-	if (E) {
-		E->EjecutarEstrategia(shared_from_this());
+	if (Enviroment::getInstancia()->hayCarneCerca(shared_from_this()) || Enviroment::getInstancia()->hayPlantaCerca(shared_from_this())) {
+		if (E) {
+			E->EjecutarEstrategia(shared_from_this());
+		}
 	}
 }
 
@@ -33,6 +35,17 @@ void Omnivoro::atacar() {
 			E->EjecutarEstrategia(shared_from_this());
 		}
 	}
+}
+
+void Omnivoro::reproducirse() {
+	if (Enviroment::getInstancia()->hayOmnivoroCerca(shared_from_this())) {
+		setEstrategia(make_shared<EstrategiaReproduccion>());
+
+		if (E) {
+			E->EjecutarEstrategia(shared_from_this());
+		}
+	}
+
 }
 
 void Omnivoro::guardarDatos(ofstream& archivo) const {

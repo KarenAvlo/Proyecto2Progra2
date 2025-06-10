@@ -30,26 +30,36 @@ void Herbivoro::reproducirse() {
 }
 
 void Herbivoro::alimentarse() {
-	setEstrategia(make_shared<EstrategiaAlimentacionH>());
-	if (E) {
-		E->EjecutarEstrategia(shared_from_this());
+	
+	if (Enviroment::getInstancia()->hayPlantaCerca(shared_from_this())) {
+		//si hay planta cerca entonces cómasela
+
+		setEstrategia(make_shared<EstrategiaAlimentacionH>());
+
+		if (E) {
+			E->EjecutarEstrategia(shared_from_this());
+		}
 	}
 }
 
 void Herbivoro::atacar() {
-	setEstrategia(make_shared<EstrategiaAtaqueH>());
 
-	if (E) {
-		E->EjecutarEstrategia(shared_from_this());
-		fueHerido = false; // Reseteamos el estado de herida después de atacar
-	}
-	else {
-		cout << "No hay estrategia de ataque definida." << endl;
+	if (Enviroment::getInstancia()->getCreaturaFuerteCerca(shared_from_this())) {
+		//si creatura fuerte está cerca y me ataca, entonces realizo la estrategia contra-ataque
+
+		setEstrategia(make_shared<EstrategiaAtaqueH>());
+
+		if (E) {
+			E->EjecutarEstrategia(shared_from_this());
+			fueHerido = false; // Reseteamos el estado de herida después de atacar
+		}
+		else {
+			cout << "No hay estrategia de ataque definida." << endl;
+		}
 	}
 }
 
-void Herbivoro::ReducirEnergia(int danio)
-{
+void Herbivoro::ReducirEnergia(int danio){
 	this->energia -= danio;
 	if (energia < 0) energia = 0;
 	fueHerido = true;

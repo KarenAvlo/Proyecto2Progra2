@@ -68,7 +68,7 @@ void Sistema::mostrarMenuPrincipal() {
 		while (!(cin >> opcion) || opcion < 0 || opcion > 6) {
 			cin.clear();
 			cin.ignore(1000, '\n');
-			cerr << "Opcion invalida. Ingrese un numero entre 1 y 6 o 0: ";
+			cerr << "Opcion invalida. Ingrese un numero entre 0 y 6: ";
 		}
 
 		system("cls");

@@ -76,10 +76,11 @@ class Enviroment { // singleton
 
 		int generarIntervaloDeRegeneracionRecursos()const;
 
-		bool hayPlantaCerca(Herbivoro* her) const;
+		bool hayPlantaCerca(shared_ptr<Creatura> cre) const;
 		bool hayHerviroroCerca(shared_ptr<Creatura> cre) const;
 		bool hayCarnivoroCerca(shared_ptr<Creatura> cre) const;
 		bool hayOmnivoroCerca(shared_ptr<Creatura> cre) const;
+		bool hayCarneCerca(shared_ptr<Creatura> cre) const;
 
 		shared_ptr<Recursos> getPlantaCerca(shared_ptr<Creatura> hervivoro);
 		shared_ptr<Meat>getCarneCerca(shared_ptr<Creatura> depredador);

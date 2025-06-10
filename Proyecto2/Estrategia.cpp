@@ -2,8 +2,10 @@
 
 void EstrategiaReproduccion::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
-		//se crea una creatura por defecto...
-    if (c->getEdad() > 20 && c->getEnergia() >90) {
+		//la creatura debe de tener una edad de 5 y energía de 50 para reproducirse
+    if (c->getEdad() > 5 && c->getEnergia() >50){ 
+	
+		//se crea una creatura por defecto..
 		int tipo = FactoryCreature::etiquetaToTipo(c->getEtiqueta());
 
 		//llamamos a factory para crear una creatura
@@ -12,7 +14,7 @@ void EstrategiaReproduccion::EjecutarEstrategia(shared_ptr<Creatura> c) {
 		// luego se introduce al ambiente...
 		//pues lo que se hace es crear una creatura de su mismo tipo
 
-		cout << "Criatura creada para reproducción en (" << cre->getX() << "," << cre->getY() << ")\n";
+		cout << "Criatura creada por reproduccion en (" << cre->getX() << "," << cre->getY() << ")\n";
 
 		Enviroment::getInstancia()->agregarCreatura(cre);
 	}
@@ -46,66 +48,52 @@ void EstrategiaMovimiento::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 }
 
-void EstrategiaAtaque::EjecutarEstrategia(shared_ptr<Creatura> c) {
-
-	if (!c) return;
-
-	shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
-	if (!presa || presa == c) return;
-
-	c->ReducirEnergia(15);
-	presa->ReducirEnergia(50);
-
-	if (presa->isDead()) { // si la presa está muerta
-
-		Enviroment::getInstancia()->eliminarCreatura(presa); //eliminamos la creatura y luego se convierte a recurso Meat
-
-		shared_ptr<Meat> carne = make_shared<Meat>(presa->getX(), presa->getY(), 50);
-
-		Enviroment::getInstancia()->agregarRecurso(carne);
-	}
-
-}
-
-
 
 void EstrategiaAlimentacionC::EjecutarEstrategia(shared_ptr<Creatura> c) {
 	if (!c) return;
 
+	// si hay carne cerca, bríndela
 	shared_ptr<Meat> carne = Enviroment::getInstancia()->getCarneCerca(c);
 
+	//Sino, no haga nada
 	if (!carne) return;
 
-	c->AumentarEnergia(20); //comer da 20pts de energía
+	c->AumentarEnergia(20); //comer da 20pts de energía, puesto que eso brinda cada recurso
 
-	Enviroment::getInstancia()->eliminarCreatura(carne);
+	Enviroment::getInstancia()->eliminarRecurso(carne); // la eliminamos pues ya ha sido consumida
 
 }
 
 void EstrategiaAlimentacionH::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
+	// si hay planta cerca, bríndela
 	shared_ptr<Recursos> alimento = Enviroment::getInstancia()->getPlantaCerca(c);
 
+	//Sino, no haga nada
 	if (!alimento) return;
 
-	c->AumentarEnergia(20);
+	c->AumentarEnergia(20); //comer da 20pts de energía, puesto que eso brinda cada recurso
 
 	Enviroment::getInstancia()->eliminarRecurso(alimento);
 
+	cout << "H(" << c->getX() << "," << c->getY() << "), devore a Planta(" << alimento->getX() << "," << alimento->getY() << ")" << endl;
 }
 
 void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
+	
 	//el Omnivoro come ambas cosas carne y plantas
-	shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
 
-	//la creatura debil solo son Hervivoros y Omnivoros, por lo cual los carnpivoros ganarían por encima de omnivoros
+	shared_ptr<Meat> presa = Enviroment::getInstancia()->getCarneCerca(c);
 
-	if (presa) { // el caso de alguna creatura
 
-		c->AumentarEnergia(20); //comer da 20pts de energía
+	if (presa) { // el caso de alguna carne
 
-		Enviroment::getInstancia()->eliminarCreatura(presa);
+		c->AumentarEnergia(50); //comer carne 20pts de energía
+
+		Enviroment::getInstancia()->eliminarRecurso(presa); //eliminamos el recurso del mapa y la lista del enviroment
+
+		cout << "0(" << c->getX() << "," << c->getY() << "), devore a M(" << presa->getX() << "," << presa->getY() << ")"<<endl;
 
 		return;
 	}
@@ -115,9 +103,11 @@ void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 	if (alimento) { //alguna planta
 
-		c->AumentarEnergia(20);
+		c->AumentarEnergia(20); //comer plantas da 20pts de energía
 
-		Enviroment::getInstancia()->eliminarRecurso(static_pointer_cast<Objeto>(alimento));
+		Enviroment::getInstancia()->eliminarRecurso(static_pointer_cast<Objeto>(alimento));  //eliminamos el recurso del mapa y la lista del enviroment
+
+		cout << "0(" << c->getX() << "," << c->getY() << "), devore a Planta(" << alimento->getX() << "," << alimento->getY() << ")"<<endl;
 
 		return;
 	}
@@ -127,6 +117,8 @@ void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 //-------------------------------------HERVIVORO--------------------------------------------
 void EstrategiaAtaqueH::EjecutarEstrategia(shared_ptr<Creatura> c) {
 	if (!c) return;
+
+	//la idea de esta estrategia, es que si una creatura fuerte ataca a un hervivoro, entonces que el hervivoro se defienda
 
 	shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaFuerteCerca(c);
 	if (!presa || presa == c) return;
@@ -199,23 +191,25 @@ void EstrategiaAtaqueC::EjecutarEstrategia(shared_ptr<Creatura> c){
 void EstrategiaAtaqueO::EjecutarEstrategia(shared_ptr<Creatura> c){
 
 	if (!c) return;
+	//buscamos la presa cerca
 	shared_ptr<Creatura> presa = Enviroment::getInstancia()->getCreaturaDebilCerca(c);
 
 	if (!presa || presa == c) return;
 
-	c->ReducirEnergia(15);
+	c->ReducirEnergia(15); // esta accion baja un 15 de energía
 
-	if (!presa->isDead()) {
+	if (!presa->isDead()) { // si la presa sigue vivan
 
 	   int d= rand() % (25 - 15 + 1) + 15; // reduce entre un 15 a 25%
 
 		presa->ReducirEnergia(d);
 
+		//definimos el ataque con respecto a la cantidad de daño
 		string tipoAtaque;
 		if (d > 20) { tipoAtaque = " Fuerte"; }
 		else { tipoAtaque = " Debil"; }
 
-		
+		//Mensaje de confimacion de la accion
 		cout << "O(" << c->getX() << "," << c->getY() << ")";
 		cout << "::ATACO a la creatura" << "(" << presa->getX() << ", " << presa->getY() << ")" << endl;
 		cout << "Ataque" << tipoAtaque

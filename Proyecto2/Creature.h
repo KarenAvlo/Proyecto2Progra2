@@ -26,8 +26,6 @@ class Creatura: public Objeto, public enable_shared_from_this<Creatura> {
 		Creatura(int, int, int, int, shared_ptr<Estrategia>); 
 
 		virtual ~Creatura();
-
-		virtual void recibirDanio(int danio);
 		virtual void atacar();
 		virtual void alimentarse() = 0;
 		virtual void reproducirse();

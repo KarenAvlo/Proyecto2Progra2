@@ -4,7 +4,7 @@
 unique_ptr<Enviroment> Enviroment::instancia = nullptr;
 
 Enviroment::Enviroment() :clima("Lluvioso"), estacion("Primavera") {
-	
+	// creamos un mapa por defecto
 	mapa = make_shared<Mapa>(10, 10); 
 	nivelAguita=0;
 	nivelSol=0;
@@ -51,6 +51,7 @@ void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
 }
 
 void Enviroment::eliminarCreatura(shared_ptr<Objeto> creatura) {
+	//Se debe eliminar de la lista de objetos y del mapa
 	mapa->eliminarObjeto(creatura->getX(), creatura->getY());
 	objetos.eliminar(creatura);
 	
@@ -122,6 +123,8 @@ const lista<shared_ptr<Objeto>>* Enviroment::getLista() const{
 }
 
 shared_ptr<lista<shared_ptr<Creatura>>> Enviroment::mostrarCreaturas() const {
+	//lista especificamente para creaturas
+
 	auto listaCreaturas = make_shared<lista<shared_ptr<Creatura>>>();
 
 	for (auto it = objetos.begin(); it != objetos.end(); ++it) {
@@ -136,6 +139,8 @@ shared_ptr<lista<shared_ptr<Creatura>>> Enviroment::mostrarCreaturas() const {
 }
 
 shared_ptr<lista<shared_ptr<Recursos>>> Enviroment::mostrarRecursos() const {
+	//lista especificamente para creaturas
+
 	auto listaRecursos = make_shared<lista<shared_ptr<Recursos>>>();
 
 	for (auto it = objetos.begin(); it != objetos.end(); ++it) {
@@ -175,7 +180,6 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 if (nivelSol == 1 && nivelAguita == 0) return 9;
 	 if (nivelSol == 0 && nivelAguita == 0) return 15;
 
-	 //este No se mueve a factory
  }
 
  void Enviroment::ticksDeRecursos()
@@ -201,21 +205,21 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
  }
 
 
- bool Enviroment::hayPlantaCerca(Herbivoro* her) const {
-	 if (!her) return false;
+ bool Enviroment::hayPlantaCerca(shared_ptr<Creatura> cre) const {
+	 if (!cre) return false;
 
 	 for (const auto& obj : objetos) {
 		 // PlantaFlor
 		 shared_ptr<PlantaFlor> flor = dynamic_pointer_cast<PlantaFlor>(obj);
 		 if (flor) {
-			 double dist = hypot(flor->getX() - her->getX(), flor->getY() - her->getY());
+			 double dist = hypot(flor->getX() - cre->getX(), flor->getY() - cre->getY());
 			 if (dist <= 3.0) return true;
 		 }
 
 		 // PlantaRosa
 		 shared_ptr<PlantaRosa> rosa = dynamic_pointer_cast<PlantaRosa>(obj);
 		 if (rosa) {
-			 double dist = hypot(rosa->getX() - her->getX(), rosa->getY() - her->getY());
+			 double dist = hypot(rosa->getX() - cre->getX(), rosa->getY() - cre->getY());
 			 if (dist <= 3.0) return true;
 		 }
 	 }
@@ -386,10 +390,25 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
  }
 
+ bool Enviroment::hayCarneCerca(shared_ptr<Creatura> cre) const {
+	 if (!cre) return false;
+
+	 for (const auto& obj : objetos) {
+		 // Intentamos convertir el objeto a tipo Carne
+		 shared_ptr<Meat> carne = dynamic_pointer_cast<Meat>(obj);
+		 if (carne) {
+			 double dist = hypot(carne->getX() - cre->getX(), carne->getY() - cre->getY());
+			 if (dist <= 3.0) return true;
+		 }
+	 }
+
+	 return false;
+ }
 
 
 
- void Enviroment::isDeadtoMeat() {
+
+ void Enviroment::isDeadtoMeat() { //metodo para revisar estan muertas y convertirlas en carne
 
 	 // Recorremos la lista de objetos
 	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
@@ -418,30 +437,6 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 objetos.eliminarTodos();
 	 mapa->limpiarCeldas();
  }
-
- //void Enviroment::verAtaques()
- //{
-	// cout << "--- Simulacion de ataques ---" << endl;
-
-	// for (int i = 0; i < objetos.getCan; ++i) {
-	//	 for (int j = 0; j < objetos.getCantidad(); ++j) {
-	//		 if (i == j) continue;
-
-	//		 shared_ptr<Creatura> atacante = dynamic_pointer_cast<Creatura>(objetos.getObjeto(i));
-	//		 shared_ptr<Creatura> objetivo = dynamic_pointer_cast<Creatura>(objetos.getObjeto(j));
-
-	//		 if (atacante && objetivo && atacante->getEnergia() && objetivo->estaViva()) {
-	//			 cout << atacante->getNombre() << " va a atacar a " << objetivo->getNombre() << endl;
-	//			 cout << "Energia antes: " << objetivo->getEnergia() << endl;
-
-	//			 atacante->atacar(*objetivo);
-
-	//			 cout << "Energia despues: " << objetivo->getEnergia() << endl;
-	//			 cout << "-----------------------------" << endl;
-	//		 }
-	//	 }
-	// }
- //}
 
  void Enviroment::simularTickTiempo(int maxTick)
  {
@@ -475,7 +470,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 			 for (auto& obj : objetos) {
 				 shared_ptr<Creatura> criatura = dynamic_pointer_cast<Creatura>(obj);
 				 if (criatura) {
-					 criatura->AumentarEdad();
+					criatura->AumentarEdad();
 					 criatura->moverse();
 					 criatura->atacar();
 					 criatura->alimentarse();

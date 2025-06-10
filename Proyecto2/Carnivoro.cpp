@@ -47,13 +47,17 @@ void Carnivoro::reproducirse() {
 void Carnivoro::alimentarse() {
 	setEstrategia(make_shared <EstrategiaAlimentacionC>());
 
-	if (E) {
-		E->EjecutarEstrategia(shared_from_this());
+	//si hay carne cerca, comasela
+	if (Enviroment::getInstancia()->hayCarneCerca(shared_from_this())) {
+		if (E) {
+			E->EjecutarEstrategia(shared_from_this());
+		}
 	}
 }
 
 void Carnivoro::atacar() {
-	
+	//si hay creatura debil cerca, entonces ataque
+
 	if (Enviroment::getInstancia()->getCreaturaDebilCerca(shared_from_this())) {
 		setEstrategia(make_shared<EstrategiaAtaqueC>());
 

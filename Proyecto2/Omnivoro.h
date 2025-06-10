@@ -14,9 +14,11 @@ class Omnivoro: public Creatura{
 
 	void alimentarse() override;
 
-	 void atacar() override;
+	void atacar() override;
 
-	 void guardarDatos(ofstream& archivo) const override;
+	void reproducirse() override;
+
+	void guardarDatos(ofstream& archivo) const override;
 
 };
 

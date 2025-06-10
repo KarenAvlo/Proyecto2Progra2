@@ -236,7 +236,7 @@ void  Interfaz::entornoPersonalizado() {
 	while (!(cin >> subopcion) || subopcion < 0 || subopcion > 3) {
 		cin.clear();
 		cin.ignore(1000, '\n');
-		cout << "Opcion invalida, ingrese 0 a 2: ";
+		cout << "Opcion invalida, ingrese 0 a 3: ";
 	}
 
 	if (subopcion == 1) {

@@ -26,11 +26,6 @@ void Creatura::moverse() {
 }
 
 
-void Creatura::recibirDanio(int danio) { // esto lo usa el hervivoro nada más
-	energia -= danio;
-	if (energia < 0) energia = 0; // Evitar energía negativa
-}
-
 void Creatura::atacar(){
 	cout << "ATACANDO" << endl;
 }
