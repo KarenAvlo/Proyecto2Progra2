@@ -126,7 +126,7 @@ void EstrategiaAtaqueH::EjecutarEstrategia(shared_ptr<Creatura> c) {
 	c->ReducirEnergia(10); 
 
 	if (!presa->isDead()) {
-		int d = rand() % (15) + 10;
+		int d = rand() % (15) + 10; // el daño va de %10-%15 por ser hervivoro
 		presa->ReducirEnergia(d);
 
 		string tipoAtaque;
@@ -161,7 +161,7 @@ void EstrategiaAtaqueC::EjecutarEstrategia(shared_ptr<Creatura> c){
 
 	if (!presa->isDead()) {
 
-			int d = rand() % (50 - 25 + 1) + 25;
+			int d = rand() % (50 - 25 + 1) + 25; // el daño del carnivoro es el mas fuerte de %25-%50
 
 			presa->ReducirEnergia(d);
 
