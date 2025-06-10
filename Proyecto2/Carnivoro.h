@@ -1,25 +1,23 @@
 #pragma once
+
 #include "Creature.h"
 
-class Carnivoro: public Creatura{
-public:
+class Carnivoro: public Creatura {
 
-	Carnivoro(int x = 0, int  y = 0, int energia = 0, int edad = 0,
-		shared_ptr<Estrategia> = nullptr); /*shared_ptr<EstrategiaAtaque> = nullptr);*/
+	public:
 
-	virtual ~Carnivoro() = default;
+		Carnivoro(int x = 0, int  y = 0, int energia = 0, int edad = 0,
+			shared_ptr<Estrategia> = nullptr);
 
-	string toString() const override;
+		virtual ~Carnivoro() = default;
 
-	string getEtiqueta() const override;
+		string toString() const override;
+		string getEtiqueta() const override;
 
-	void reproducirse() override;
+		virtual void atacar() override;
 
-	void alimentarse() override;
-
-	virtual void atacar() override;
-
-	void guardarDatos(ofstream& archivo) const override;
-
+		void reproducirse() override;
+		void alimentarse() override;
+		void guardarDatos(ofstream& archivo) const override;
 };
 

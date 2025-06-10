@@ -1,30 +1,29 @@
 #pragma once
+
 #include "Creature.h"
 
-//PARA ARCHIVOS HAY QUE PONER UN ATRIBUTOS MAS!!!
-class Herbivoro :public Creatura {
-private:
-	bool fueHerido = false; // Indica si fue herido en el último ataque = true;
-public:
-	Herbivoro(int x = 0, int  y = 0, int energia = 0, int edad = 0, 
-		shared_ptr<Estrategia> estrategia = nullptr);
+class Herbivoro : public Creatura {
 
-	virtual ~Herbivoro() = default;
+	public:
 
-	string toString() const override;
+		Herbivoro(int x = 0, int  y = 0, int energia = 0, int edad = 0, 
+			shared_ptr<Estrategia> estrategia = nullptr);
 
-	string getEtiqueta() const override;
+		virtual ~Herbivoro() = default;
 
-	void  reproducirse() override;
+		string toString() const override;
+		string getEtiqueta() const override;
 
-	void alimentarse() override;
+		void  reproducirse() override;
+		void alimentarse() override;
+		void atacar() override;
 
-	void atacar() override;
+		void ReducirEnergia(int e) override;
+		void guardarDatos(ofstream& archivo) const override;
+		void setFueHerido(bool);
 
-	void ReducirEnergia(int e) override;
+	private:
 
-	void guardarDatos(ofstream& archivo) const override;
-
-	void setFueHerido(bool);
+		bool fueHerido = false; 
 };
 

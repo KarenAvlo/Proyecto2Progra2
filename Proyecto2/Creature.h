@@ -1,7 +1,9 @@
 #pragma once
+
 #include "Objeto.h"
 #include "Estrategia.h"
 #include "Enviroment.h"
+
 #include <memory>
 #include <fstream>
 
@@ -10,49 +12,40 @@
 class Estrategia;
 
 class Creatura: public Objeto, public enable_shared_from_this<Creatura> {
-protected:
-	int energia;
-	int edad;
-	shared_ptr<Estrategia> E;
-	//shared_ptr<EstrategiaAtaque> E2; // Estrategia de ataque
 
-public:
-	Creatura();
+	protected:
 
-	Creatura(int, int, int, int, shared_ptr<Estrategia>); /*, shared_ptr<EstrategiaAtaque>);*/
+		int energia;
+		int edad;
 
-	virtual ~Creatura();
+		shared_ptr<Estrategia> E;
 
-	void moverse();
+	public:
 
-	virtual void recibirDanio(int danio);
+		Creatura();
+		Creatura(int, int, int, int, shared_ptr<Estrategia>); 
 
-	virtual void atacar();
+		virtual ~Creatura();
 
-	virtual void alimentarse() = 0;
+		virtual void recibirDanio(int danio);
+		virtual void atacar();
+		virtual void alimentarse() = 0;
+		virtual void reproducirse();
+		virtual void AumentarEnergia(int);
+		virtual void ReducirEnergia(int);
+		virtual void guardarDatos(ofstream& archivo) const = 0;
 
-	virtual void reproducirse();
+		virtual string toString() const override;
+		virtual string getEtiqueta() const override;
 
-	int getEnergia();
+		virtual bool isDead() const;
 
-	int getEdad();
+		void AumentarEdad();
+		void moverse();
+		void setEdad(int); 
+		void setEstrategia(shared_ptr<Estrategia>);
 
-	void AumentarEdad();
-
-	virtual void AumentarEnergia(int);
-
-	virtual void ReducirEnergia(int);
-
-	void setEdad(int); //no necesitamos cambiar la edad
-
-	void setEstrategia(shared_ptr<Estrategia>);
-
-	virtual bool isDead() const;
-
-	virtual string toString() const override;
-
-	virtual void guardarDatos(ofstream& archivo) const = 0;
-
-	virtual string getEtiqueta() const override;
+		int getEnergia();
+		int getEdad();
 };
 

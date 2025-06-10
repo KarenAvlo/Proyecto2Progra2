@@ -2,6 +2,7 @@
 #include <thread>   // Para this_thread::sleep_for
 #include <chrono>  // Para chrono::seconds
 #include <fstream>
+
 #include "Lista.h"
 #include "Mapa.h"
 #include "Recursos.h"
@@ -18,98 +19,81 @@ static int tickGlobal = 0;
 
 class Enviroment { // singleton
 
-protected:
-	int nivelAguita; 
-	int nivelSol; 
+	protected:
 
-	string clima;
-	string estacion;
-	shared_ptr<Mapa> mapa;
-	shared_ptr<Recursos> recurso; 
-	static unique_ptr<Enviroment> instancia;
-	lista<shared_ptr<Objeto>> objetos;
+		int nivelAguita; 
+		int nivelSol; 
 
-	Enviroment(); // constructor privado para el singleton
+		string clima;
+		string estacion;
 
-public:
-	//singleton
-	static Enviroment* getInstancia();
+		shared_ptr<Mapa> mapa;
+		shared_ptr<Recursos> recurso; 
 
-	~Enviroment() = default; // destructor por defecto
+		static unique_ptr<Enviroment> instancia;
 
-	//metodos de mapa
-	void agregarRecurso(shared_ptr<Objeto> recurso);
-	void agregarCreatura(shared_ptr<Objeto> criatura);
-	void eliminarCreatura(shared_ptr<Objeto> creatura);
-	void eliminarRecurso(shared_ptr<Objeto> recurso);
+		lista<shared_ptr<Objeto>> objetos;
 
+		Enviroment(); // constructor privado para el singleton
 
-	//setters
-	void setClima(int cli);
-	void setEstacion(string est);
-	//agua, sol
-	void setNivelAgua(int nivel);
-	void setNivelSol(int nivel);
+	public:
 
+		//singleton
+		static Enviroment* getInstancia();
 
-	//getters
-	string getClima();
-	string getEstacion();
-	int getNivelAgua() const;
-	int getNivelSol() const;
+		~Enviroment() = default; // destructor por defecto
 
-	int getAnchoMapa() const;
-	int getAltoMapa() const;
+		//metodos de mapa
+		void agregarRecurso(shared_ptr<Objeto> recurso);
+		void agregarCreatura(shared_ptr<Objeto> criatura);
+		void eliminarCreatura(shared_ptr<Objeto> creatura);
+		void eliminarRecurso(shared_ptr<Objeto> recurso);
 
-	/*int getCantidadObjetos() const;*/ //era para ver si ataque se estaba asiendo bien
+		//setters
+		void setClima(int cli);
+		void setEstacion(string est);
 
-	const lista<shared_ptr<Objeto>>* getLista() const;
-	shared_ptr<lista<shared_ptr<Creatura>>>mostrarCreaturas() const;
-	shared_ptr < lista < shared_ptr < Recursos >> > mostrarRecursos() const;
+		//agua, sol
+		void setNivelAgua(int nivel);
+		void setNivelSol(int nivel);
 
-	shared_ptr<Mapa> getMapa() const;
+		//getters
+		string getClima();
+		string getEstacion();
 
-	virtual string toString() const;
+		int getNivelAgua() const;
+		int getNivelSol() const;
+		int getAnchoMapa() const;
+		int getAltoMapa() const;
 
-	int generarIntervaloDeRegeneracionRecursos()const;
+		const lista<shared_ptr<Objeto>>* getLista() const;
 
-	//void generarRecursos();
-	// 
-	//para cuando se crea el recurso no genere muchos de golpe
-	void ticksDeRecursos();
+		shared_ptr<lista<shared_ptr<Creatura>>>mostrarCreaturas() const;
+		shared_ptr < lista < shared_ptr < Recursos >> > mostrarRecursos() const;
+		shared_ptr<Mapa> getMapa() const;
 
-	//void agregarRecursoPorCan(int n);
+		virtual string toString() const;
 
-	bool hayPlantaCerca(Herbivoro* her) const;
+		int generarIntervaloDeRegeneracionRecursos()const;
 
-	shared_ptr<Recursos> getPlantaCerca(shared_ptr<Creatura> hervivoro);
+		bool hayPlantaCerca(Herbivoro* her) const;
+		bool hayHerviroroCerca(shared_ptr<Creatura> cre) const;
+		bool hayCarnivoroCerca(shared_ptr<Creatura> cre) const;
+		bool hayOmnivoroCerca(shared_ptr<Creatura> cre) const;
 
-	shared_ptr<Meat>getCarneCerca(shared_ptr<Creatura> depredador);
+		shared_ptr<Recursos> getPlantaCerca(shared_ptr<Creatura> hervivoro);
+		shared_ptr<Meat>getCarneCerca(shared_ptr<Creatura> depredador);
+		shared_ptr<Creatura> getCreaturaDebilCerca(shared_ptr<Creatura> depredador);
+		shared_ptr<Creatura> getCreaturaFuerteCerca(shared_ptr<Creatura> depredador);
+		
+		void ticksDeRecursos();
+		void isDeadtoMeat();
+		void eliminarTodo();
+		void simularTickTiempo(int maxTicks); //ticks de tiempo
 
-	shared_ptr<Creatura> getCreaturaDebilCerca(shared_ptr<Creatura> depredador);
-
-	shared_ptr<Creatura> getCreaturaFuerteCerca(shared_ptr<Creatura> depredador);
-
-	bool hayHerviroroCerca(shared_ptr<Creatura> cre) const;
-
-	bool hayCarnivoroCerca(shared_ptr<Creatura> cre) const;
-
-	bool hayOmnivoroCerca(shared_ptr<Creatura> cre) const;
-
-	void isDeadtoMeat();
-
-	void eliminarTodo();
-
-	/*void verAtaques();*/ //era para ver si servia bien los ataques
-
-	//ticks de tiempo
-
-	void simularTickTiempo(int maxTicks);
-
-	void guardarDatosCreaturas(const string& nombreArchivo);
-	void guardarDatosRecursos(const string& nombreArchivo);
-	void cargarDatosCreaturas(const string& nombreArchivo);
-	void cargarDatosRecursos(const string& nombreArchivo);
-
+		void guardarDatosCreaturas(const string& nombreArchivo);
+		void guardarDatosRecursos(const string& nombreArchivo);
+		void cargarDatosCreaturas(const string& nombreArchivo);
+		void cargarDatosRecursos(const string& nombreArchivo);
 };
 

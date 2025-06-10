@@ -1,31 +1,32 @@
 #pragma once
 #include "clases.h"
 
+class Interfaz {
 
-class Interfaz{
-public:
-	Interfaz();
-	~Interfaz();
+	public:
 
-	void generarAleatorio();
-	void ingresarCreatura();
-	void ingresarRecurso();
-	void ingresarRecursoAleatorios();
-	void mostrarEntorno();
+		Interfaz();
+		~Interfaz();
 
-	void ejecutarSimulacion(int tickTiempo);
-	void entornoPersonalizado();
-	void iniciarSimulacion();
-	void limpiarEntorno();
+		void generarAleatorio();
+		void ingresarCreatura();
+		void ingresarRecurso();
+		void ingresarRecursoAleatorios();
+		void mostrarEntorno();
 
-	void MostrarReporteCreaturas();
-	void MostrarReporteRecursos();
+		void ejecutarSimulacion(int tickTiempo);
+		void entornoPersonalizado();
+		void iniciarSimulacion();
+		void limpiarEntorno();
 
-	void GuardarCreaturas();
-	void GuardarRecursos();
+		void MostrarReporteCreaturas();
+		void MostrarReporteRecursos();
 
-	void CargarCreaturas();
-	void CargarRecursos();
+		void GuardarCreaturas();
+		void GuardarRecursos();
+
+		void CargarCreaturas();
+		void CargarRecursos();
 
 };
 
