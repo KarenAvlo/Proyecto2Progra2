@@ -19,7 +19,6 @@ public:
 
 	// Métodos para manipular el mapa
 	bool posValida(int, int);
-	//int espaciosLibres();  //para debug, muestra los espacios libres del mapa
 
 	shared_ptr<Objeto> hayObjetoEnMapa(int x, int y);  //para evitar las colisiones
 

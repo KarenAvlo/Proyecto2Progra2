@@ -8,7 +8,6 @@ class Interfaz {
 		Interfaz();
 		~Interfaz();
 
-		void generarAleatorio();
 		void ingresarCreatura();
 		void ingresarRecurso();
 		void ingresarRecursoAleatorios();

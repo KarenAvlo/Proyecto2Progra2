@@ -171,8 +171,7 @@ void Interfaz::ingresarRecursoAleatorios() {
 		cout << endl;
 		cout << "Niveles actualizados exitosamente.\n\n";
 	}
-	//se quita mas bien, lo de crear recursos aleatorios, aqui depende del sol y el aguita, mas los tick de tiempo
-	//factoryResources::crearRecursos();
+	
 
 	cout << "¿Desea agregar recursos manualmente? (1: Si, 0: No): ";
 	cin >> opcion;
@@ -236,7 +235,7 @@ void  Interfaz::entornoPersonalizado() {
 	while (!(cin >> subopcion) || subopcion < 0 || subopcion > 3) {
 		cin.clear();
 		cin.ignore(1000, '\n');
-		cout << "Opcion invalida, ingrese 0 a 3: ";
+		cout << "Opcion invalida, ingrese 0 a 2: ";
 	}
 
 	if (subopcion == 1) {
