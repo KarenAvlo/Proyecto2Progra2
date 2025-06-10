@@ -58,7 +58,7 @@ void EstrategiaAlimentacionC::EjecutarEstrategia(shared_ptr<Creatura> c) {
 	//Sino, no haga nada
 	if (!carne) return;
 
-	c->AumentarEnergia(20); //comer da 20pts de energía, puesto que eso brinda cada recurso
+	c->AumentarEnergia(20); //comer da 50pts de energía, puesto que eso brinda cada carne
 
 	Enviroment::getInstancia()->eliminarRecurso(carne); // la eliminamos pues ya ha sido consumida
 
@@ -89,7 +89,7 @@ void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 	if (presa) { // el caso de alguna carne
 
-		c->AumentarEnergia(50); //comer carne 20pts de energía
+		c->AumentarEnergia(20); //comer carne 20pts de energía
 
 		Enviroment::getInstancia()->eliminarRecurso(presa); //eliminamos el recurso del mapa y la lista del enviroment
 
