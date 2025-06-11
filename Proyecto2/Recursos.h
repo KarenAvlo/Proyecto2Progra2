@@ -17,10 +17,6 @@ public:
 
 	virtual string toString() const override;
 
-	/*void consumir(Creatura* c);*/
-
-	string formatear();
-
 	virtual void guardarDatos(ofstream& archivo) const = 0;
 };
 

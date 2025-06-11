@@ -1,9 +1,7 @@
 #pragma once
-
 #include "Objeto.h"
 #include "Estrategia.h"
 #include "Enviroment.h"
-
 #include <memory>
 #include <fstream>
 
@@ -11,8 +9,7 @@
 
 class Estrategia;
 
-class Creatura: public Objeto, public enable_shared_from_this<Creatura> {
-
+class Creatura : public Objeto, public enable_shared_from_this<Creatura> {
 	protected:
 
 		int energia;
@@ -23,7 +20,7 @@ class Creatura: public Objeto, public enable_shared_from_this<Creatura> {
 	public:
 
 		Creatura();
-		Creatura(int, int, int, int, shared_ptr<Estrategia>); 
+		Creatura(int, int, int, int, shared_ptr<Estrategia>);
 
 		virtual ~Creatura();
 		virtual void atacar();
@@ -40,7 +37,7 @@ class Creatura: public Objeto, public enable_shared_from_this<Creatura> {
 
 		void AumentarEdad();
 		void moverse();
-		void setEdad(int); 
+		void setEdad(int);
 		void setEstrategia(shared_ptr<Estrategia>);
 
 		int getEnergia();

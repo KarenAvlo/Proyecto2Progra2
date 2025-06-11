@@ -33,8 +33,7 @@ template <class T>
 nodo<T>::nodo(const shared_ptr<T>& obj, shared_ptr<nodo<T>> sig) : objeto(obj), siguiente(sig) {}
 
 template <class T>
-string nodo<T>::toString() const 
-{
+string nodo<T>::toString() const {
 	stringstream s;
 
 	s << **objeto<<'\n';
@@ -50,8 +49,7 @@ template <class T>
 nodo<T>::~nodo() {}
 
 template <class T>
-ostream& operator<<(ostream& os, const nodo<T>& n) 
-{
+ostream& operator<<(ostream& os, const nodo<T>& n) {
 	os << n.toString();
 
 	return os;
@@ -84,22 +82,19 @@ template <class T>
 iterador<T>::iterador(shared_ptr<nodo<T>>primero) : crusor(primero) {}
 
 template <class T>
-T& iterador<T>::operator*() const 
-{
+T& iterador<T>::operator*() const {
 	return *(crusor->objeto);
 }
 
 template <class T>
-iterador<T>& iterador<T>::operator++() 
-{
+iterador<T>& iterador<T>::operator++(){
 	crusor = crusor->siguiente;
 
 	return *this;
 }
 
 template <class T>
-bool iterador<T>::operator!=(const iterador<T>& otro) const 
-{
+bool iterador<T>::operator!=(const iterador<T>& otro) const {
 	if (crusor != otro.crusor) {
 		return true;
 	}
@@ -142,14 +137,12 @@ template <class T>
 lista<T>::~lista() {}
 
 template <class T>
-bool lista<T>::estaVacia() const 
-{
+bool lista<T>::estaVacia() const {
 	return primero == nullptr;
 }
 
 template <class T>
-lista<T>& lista<T>::agregar(const T& obj) 
-{
+lista<T>& lista<T>::agregar(const T& obj) {
 	auto ptr_obj = std::make_shared<T>(obj);
 
 	primero = make_shared<nodo<T>>(ptr_obj, primero);
@@ -159,14 +152,12 @@ lista<T>& lista<T>::agregar(const T& obj)
 
 
 template <class T>
-void lista<T>::eliminarTodos() 
-{
+void lista<T>::eliminarTodos() {
 	primero = nullptr;
 }
 
 template <class T>
-string lista<T>::toString() const 
-{
+string lista<T>::toString() const {
 	stringstream s;
 
 	if (primero != nullptr) {
@@ -177,8 +168,7 @@ string lista<T>::toString() const
 }
 
 template <class T>
-void lista<T>::eliminar(const T& obj) 
-{
+void lista<T>::eliminar(const T& obj) {
 	if (!primero) return; // lista vacía
 
 	// Caso especial: eliminar el primer nodo
@@ -204,13 +194,11 @@ void lista<T>::eliminar(const T& obj)
 }
 
 template <class T>
-iterador<T> lista<T>::begin() const 
-{
+iterador<T> lista<T>::begin() const {
 	return iterador<T>(primero);
 }
 
 template <class T>
-iterador<T> lista<T>::end() const 
-{
+iterador<T> lista<T>::end() const{
 	return iterador<T>(nullptr);
 }

@@ -2,7 +2,6 @@
 #include "Recursos.h"
 
 class PlantaFlor: public Recursos{
-
 public:
 
 	PlantaFlor(int = 0, int = 0, int = 0);
@@ -17,7 +16,6 @@ public:
 
 
 class PlantaRosa : public Recursos {
-
 public:
 
 	PlantaRosa(int = 0, int = 0, int = 0);

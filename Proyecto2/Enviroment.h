@@ -18,7 +18,6 @@ class Meat;
 static int tickGlobal = 0;
 
 class Enviroment { // singleton
-
 	protected:
 
 		int nivelAguita; 

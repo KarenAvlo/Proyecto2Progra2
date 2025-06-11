@@ -2,7 +2,6 @@
 #include "clases.h"
 
 class Interfaz {
-
 	public:
 
 		Interfaz();

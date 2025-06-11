@@ -7,7 +7,6 @@
 class Objeto;
 
 class Mapa{
-
 public:
 	Mapa(int x = 0, int y = 0);
 	virtual ~Mapa() = default;

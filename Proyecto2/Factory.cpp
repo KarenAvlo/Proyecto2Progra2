@@ -2,6 +2,7 @@
 
 
 shared_ptr<Recursos> FactoryResources::crearInstancia(int t) {
+
 	const int maxIntentos = 100;
 	auto mapa = Enviroment::getInstancia()->getMapa();
 	int newX, newY;
@@ -28,6 +29,7 @@ shared_ptr<Recursos> FactoryResources::crearInstancia(int t) {
 
 
 shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
+
 	auto mapa = Enviroment::getInstancia()->getMapa();
 	int ancho = mapa->getAncho();
 	int alto = mapa->getAlto();
@@ -64,8 +66,8 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 	return nullptr;
 }
 
-shared_ptr<Recursos> FactoryResources::crearRecursos()
-{
+shared_ptr<Recursos> FactoryResources::crearRecursos(){
+
 	auto mapa = Enviroment::getInstancia()->getMapa();
 	int intentos = 0;
 	const int maxIntentos = 50;
@@ -88,8 +90,8 @@ shared_ptr<Recursos> FactoryResources::crearRecursos()
 }
 
 
-shared_ptr<Recursos> FactoryResources::crearRecursosPorCan(int n)
-{
+shared_ptr<Recursos> FactoryResources::crearRecursosPorCan(int n){
+
 	auto mapa = Enviroment::getInstancia()->getMapa();
 	int agregados = 0;
 	int i = 0;
@@ -121,6 +123,7 @@ shared_ptr<Recursos> FactoryResources::crearRecursosPorCan(int n)
 
 
 int FactoryCreature::etiquetaToTipo(const string& etiqueta) {
+
 	if (etiqueta == "Herbivoro") return 1;
 	if (etiqueta == "Carnivoro") return 2;
 	if (etiqueta == "Omnivoro")return 3;

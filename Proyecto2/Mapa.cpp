@@ -1,6 +1,7 @@
 #include "Mapa.h"
 
 Mapa::Mapa(int x, int y) : ancho(x), alto(y) {
+
 	// Crear array de filas (punteros a columnas)
 	filas =make_unique<shared_ptr<Objeto>[]>(alto * ancho);
 
@@ -14,6 +15,7 @@ Mapa::Mapa(int x, int y) : ancho(x), alto(y) {
 }
 
 string Mapa::mostrarMapa() const {
+
 	stringstream ss;
 	const int anchoCelda = 15;
 
@@ -51,8 +53,8 @@ bool Mapa::posValida(int x, int y) {
 	return true;
 }
 
-shared_ptr<Objeto> Mapa::hayObjetoEnMapa(int x, int y)
-{
+shared_ptr<Objeto> Mapa::hayObjetoEnMapa(int x, int y){
+
 	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
 		cerr << "Coordenadas fuera de los limites.\n";
 		return nullptr;
@@ -92,6 +94,7 @@ bool Mapa::colocarObjeto(int x, int y, shared_ptr<Objeto> obj){
 
 
 bool Mapa::eliminarObjeto(int x, int y) {
+
 	if (posValida(x, y)) {
 		if (mapa[y][x]) {
 			mapa[y][x] = nullptr; // Elimina el objeto en las coordenadas dadas, pero Ojo no hay que borrar el obj que ya me paso
@@ -110,9 +113,11 @@ bool Mapa::eliminarObjeto(int x, int y) {
 
 
 void Mapa::limpiarCeldas() {
+
 	for (int i = 0; i < alto; ++i) {
 		for (int j = 0; j < ancho; ++j) {
 			mapa[i][j] = nullptr;
 		}
 	}
+
 }

@@ -1,10 +1,11 @@
 #include "Interfaz.h"
 
 Interfaz::Interfaz(){}
+
 Interfaz::~Interfaz(){}
 
-
 void Interfaz::ingresarCreatura() {
+
 	int opcion = -1;
 	int tipo = 0;
 
@@ -65,6 +66,7 @@ void Interfaz::ingresarCreatura() {
 }
 
 void Interfaz::ingresarRecurso() {
+
 	int opcion = 0;
 	int tipo = 0;
 
@@ -120,6 +122,8 @@ void Interfaz::ingresarRecurso() {
 }
 
 void Interfaz::ingresarRecursoAleatorios() {
+
+	system("cls");
 	int opcion = 0;
 	int maxRecursoPosible = 5;
 	int agua = 0;
@@ -210,6 +214,7 @@ void Interfaz::ingresarRecursoAleatorios() {
 
 
 void Interfaz::mostrarEntorno(){
+
 	cout << "   ---[ Entorno Actual ]---   " << endl;
 	cout << Enviroment::getInstancia()->getMapa()->mostrarMapa() << endl;
 	cout << "Clima: " << Enviroment::getInstancia()->getClima() << endl;
@@ -220,6 +225,7 @@ void Interfaz::mostrarEntorno(){
 }
 
 void Interfaz::ejecutarSimulacion(int tickTiempo){
+
 	if (tickTiempo <= 0) {
 		cerr << "El tick de tiempo debe ser un numero positivo." << endl;
 		return;
@@ -231,11 +237,12 @@ void Interfaz::ejecutarSimulacion(int tickTiempo){
 }
 
 void  Interfaz::entornoPersonalizado() {
+
 	int subopcion = -1;
 	while (!(cin >> subopcion) || subopcion < 0 || subopcion > 3) {
 		cin.clear();
 		cin.ignore(1000, '\n');
-		cout << "Opcion invalida, ingrese 0 a 2: ";
+		cout << "Opcion invalida, ingrese 0 a 3: ";
 	}
 
 	if (subopcion == 1) {
@@ -331,6 +338,7 @@ void Interfaz::GuardarCreaturas() {
 }
 
 void Interfaz::GuardarRecursos(){
+
 	auto env = Enviroment::getInstancia();
 
 	if (env->mostrarRecursos()->estaVacia()) {
@@ -347,6 +355,7 @@ void Interfaz::GuardarRecursos(){
 } 
 
 void Interfaz::CargarCreaturas() {
+
 	const string nombreArchivo = "creaturas.txt"; 
 
 	auto env = Enviroment::getInstancia(); 

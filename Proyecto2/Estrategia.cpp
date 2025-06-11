@@ -15,12 +15,14 @@ void EstrategiaReproduccion::EjecutarEstrategia(shared_ptr<Creatura> c) {
 		//pues lo que se hace es crear una creatura de su mismo tipo
 
 		cout << "Criatura creada por reproduccion en (" << cre->getX() << "," << cre->getY() << ")\n";
+		cout << endl;
 
 		Enviroment::getInstancia()->agregarCreatura(cre);
 	}
 }
 
 void EstrategiaMovimiento::EjecutarEstrategia(shared_ptr<Creatura> c) {
+
 	shared_ptr<Mapa> mapa = Enviroment::getInstancia()->getMapa();
 
 	// Intentar hasta 10 veces moverse aleatoriamente
@@ -50,6 +52,7 @@ void EstrategiaMovimiento::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
 
 void EstrategiaAlimentacionC::EjecutarEstrategia(shared_ptr<Creatura> c) {
+
 	if (!c) return;
 
 	// si hay carne cerca, bríndela
@@ -58,7 +61,7 @@ void EstrategiaAlimentacionC::EjecutarEstrategia(shared_ptr<Creatura> c) {
 	//Sino, no haga nada
 	if (!carne) return;
 
-	c->AumentarEnergia(20); //comer da 50pts de energía, puesto que eso brinda cada carne
+	c->AumentarEnergia(20); //comer da 20pts de energía, puesto que eso brinda cada carne
 
 	Enviroment::getInstancia()->eliminarRecurso(carne); // la eliminamos pues ya ha sido consumida
 
@@ -77,11 +80,11 @@ void EstrategiaAlimentacionH::EjecutarEstrategia(shared_ptr<Creatura> c) {
 	Enviroment::getInstancia()->eliminarRecurso(alimento);
 
 	cout << "H(" << c->getX() << "," << c->getY() << "), devore a Planta(" << alimento->getX() << "," << alimento->getY() << ")" << endl;
+	cout << endl;
 }
 
 void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 
-	
 	//el Omnivoro come ambas cosas carne y plantas
 
 	shared_ptr<Meat> presa = Enviroment::getInstancia()->getCarneCerca(c);
@@ -94,6 +97,7 @@ void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 		Enviroment::getInstancia()->eliminarRecurso(presa); //eliminamos el recurso del mapa y la lista del enviroment
 
 		cout << "0(" << c->getX() << "," << c->getY() << "), devore a M(" << presa->getX() << "," << presa->getY() << ")"<<endl;
+		cout << endl;
 
 		return;
 	}
@@ -108,14 +112,15 @@ void EstrategiaAlimentacionO::EjecutarEstrategia(shared_ptr<Creatura> c) {
 		Enviroment::getInstancia()->eliminarRecurso(static_pointer_cast<Objeto>(alimento));  //eliminamos el recurso del mapa y la lista del enviroment
 
 		cout << "0(" << c->getX() << "," << c->getY() << "), devore a Planta(" << alimento->getX() << "," << alimento->getY() << ")"<<endl;
+		cout << endl;
 
 		return;
 	}
 
-
 }
 //-------------------------------------HERVIVORO--------------------------------------------
 void EstrategiaAtaqueH::EjecutarEstrategia(shared_ptr<Creatura> c) {
+
 	if (!c) return;
 
 	//la idea de esta estrategia, es que si una creatura fuerte ataca a un hervivoro, entonces que el hervivoro se defienda
@@ -126,7 +131,7 @@ void EstrategiaAtaqueH::EjecutarEstrategia(shared_ptr<Creatura> c) {
 	c->ReducirEnergia(10); 
 
 	if (!presa->isDead()) {
-		int d = rand() % (15) + 10; // el daño va de %10-%15 por ser hervivoro
+		int d = rand() % (15) + 10; // el daño va de %10 - %15 por ser hervivoro
 		presa->ReducirEnergia(d);
 
 		string tipoAtaque;
@@ -135,8 +140,9 @@ void EstrategiaAtaqueH::EjecutarEstrategia(shared_ptr<Creatura> c) {
 		else { tipoAtaque = " Debil"; }
 		
 		cout << "H(" << c->getX() << "," << c->getY() << ")";
-		cout << "::Se DEFENDIO de(" << presa->getX() << ", " << presa->getY() << ")" << endl;
+		cout << "::Se DEFENDIO de (" << presa->getX() << ", " << presa->getY() << ")" << endl;
 		cout << "Ataque" << tipoAtaque << ", Inflige " << d << "% de danio." << endl;
+		cout << endl;
 		
 	}
 
@@ -171,8 +177,8 @@ void EstrategiaAtaqueC::EjecutarEstrategia(shared_ptr<Creatura> c){
 
 			cout << "C(" << c->getX() << "," << c->getY() << ")";
 			cout << "::ATACO a la creatura" << "(" << presa->getX() << ", " << presa->getY() << ")" << endl;
-			cout << "Ataque" << tipoAtaque
-				<< ", Inflige " << d << "% de danio." << endl;
+			cout << "Ataque" << tipoAtaque	<< ", Inflige " << d << "% de danio." << endl;
+			cout << endl;
 			
 	}
 
@@ -212,8 +218,8 @@ void EstrategiaAtaqueO::EjecutarEstrategia(shared_ptr<Creatura> c){
 		//Mensaje de confimacion de la accion
 		cout << "O(" << c->getX() << "," << c->getY() << ")";
 		cout << "::ATACO a la creatura" << "(" << presa->getX() << ", " << presa->getY() << ")" << endl;
-		cout << "Ataque" << tipoAtaque
-			<< ", Inflige " << d << "% de danio." << endl;
+		cout << "Ataque" << tipoAtaque << ", Inflige " << d << "% de danio." << endl;
+		cout << endl;
 
 	}
 

@@ -2,8 +2,7 @@
 
 
 Herbivoro::Herbivoro(int x, int  y, int energia, int edad, shared_ptr<Estrategia> estrategia):
-	Creatura(x, y, energia, edad, estrategia), fueHerido(false){
-	E = make_shared<EstrategiaAtaqueH>(); // 
+	Creatura(x, y, energia, edad, estrategia), fueHerido(false){ // 
 }
 
 string Herbivoro::toString() const{
@@ -60,9 +59,11 @@ void Herbivoro::atacar() {
 }
 
 void Herbivoro::ReducirEnergia(int danio){
+
 	this->energia -= danio;
 	if (energia < 0) energia = 0;
 	fueHerido = true;
+
 }
  
 void Herbivoro::guardarDatos(ofstream& archivo) const { 

@@ -16,14 +16,4 @@ string Recursos::toString() const{
 	return "_*_";
 }
 
-//void Recursos::consumir(Creatura* c) {
-//	if (disponible) {
-//		c->AumentarEnergia(c->getEnergia());
-//		disponible = false;
-//	}
-//}
 
-string Recursos::formatear(){
-//falta;
-	return "";
-}

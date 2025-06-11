@@ -4,6 +4,7 @@
 unique_ptr<Enviroment> Enviroment::instancia = nullptr;
 
 Enviroment::Enviroment() :clima("Lluvioso"), estacion("Primavera") {
+
 	// creamos un mapa por defecto
 	mapa = make_shared<Mapa>(10, 10); 
 	nivelAguita=0;
@@ -12,13 +13,16 @@ Enviroment::Enviroment() :clima("Lluvioso"), estacion("Primavera") {
 }
 
 Enviroment* Enviroment::getInstancia(){
+
 	if (!instancia) {
 		instancia = unique_ptr<Enviroment>(new Enviroment());
 	}
 	return instancia.get();
+
 }
 
 void Enviroment::agregarRecurso(shared_ptr<Objeto> recurso){
+
 	int x = recurso->getX();
 	int y = recurso->getY();
 
@@ -28,9 +32,11 @@ void Enviroment::agregarRecurso(shared_ptr<Objeto> recurso){
 	else {
 		cerr << "No se pudo agregar la creatura en (" << x << ", " << y << "), posición ocupada o inválida." << endl;
 	}
+
 }
 
 void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
+
 	int x = creatura->getX();
 	int y = creatura->getY();
 
@@ -58,13 +64,16 @@ void Enviroment::eliminarCreatura(shared_ptr<Objeto> creatura) {
 }
 
 void Enviroment::eliminarRecurso(shared_ptr<Objeto> recurso) {
+
 	mapa->eliminarObjeto(recurso->getX(), recurso->getY());
 	objetos.eliminar(recurso);
+
 }
 
 
 //setters
 void Enviroment::setClima(int cli) {
+
 	if (cli == 1) {
 		clima = "Soleado";
 	}
@@ -77,40 +86,46 @@ void Enviroment::setClima(int cli) {
 	else {
 		clima = "Desconocido"; 
 	}
+
 }
 
 void Enviroment::setEstacion(string est) { estacion = est; }
 
-void Enviroment::setNivelAgua(int nivel)
-{
+void Enviroment::setNivelAgua(int nivel){
+
 	if (nivel >= 0 && nivel <= 2) {
 		nivelAguita = nivel;
 	}
 	else {
 		cerr << "Nivel de agua invalido. Debe estar entre 0 y 2." << endl;
 	}
+
 }
 
-void Enviroment::setNivelSol(int nivel)
-{
+void Enviroment::setNivelSol(int nivel){
+
 	if (nivel >= 0 && nivel <= 2) {
 		nivelSol = nivel;
 	}
 	else {
 		cerr << "Nivel de sol invalido. Debe estar entre 0 y 2." << endl;
 	}
+
 }
 
 int Enviroment::getNivelAgua() const { return nivelAguita; }
 int Enviroment::getNivelSol() const { return nivelSol; }
 
-int Enviroment::getAnchoMapa() const
-{
+int Enviroment::getAnchoMapa() const{
+
 	return mapa->getAncho();
+
 }
-int Enviroment::getAltoMapa() const
-{
+
+int Enviroment::getAltoMapa() const{
+
 	return mapa->getAlto();
+
 }
 
 
@@ -170,6 +185,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
  int Enviroment::generarIntervaloDeRegeneracionRecursos()const {
  //los niveles de agua y sol son 0, 1 o 2
 // y el numero que retorna son los ticks de tiempo que tarda en regenerarse el recurso
+
 	 if (nivelSol == 2 && nivelAguita == 2) return 2;
 	 if (nivelSol == 1 && nivelAguita == 1) return 4;
 	 if (nivelSol == 2 && nivelAguita == 1) return 3;
@@ -182,8 +198,8 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
  }
 
- void Enviroment::ticksDeRecursos()
- {
+ void Enviroment::ticksDeRecursos() {
+
 	 tickGlobal++;
 	 int canRecurso = generarIntervaloDeRegeneracionRecursos();
 
@@ -206,6 +222,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 
  bool Enviroment::hayPlantaCerca(shared_ptr<Creatura> cre) const {
+
 	 if (!cre) return false;
 
 	 for (const auto& obj : objetos) {
@@ -228,6 +245,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
  }
 
  shared_ptr<Recursos> Enviroment::getPlantaCerca(shared_ptr<Creatura> herbivoro) {
+
 	 if (!herbivoro) return nullptr;
 
 	 shared_ptr<Recursos> plantaMasCercana = nullptr;
@@ -260,6 +278,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 
  shared_ptr<Meat> Enviroment::getCarneCerca(shared_ptr<Creatura> depredador) {
+
 	 if (!depredador) return nullptr;
 
 	 shared_ptr<Meat> presaMasCercana = nullptr;
@@ -286,6 +305,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 
  shared_ptr<Creatura> Enviroment::getCreaturaDebilCerca(shared_ptr<Creatura> depredador) {
+
 	 if (!depredador) return nullptr;
 	 shared_ptr<Creatura> presaMasCercana = nullptr;
 
@@ -317,8 +337,8 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 return presaMasCercana;
  }
 
- shared_ptr<Creatura> Enviroment::getCreaturaFuerteCerca(shared_ptr<Creatura> depredador)
- {
+ shared_ptr<Creatura> Enviroment::getCreaturaFuerteCerca(shared_ptr<Creatura> depredador) {
+
 	 if (!depredador) return nullptr;
 	 shared_ptr<Creatura> presaMasCercana = nullptr;
 	 double distanciaPresa = 0;
@@ -339,6 +359,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
  
  bool Enviroment::hayHerviroroCerca(shared_ptr<Creatura> cre) const {
+
 	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
 
 		 shared_ptr<Objeto> obj = *it;
@@ -373,6 +394,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
  }
 
  bool Enviroment::hayOmnivoroCerca(shared_ptr<Creatura> cre) const {
+
 	 for (auto it = objetos.begin(); it != objetos.end(); ++it) {
 
 		 shared_ptr<Objeto> obj = *it;
@@ -391,6 +413,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
  }
 
  bool Enviroment::hayCarneCerca(shared_ptr<Creatura> cre) const {
+
 	 if (!cre) return false;
 
 	 for (const auto& obj : objetos) {
@@ -434,12 +457,14 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 
 
  void Enviroment::eliminarTodo() {
+
 	 objetos.eliminarTodos();
 	 mapa->limpiarCeldas();
+
  }
 
- void Enviroment::simularTickTiempo(int maxTick)
- {
+ void Enviroment::simularTickTiempo(int maxTick) {
+
 	 int ticksPorDia = 10;
 	 int tickGlobal = 0;
 	 int maxTicks = maxTick;
@@ -528,8 +553,8 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 	 cout << "Creaturas guardadas correctamente.\n";
  }
 
- void Enviroment::guardarDatosRecursos(const string& nombreArchivo)
- {
+ void Enviroment::guardarDatosRecursos(const string& nombreArchivo) {
+
 	 if (getLista()->estaVacia()) {
 		 cout << "No hay elementos a guardar" << std::endl;
 		 return;

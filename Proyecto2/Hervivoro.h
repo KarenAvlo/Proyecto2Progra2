@@ -3,7 +3,6 @@
 #include "Creature.h"
 
 class Herbivoro : public Creatura {
-
 	public:
 
 		Herbivoro(int x = 0, int  y = 0, int energia = 0, int edad = 0, 
