@@ -19,17 +19,19 @@ class EstrategiaReproduccion:public Estrategia {
 		 void EjecutarEstrategia(shared_ptr<Creatura> c);
 };
 
+class EstrategiaMovimiento :public Estrategia {
+public:
+
+	void EjecutarEstrategia(shared_ptr<Creatura> c) override;
+};
+
 class EstrategiaAlimentacion:public Estrategia {
 	public:
 
 		 void EjecutarEstrategia(shared_ptr<Creatura> c) = 0;
 };
 
-class EstrategiaMovimiento :public Estrategia {
-	public:
 
-		  void EjecutarEstrategia(shared_ptr<Creatura> c) override;
-};
  
 //---derivada de alimentación, canívoro, hervíboro y omnivoro
 

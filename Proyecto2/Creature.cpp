@@ -30,22 +30,10 @@ Creatura::Creatura(int xx, int yy, int ener, int age, shared_ptr<Estrategia> e):
 
 Creatura::~Creatura() {}
 
-void Creatura::moverse() {
-	//se cambia la estrategia para cada cosa
-	setEstrategia(make_shared < EstrategiaMovimiento>());
-	
-	//el moverse utiliza 5 de energia
-	if (energia >= 5) {
-		ReducirEnergia(5);
-		E->EjecutarEstrategia(shared_from_this());
-	}
-}
 
-
-void Creatura::atacar(){
+void Creatura::atacar() {
 	cout << "ATACANDO" << endl;
 }
-
 
 void Creatura::reproducirse() {
 
@@ -56,16 +44,7 @@ void Creatura::reproducirse() {
 	}
 }
 
-int Creatura::getEnergia() { return energia; }
-
-int Creatura::getEdad() { return edad; }
-
-
-void Creatura::AumentarEdad(){
-	edad++;
-}
-
-void Creatura::AumentarEnergia(int e){
+void Creatura::AumentarEnergia(int e) {
 	if (e >= 0 && e <= MAX_ENERGIA) {
 		energia += e;
 	}
@@ -83,27 +62,55 @@ void Creatura::ReducirEnergia(int e) {
 	}
 }
 
-void Creatura::setEstrategia(shared_ptr<Estrategia> ee) {
-	E = ee;
-}
-
 string Creatura::toString() const {
 	stringstream s;
-	s << "( " << x <<", " << y <<")" << endl;
-	s << "Energia: " << energia<<endl;
-	s << "Edad: " << edad<<endl;
+	s << "( " << x << ", " << y << ")" << endl;
+	s << "Energia: " << energia << endl;
+	s << "Edad: " << edad << endl;
 	return s.str();
 }
 
-bool Creatura::isDead() const { 
+string Creatura::getEtiqueta() const {
+	return "Criatura";
+}
+
+bool Creatura::isDead() const {
 	if (energia <= 0) {
 		return true;
 	}
 	return false;
 }
 
-string Creatura::getEtiqueta() const{
-	return "Criatura";
+void Creatura::AumentarEdad() {
+	edad++;
 }
+
+void Creatura::moverse() {
+	//se cambia la estrategia para cada cosa
+	setEstrategia(make_shared < EstrategiaMovimiento>());
+	
+	//el moverse utiliza 5 de energia
+	if (energia >= 5) {
+		ReducirEnergia(5);
+		E->EjecutarEstrategia(shared_from_this());
+	}
+}
+
+
+void Creatura::setEstrategia(shared_ptr<Estrategia> ee) {
+	E = ee;
+}
+
+int Creatura::getEnergia() { return energia; }
+
+int Creatura::getEdad() { return edad; }
+
+
+
+
+
+
+
+
 
 

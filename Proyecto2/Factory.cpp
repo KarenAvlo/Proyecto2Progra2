@@ -16,6 +16,7 @@
 */
 #include "Factory.h"
 
+//------------------------Fabrica de Recursos-------------------------------
 shared_ptr<Recursos> FactoryResources::crearInstancia(int t) {
 
 	const int maxIntentos = 100;
@@ -42,6 +43,62 @@ shared_ptr<Recursos> FactoryResources::crearInstancia(int t) {
 	throw runtime_error("No se encontro posicion valida para crear recurso.");
 }
 
+shared_ptr<Recursos> FactoryResources::crearRecursos() {
+
+	auto mapa = Enviroment::getInstancia()->getMapa();
+	int intentos = 0;
+	const int maxIntentos = 50;
+
+	while (intentos < maxIntentos) {
+		int x = rand() % mapa->getAncho();
+		int y = rand() % mapa->getAlto();
+
+		if (mapa->posValida(x, y) && !mapa->hayObjetoEnMapa(x, y)) {
+			int tipo = rand() % 3 + 1;
+			shared_ptr<Recursos> recurso = FactoryResources::crearInstancia(tipo);
+			recurso->setX(x);
+			recurso->setY(y);
+			Enviroment::getInstancia()->agregarRecurso(recurso);
+			return recurso;
+		}
+		intentos++;
+	}
+	return nullptr;
+}
+
+shared_ptr<Recursos> FactoryResources::crearRecursosPorCan(int n) {
+
+	auto mapa = Enviroment::getInstancia()->getMapa();
+	int agregados = 0;
+	int i = 0;
+	const int maxIntentos = 100; // para evitar un bucle infinito
+	const int maxRecursos = 5;
+
+	if (n < 0 || n > maxRecursos) {
+		cerr << "Error: Debe ser entre 0 y " << maxRecursos << "." << endl;
+		return nullptr;
+	}
+	while (agregados < n && i < maxIntentos) {
+		int x = rand() % mapa->getAncho();
+		int y = rand() % mapa->getAlto();
+		if (mapa->posValida(x, y) && !mapa->hayObjetoEnMapa(x, y)) {
+			int tipo = rand() % 3 + 1;
+			shared_ptr<Recursos> recurso = FactoryResources::crearInstancia(tipo);
+			recurso->setX(x);
+			recurso->setY(y);
+			Enviroment::getInstancia()->agregarRecurso(recurso);
+			agregados++;
+		}
+		i++;
+	}
+	if (agregados < n) {
+		cerr << "Solo se pudieron agregar " << agregados << " recursos despues de " << i << " intentos." << endl;
+	}
+	return nullptr;
+}
+
+
+//-------------------Fabrica de Creaturas----------------------------
 
 shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 
@@ -85,62 +142,6 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 	//cerr<<("No se encontro posición valida para crear criatura.");
 	return nullptr;
 }
-
-shared_ptr<Recursos> FactoryResources::crearRecursos(){
-
-	auto mapa = Enviroment::getInstancia()->getMapa();
-	int intentos = 0;
-	const int maxIntentos = 50;
-
-	while (intentos < maxIntentos) {
-		int x = rand() % mapa->getAncho();
-		int y = rand() % mapa->getAlto();
-
-		if (mapa->posValida(x, y) && !mapa->hayObjetoEnMapa(x, y)) {
-			int tipo = rand() % 3 + 1;
-			shared_ptr<Recursos> recurso = FactoryResources::crearInstancia(tipo);
-			recurso->setX(x);
-			recurso->setY(y);
-			Enviroment::getInstancia()->agregarRecurso(recurso);
-			return recurso;
-		}
-		intentos++;
-	}
-	return nullptr;
-}
-
-
-shared_ptr<Recursos> FactoryResources::crearRecursosPorCan(int n){
-
-	auto mapa = Enviroment::getInstancia()->getMapa();
-	int agregados = 0;
-	int i = 0;
-	const int maxIntentos = 100; // para evitar un bucle infinito
-	const int maxRecursos = 5;
-
-	if (n < 0 || n > maxRecursos) {
-		cerr << "Error: Debe ser entre 0 y " << maxRecursos << "." << endl;
-		return nullptr;
-	}
-	while (agregados < n && i < maxIntentos) {
-		int x = rand() % mapa->getAncho();
-		int y = rand() % mapa->getAlto();
-		if (mapa->posValida(x, y) && !mapa->hayObjetoEnMapa(x, y)) {
-			int tipo = rand() % 3 + 1; 
-			shared_ptr<Recursos> recurso = FactoryResources::crearInstancia(tipo);
-			recurso->setX(x);
-			recurso->setY(y);
-			Enviroment::getInstancia()->agregarRecurso(recurso);
-			agregados++;
-		}
-		i++;
-	}
-	if (agregados < n) {
-		cerr << "Solo se pudieron agregar " << agregados << " recursos despues de " << i << " intentos." << endl;
-	}
-	return nullptr;
-}
-
 
 int FactoryCreature::etiquetaToTipo(const string& etiqueta) {
 

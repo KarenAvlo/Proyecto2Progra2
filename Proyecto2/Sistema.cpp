@@ -44,14 +44,6 @@ void Sistema::visualMenuCrearPersonalizado() {
 	cout << "Ingrese la opcion: " << endl;
 }
 
-void Sistema::mostrarEntorno() {
-	i->mostrarEntorno();
-}
-
-void Sistema::ejecutarSimulacion(int tickTiempo) {
-	i->ejecutarSimulacion(tickTiempo);
-}
-
 void Sistema::visualsubmenuReportes() {
 	cout << ("   ---[ Submenu Reporte de Datos ]---   ") << endl;
 
@@ -136,6 +128,11 @@ void Sistema::mostrarMenuPrincipal() {
 	} while (opcion != 0);
 }
 
+
+void Sistema::mostrarEntorno() {
+	i->mostrarEntorno();
+}
+
 void Sistema::mostrarSubmenuReportes() {
 
 	int opcion;
@@ -187,12 +184,12 @@ void Sistema::mostrarSubmenuPersistenciaDeDatos() {
 		case 0: break;
 		case 1:
 			system("cls");
-			i->GuardarCreaturas(); 
+			i->GuardarCreaturas();
 			system("pause");
 			break;
 		case 2:
 			system("cls");
-			i->CargarCreaturas(); 
+			i->CargarCreaturas();
 			system("pause");
 			break;
 		case 3:
@@ -208,3 +205,12 @@ void Sistema::mostrarSubmenuPersistenciaDeDatos() {
 		}
 	} while (opcion != 0);
 }
+
+void Sistema::ejecutarSimulacion(int tickTiempo) {
+	i->ejecutarSimulacion(tickTiempo);
+}
+
+
+
+
+
