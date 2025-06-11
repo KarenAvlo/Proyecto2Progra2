@@ -67,15 +67,6 @@ bool Mapa::posValida(int x, int y) {
 	return true;
 }
 
-//shared_ptr<Objeto> Mapa::hayObjetoEnMapa(int x, int y){
-//
-//	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
-//		cerr << "Coordenadas fuera de los limites.\n";
-//		return nullptr;
-//	}
-//	return mapa[y][x]; // Retorna true si hay un objeto en las coordenadas dadas
-//}
-
 bool Mapa::hayObjetoEnMapa(int x, int y) const {
 	if (x < 0 || x >= ancho || y < 0 || y >= alto) {
 		cerr << "Coordenadas fuera de los límites.\n";

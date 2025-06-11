@@ -48,25 +48,6 @@ void EstrategiaReproduccion::EjecutarEstrategia(shared_ptr<Creatura> c) {
 		cerr << "[ERROR] No se puede reproducir: el mapa está lleno.\n";
 		return;
 	}
-
-	//if (c->getEdad() > 5 && c->getEnergia() > 50) {
-	//	//la creatura debe de tener una edad de 5 y energía de 50 para reproducirse
-
-
-	//	//se crea una creatura por defecto..
-	//	int tipo = FactoryCreature::etiquetaToTipo(c->getEtiqueta());
-
-	//	//llamamos a factory para crear una creatura
-	//	shared_ptr<Creatura>cre = FactoryCreature::crearInstancia(tipo);
-
-	//	if (cre) { // si cre no es nulo
-
-	//		cout << " - Criatura creada por reproducción en (" << cre->getX() << "," << cre->getY() << ")\n";
-
-	//		//la ingresamos al entorno
-	//		Enviroment::getInstancia()->agregarCreatura(cre);
-	//	}
-	//}
 	
 }
 
