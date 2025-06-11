@@ -36,7 +36,7 @@ string Carnivoro::getEtiqueta() const {
 
 void Carnivoro::reproducirse() {
 
-	if (Enviroment::getInstancia()->hayCarnivoroCerca(shared_from_this())) {
+	if (Enviroment::getInstancia()->hayCarnivoroCerca(shared_from_this()) && !Enviroment::getInstancia()->getMapa()->estaLleno()) {
 		setEstrategia(make_shared<EstrategiaReproduccion>());
 		if (E) {
 			E->EjecutarEstrategia(shared_from_this());

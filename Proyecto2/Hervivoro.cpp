@@ -32,7 +32,7 @@ string Herbivoro::getEtiqueta() const{
 
 void Herbivoro::reproducirse() {
 	
-	if (Enviroment::getInstancia()->hayHerviroroCerca(shared_from_this())) {
+	if (Enviroment::getInstancia()->hayHerviroroCerca(shared_from_this()) && !Enviroment::getInstancia()->getMapa()->estaLleno()) {
 		//si hay un animal de su mismo tipo, entonces reproduzcase
 
 		setEstrategia(make_shared<EstrategiaReproduccion>());
@@ -41,6 +41,7 @@ void Herbivoro::reproducirse() {
 
 		}
 	}
+	
 }
 
 void Herbivoro::alimentarse() {

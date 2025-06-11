@@ -52,7 +52,7 @@ void Enviroment::agregarRecurso(shared_ptr<Objeto> recurso){
 
 }
 
-void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
+bool Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
 
 	int x = creatura->getX();
 	int y = creatura->getY();
@@ -62,14 +62,16 @@ void Enviroment::agregarCreatura(shared_ptr<Objeto>creatura ){
 	if (mapa->posValida(x, y) && !mapa->hayObjetoEnMapa(x, y)) {
 		if (mapa->agregarObjeto(x, y, creatura)) {
 			objetos.agregar(creatura);
-			//cout << "Criatura agregada correctamente." << endl;
+			return true;
 		}
 		else {
 			cerr << "Fallo al agregar la creatura en el mapa, posiblemente un error interno." << endl;
+			return false;
 		}
 	}
 	else {
 		cerr << " No se pudo agregar la Creatura en (" << x << "," << y << ") , posicion invalida o ocupada" << endl;
+		return false;
 	}
 }
 
@@ -517,6 +519,7 @@ shared_ptr<Mapa> Enviroment::getMapa() const{
 					 criatura->atacar();
 					 criatura->alimentarse();
 					 criatura->reproducirse();
+					
 					
 				 }
 			 }

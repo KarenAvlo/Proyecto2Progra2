@@ -26,7 +26,7 @@ class Enviroment { // singleton
 
 		//metodos de mapa
 		void agregarRecurso(shared_ptr<Objeto> recurso);
-		void agregarCreatura(shared_ptr<Objeto> criatura);
+		bool agregarCreatura(shared_ptr<Objeto> criatura);
 		void eliminarCreatura(shared_ptr<Objeto> creatura);
 		void eliminarRecurso(shared_ptr<Objeto> recurso);
 

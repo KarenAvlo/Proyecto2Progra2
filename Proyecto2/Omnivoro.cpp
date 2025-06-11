@@ -52,7 +52,7 @@ void Omnivoro::atacar() {
 
 void Omnivoro::reproducirse() {
 
-	if (Enviroment::getInstancia()->hayOmnivoroCerca(shared_from_this())) {
+	if (Enviroment::getInstancia()->hayOmnivoroCerca(shared_from_this()) && !Enviroment::getInstancia()->getMapa()->estaLleno()) {
 		setEstrategia(make_shared<EstrategiaReproduccion>());
 
 		if (E) {

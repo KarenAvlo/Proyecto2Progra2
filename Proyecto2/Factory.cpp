@@ -45,6 +45,11 @@ shared_ptr<Recursos> FactoryResources::crearInstancia(int t) {
 
 shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 
+	if (Enviroment::getInstancia()->getMapa()->estaLleno()) {
+		cerr << "[ERROR] No se puede reproducir: el mapa está lleno.\n";
+		return nullptr;
+	}
+
 	auto mapa = Enviroment::getInstancia()->getMapa();
 	int ancho = mapa->getAncho();
 	int alto = mapa->getAlto();
@@ -77,7 +82,7 @@ shared_ptr<Creatura> FactoryCreature::crearInstancia(int t) {
 			return creatura;
 		}
 	}
-	cerr<<("No se encontro posición valida para crear criatura.");
+	//cerr<<("No se encontro posición valida para crear criatura.");
 	return nullptr;
 }
 

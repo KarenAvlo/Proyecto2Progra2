@@ -19,7 +19,9 @@ class Mapa{
 		// Métodos para manipular el mapa
 		bool posValida(int, int);
 
-		shared_ptr<Objeto> hayObjetoEnMapa(int x, int y);  //para evitar las colisiones
+		//shared_ptr<Objeto> hayObjetoEnMapa(int x, int y);  //para evitar las colisiones
+
+		bool hayObjetoEnMapa(int x, int y) const;
 
 		bool agregarObjeto(int, int, shared_ptr<Objeto> loquesea);  //agrega cualquier tipo al mapa
 
@@ -28,6 +30,8 @@ class Mapa{
 		bool eliminarObjeto(int x, int y);// elimina la pos, anterior de un objeto
 
 		void limpiarCeldas();
+
+		bool estaLleno() const;
 
 	private:
 		int ancho;
