@@ -25,7 +25,6 @@ void Objeto::setY(int yy) { y = yy; }
 
 bool Objeto:: operator==(const Objeto& otro) const {
 	return x == otro.x && y == otro.y && getEtiqueta() == otro.getEtiqueta();
-
 }
 
 ostream& operator<<(ostream& out, const Objeto& obj) {

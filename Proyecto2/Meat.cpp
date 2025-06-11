@@ -16,7 +16,8 @@
 */
 #include "Meat.h"
 
-Meat::Meat(int xx, int yy, int ee) :Recursos(xx, yy, ee) {}
+Meat::Meat(int xx, int yy, int ee) 
+	:Recursos(xx, yy, ee) {}
 
 
 string Meat::getEtiqueta() const {

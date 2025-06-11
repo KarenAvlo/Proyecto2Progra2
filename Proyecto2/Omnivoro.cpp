@@ -16,10 +16,8 @@
 */
 #include "Omnivoro.h"
 
-Omnivoro::Omnivoro(int x, int y, int energia, int edad, shared_ptr<Estrategia> E) :
-	Creatura(x, y, energia, edad, E) {
-
-}
+Omnivoro::Omnivoro(int x, int y, int energia, int edad, shared_ptr<Estrategia> E)
+	: Creatura(x, y, energia, edad, E) {}
 
 string Omnivoro::toString() const {
 	stringstream s;
@@ -61,7 +59,6 @@ void Omnivoro::reproducirse() {
 			E->EjecutarEstrategia(shared_from_this());
 		}
 	}
-
 }
 
 void Omnivoro::guardarDatos(ofstream& archivo) const {

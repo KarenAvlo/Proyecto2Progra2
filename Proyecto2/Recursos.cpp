@@ -28,7 +28,6 @@ string Recursos::getEtiqueta() const{
 	return "_*_";
 }
 
-
 string Recursos::toString() const{
 	return "_*_";
 }

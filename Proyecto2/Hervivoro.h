@@ -15,6 +15,7 @@ class Herbivoro : public Creatura {
 
 		void reproducirse() override;
 		void alimentarse() override;
+		//metodo defensa aplicada en ataque
 		void atacar() override;
 
 		void ReducirEnergia(int e) override;
@@ -22,7 +23,7 @@ class Herbivoro : public Creatura {
 		void setFueHerido(bool);
 
 	private:
-
+		//aplica para defensa
 		bool fueHerido = false; 
 };
 

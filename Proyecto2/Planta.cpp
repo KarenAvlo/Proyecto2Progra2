@@ -35,12 +35,9 @@ void PlantaFlor::guardarDatos(ofstream& archivo) const{
 	archivo << "PlantaFlor," << x << "," << y << "," << EnergyValue << "\n";
 }
 
-
 //-----Planta Rosa------
-
-
 PlantaRosa::PlantaRosa(int xx, int yy, int ee)
-	:Recursos(xx, yy, ee){}
+	:Recursos(xx, yy, ee) {}
 
 
 string PlantaRosa::toString() const {

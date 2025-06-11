@@ -1,2 +1,8 @@
-Herbivoro,0,1,100,0,0
-Carnivoro,0,2,100,0
+Herbivoro,8,7,100,0,0
+Herbivoro,2,6,100,0,0
+Herbivoro,5,7,100,0,0
+Herbivoro,5,8,100,0,0
+Carnivoro,4,4,100,0
+Carnivoro,8,6,100,0
+Omnivoro,8,9,100,0
+Omnivoro,0,1,100,0

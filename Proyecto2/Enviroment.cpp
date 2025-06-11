@@ -24,8 +24,8 @@ Enviroment::Enviroment() :clima("Lluvioso"), estacion("Primavera") {
 
 	// creamos un mapa por defecto
 	mapa = make_shared<Mapa>(10, 10); 
-	nivelAguita=0;
-	nivelSol=0;
+	nivelAguita = 1;
+	nivelSol = 1;
 
 }
 

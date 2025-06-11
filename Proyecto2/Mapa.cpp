@@ -35,20 +35,18 @@ string Mapa::mostrarMapa() const {
 	stringstream ss;
 	const int anchoCelda = 15;
 
-	for (int i = 0; i < alto; ++i) {
-		for (int j = 0; j < ancho; ++j) {
+	for (int i = 0; i < alto; i++) {
+		for (int j = 0; j < ancho; j++) {
 			string contenido = " ";
 
 			if (mapa[i][j]) {
 				contenido = mapa[i][j]->toString();
 			}
-
 			// Asegurar que el contenido tenga siempre el mismo ancho
 			ss << "[ " << setw(anchoCelda - 2) << left << contenido << "]";
 		}
 		ss << "\n";
 	}
-
 	return ss.str();
 }
 
@@ -88,7 +86,6 @@ bool Mapa::agregarObjeto(int x, int y, shared_ptr<Objeto> obj1){
 		cerr << "Ya hay un objeto en (" << x << ", " << y << ")." << endl;
 		return false;
 	}
-
 	mapa[y][x] = obj1;
 	return true;
 }
@@ -103,7 +100,6 @@ bool Mapa::colocarObjeto(int x, int y, shared_ptr<Objeto> obj){
 		cerr << "[ERROR] Ya hay un objeto en esa posicion: (" << x << ", " << y << ")\n";
 		return false;
 	}
-
 	mapa[y][x] = obj;
 	return true;
 }
@@ -113,7 +109,7 @@ bool Mapa::eliminarObjeto(int x, int y) {
 
 	if (posValida(x, y)) {
 		if (mapa[y][x]) {
-			mapa[y][x] = nullptr; // Elimina el objeto en las coordenadas dadas, pero Ojo no hay que borrar el obj que ya me paso
+			mapa[y][x] = nullptr; // Elimina el objeto en las coordenadas dadas, pero Ojo no hay que borrar el obj
 			return true;
 		}
 		else {
@@ -130,8 +126,8 @@ bool Mapa::eliminarObjeto(int x, int y) {
 
 void Mapa::limpiarCeldas() {
 
-	for (int i = 0; i < alto; ++i) {
-		for (int j = 0; j < ancho; ++j) {
+	for (int i = 0; i < alto; i++) {
+		for (int j = 0; j < ancho; j++) {
 			mapa[i][j] = nullptr;
 		}
 	}

@@ -21,11 +21,11 @@ class Mapa{
 
 		shared_ptr<Objeto> hayObjetoEnMapa(int x, int y);  //para evitar las colisiones
 
-		bool agregarObjeto(int, int, shared_ptr<Objeto> loquesea);
+		bool agregarObjeto(int, int, shared_ptr<Objeto> loquesea);  //agrega cualquier tipo al mapa
 
 		bool colocarObjeto(int x, int y, shared_ptr<Objeto> obj);  //para el movimiento de las criaturas
 
-		bool eliminarObjeto(int x, int y);
+		bool eliminarObjeto(int x, int y);// elimina la pos, anterior de un objeto
 
 		void limpiarCeldas();
 

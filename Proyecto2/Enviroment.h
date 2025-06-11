@@ -1,12 +1,11 @@
 #pragma once
 #include <thread>   // Para this_thread::sleep_for
-#include <chrono>  // Para chrono::seconds
+#include <chrono>  // Para chrono::seconds y que dure un segundo los ticks
 #include <fstream>
 
 #include "Lista.h"
 #include "Mapa.h"
 #include "Recursos.h"
-
 
 class Herbivoro;
 class Omnivoro;

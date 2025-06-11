@@ -6,7 +6,7 @@ class Creatura;
 
 class Recursos: public Objeto{
 	public:
-		Recursos(int=0, int=0, int=0);
+		Recursos(int = 0, int = 0, int = 0);
 
 		virtual ~Recursos();
 
