@@ -1,7 +1,5 @@
 #pragma once
-
 #include <memory>
-
 #include "Objeto.h"
 
 template <class T> class nodo;

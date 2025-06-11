@@ -7,32 +7,32 @@
 class Objeto;
 
 class Mapa{
-public:
-	Mapa(int x = 0, int y = 0);
-	virtual ~Mapa() = default;
+	public:
+		Mapa(int x = 0, int y = 0);
+		virtual ~Mapa() = default;
 
-	string mostrarMapa() const;
+		string mostrarMapa() const;
 
-	int getAncho() const;
-	int getAlto() const;
+		int getAncho() const;
+		int getAlto() const;
 
-	// Métodos para manipular el mapa
-	bool posValida(int, int);
+		// Métodos para manipular el mapa
+		bool posValida(int, int);
 
-	shared_ptr<Objeto> hayObjetoEnMapa(int x, int y);  //para evitar las colisiones
+		shared_ptr<Objeto> hayObjetoEnMapa(int x, int y);  //para evitar las colisiones
 
-	bool agregarObjeto(int, int, shared_ptr<Objeto> loquesea);
+		bool agregarObjeto(int, int, shared_ptr<Objeto> loquesea);
 
-	bool colocarObjeto(int x, int y, shared_ptr<Objeto> obj);  //para el movimiento de las criaturas
+		bool colocarObjeto(int x, int y, shared_ptr<Objeto> obj);  //para el movimiento de las criaturas
 
-	bool eliminarObjeto(int x, int y);
+		bool eliminarObjeto(int x, int y);
 
-	void limpiarCeldas();
+		void limpiarCeldas();
 
-private:
-	int ancho;
-	int alto;
-	unique_ptr<shared_ptr<Objeto>[]> filas;
-	unique_ptr<shared_ptr<Objeto>* []>mapa;
+	private:
+		int ancho;
+		int alto;
+		unique_ptr<shared_ptr<Objeto>[]> filas;
+		unique_ptr<shared_ptr<Objeto>* []>mapa;
 };
 

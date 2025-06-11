@@ -1,3 +1,19 @@
+/* -------------------------------------------------------------------+
+*                                                                     |
+* (c) 2025                                                            |
+* EIF204 - Programación 2                                             |
+* 1er ciclo 2025                                                      |
+* NRC 41371 – Grupo 01                                                |
+* Proyecto 2                                                          |
+*                                                                     |
+* 2-0816-0954; Avilés López, Karen Minards                            |
+* 1-1709-0658; Elizondo Cascante, Cristhian                           |
+* 1-19560437; Sánchez Bermúdez, Juan Pablo                            |
+*                                                                     |
+* versión 1.0.0, 09 - 06 - 2025                                       |
+*                                                                     |
+* --------------------------------------------------------------------+
+*/
 #include "Creature.h"
 
 Creatura::Creatura(){
@@ -66,8 +82,6 @@ void Creatura::ReducirEnergia(int e) {
 		throw std::out_of_range("energia fuera de rango");
 	}
 }
-
-void Creatura::setEdad(int age) { edad = age; }
 
 void Creatura::setEstrategia(shared_ptr<Estrategia> ee) {
 	E = ee;

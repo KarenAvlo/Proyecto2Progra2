@@ -4,29 +4,29 @@
 class Interfaz;
 
 class Sistema{
-public:
-	// Creación y liberación de la interfaz:
-	Sistema();
-	~Sistema();
+	public:
+		// Creación y liberación de la interfaz:
+		Sistema();
+		~Sistema();
 
-	static void visualMenuPrincipal();
-	static void visualMenuCrearPersonalizado();
-	static void visualsubmenuReportes();
-	static void visualsubmenuPersistenciaDeDatos();
+		static void visualMenuPrincipal();
+		static void visualMenuCrearPersonalizado();
+		static void visualsubmenuReportes();
+		static void visualsubmenuPersistenciaDeDatos();
 
-	// Lógica de los submenús:
-	void mostrarMenuPrincipal();
-	void mostrarEntorno();
+		// Lógica de los submenús:
+		void mostrarMenuPrincipal();
+		void mostrarEntorno();
 	
-	//void mostrarSubmenuRegistroDatos();
-	void mostrarSubmenuReportes();
-	void mostrarSubmenuPersistenciaDeDatos();
+		//void mostrarSubmenuRegistroDatos();
+		void mostrarSubmenuReportes();
+		void mostrarSubmenuPersistenciaDeDatos();
 
-	//otro
+		//otro
 
-    void ejecutarSimulacion(int tickTiempo);
+		void ejecutarSimulacion(int tickTiempo);
 
-private:
-	shared_ptr<Interfaz> i;
+	private:
+		shared_ptr<Interfaz> i;
 };
 

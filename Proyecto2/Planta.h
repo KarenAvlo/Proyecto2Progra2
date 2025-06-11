@@ -2,29 +2,29 @@
 #include "Recursos.h"
 
 class PlantaFlor: public Recursos{
-public:
+	public:
 
-	PlantaFlor(int = 0, int = 0, int = 0);
+		PlantaFlor(int = 0, int = 0, int = 0);
 
-	string toString() const override;
+		string toString() const override;
 
-	string getEtiqueta() const override; 
+		string getEtiqueta() const override; 
 
-	void guardarDatos(ofstream& archivo) const;
+		void guardarDatos(ofstream& archivo) const;
 };
 
 
 
 class PlantaRosa : public Recursos {
-public:
+	public:
 
-	PlantaRosa(int = 0, int = 0, int = 0);
+		PlantaRosa(int = 0, int = 0, int = 0);
 
-	string toString() const override;
+		string toString() const override;
 
-	string getEtiqueta() const override;
+		string getEtiqueta() const override;
 
-	void guardarDatos(ofstream& archivo) const;
+		void guardarDatos(ofstream& archivo) const;
 };
 
 

@@ -18,23 +18,6 @@ class Meat;
 static int tickGlobal = 0;
 
 class Enviroment { // singleton
-	protected:
-
-		int nivelAguita; 
-		int nivelSol; 
-
-		string clima;
-		string estacion;
-
-		shared_ptr<Mapa> mapa;
-		shared_ptr<Recursos> recurso; 
-
-		static unique_ptr<Enviroment> instancia;
-
-		lista<shared_ptr<Objeto>> objetos;
-
-		Enviroment(); // constructor privado para el singleton
-
 	public:
 
 		//singleton
@@ -95,5 +78,22 @@ class Enviroment { // singleton
 		void guardarDatosRecursos(const string& nombreArchivo);
 		void cargarDatosCreaturas(const string& nombreArchivo);
 		void cargarDatosRecursos(const string& nombreArchivo);
+
+	protected:
+
+		int nivelAguita;
+		int nivelSol;
+
+		string clima;
+		string estacion;
+
+		shared_ptr<Mapa> mapa;
+		shared_ptr<Recursos> recurso;
+
+		static unique_ptr<Enviroment> instancia;
+
+		lista<shared_ptr<Objeto>> objetos;
+
+		Enviroment(); // constructor privado para el singleton
 };
 
