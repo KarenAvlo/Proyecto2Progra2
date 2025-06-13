@@ -16,7 +16,8 @@
 */
 #include "Creature.h"
 
-Creatura::Creatura(){
+Creatura::Creatura()
+{
 	x = 0;
 	y = 0;
 	energia = MAX_ENERGIA;
@@ -31,11 +32,13 @@ Creatura::Creatura(int xx, int yy, int ener, int age, shared_ptr<Estrategia> e):
 Creatura::~Creatura() {}
 
 
-void Creatura::atacar() {
+void Creatura::atacar() 
+{
 	cout << "ATACANDO" << endl;
 }
 
-void Creatura::reproducirse() {
+void Creatura::reproducirse() 
+{
 
 	setEstrategia(make_shared <EstrategiaReproduccion>());
 
@@ -44,48 +47,60 @@ void Creatura::reproducirse() {
 	}
 }
 
-void Creatura::AumentarEnergia(int e) {
+void Creatura::AumentarEnergia(int e) 
+{
 	if (e >= 0 && e <= MAX_ENERGIA) {
 		energia += e;
 	}
+
 	else {
 		throw std::out_of_range("energia negativa");
 	}
 }
 
-void Creatura::ReducirEnergia(int e) {
+void Creatura::ReducirEnergia(int e) 
+{
 	if (e >= 0 && e <= MAX_ENERGIA) {
 		energia -= e;
 	}
+
 	else {
 		throw std::out_of_range("energia fuera de rango");
 	}
 }
 
-string Creatura::toString() const {
+string Creatura::toString() const 
+{
 	stringstream s;
+
 	s << "( " << x << ", " << y << ")" << endl;
 	s << "Energia: " << energia << endl;
 	s << "Edad: " << edad << endl;
+
 	return s.str();
 }
 
-string Creatura::getEtiqueta() const {
+string Creatura::getEtiqueta() const 
+{
 	return "Criatura";
 }
 
-bool Creatura::isDead() const {
+bool Creatura::isDead() const 
+{
 	if (energia <= 0) {
 		return true;
 	}
+
 	return false;
 }
 
-void Creatura::AumentarEdad() {
+void Creatura::AumentarEdad() 
+{
 	edad++;
 }
 
-void Creatura::moverse() {
+void Creatura::moverse() 
+{
 	//se cambia la estrategia para cada cosa
 	setEstrategia(make_shared < EstrategiaMovimiento>());
 	
@@ -97,7 +112,8 @@ void Creatura::moverse() {
 }
 
 
-void Creatura::setEstrategia(shared_ptr<Estrategia> ee) {
+void Creatura::setEstrategia(shared_ptr<Estrategia> ee) 
+{
 	E = ee;
 }
 

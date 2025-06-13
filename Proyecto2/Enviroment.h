@@ -10,6 +10,7 @@
 class Herbivoro;
 class Omnivoro;
 class Creatura;
+
 class Planta;
 class Recursos;
 class Meat;
@@ -17,6 +18,7 @@ class Meat;
 static int tickGlobal = 0;
 
 class Enviroment { // singleton
+
 	public:
 
 		//singleton

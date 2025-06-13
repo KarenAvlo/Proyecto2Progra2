@@ -1,9 +1,11 @@
 #pragma once
+
 #include "Interfaz.h"
 
 class Interfaz;
 
-class Sistema{
+class Sistema { 
+
 	public:
 		// Creación y liberación de la interfaz:
 		Sistema();
@@ -27,6 +29,7 @@ class Sistema{
 		void ejecutarSimulacion(int tickTiempo);
 
 	private:
+
 		shared_ptr<Interfaz> i;
 };
 

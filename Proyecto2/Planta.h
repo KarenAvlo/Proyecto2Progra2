@@ -1,7 +1,9 @@
 ﻿#pragma once
+
 #include "Recursos.h"
 
-class PlantaFlor: public Recursos{
+class PlantaFlor: public Recursos {
+
 	public:
 
 		PlantaFlor(int = 0, int = 0, int = 0);
@@ -16,6 +18,7 @@ class PlantaFlor: public Recursos{
 
 
 class PlantaRosa : public Recursos {
+
 	public:
 
 		PlantaRosa(int = 0, int = 0, int = 0);

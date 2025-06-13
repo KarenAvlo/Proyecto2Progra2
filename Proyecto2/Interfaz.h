@@ -2,6 +2,7 @@
 #include "clases.h"
 
 class Interfaz {
+
 	public:
 
 		Interfaz();
@@ -25,6 +26,5 @@ class Interfaz {
 
 		void CargarCreaturas();
 		void CargarRecursos();
-
 };
 

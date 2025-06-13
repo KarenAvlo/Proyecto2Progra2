@@ -24,11 +24,13 @@ Recursos::Recursos(int xx, int yy, int ee)
 
 Recursos::~Recursos(){}
 
-string Recursos::getEtiqueta() const{
+string Recursos::getEtiqueta() const
+{
 	return "_*_";
 }
 
-string Recursos::toString() const{
+string Recursos::toString() const
+{
 	return "_*_";
 }
 

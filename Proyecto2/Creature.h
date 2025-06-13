@@ -10,6 +10,7 @@
 class Estrategia;
 
 class Creatura : public Objeto, public enable_shared_from_this<Creatura> {
+
 	public:
 
 		Creatura();

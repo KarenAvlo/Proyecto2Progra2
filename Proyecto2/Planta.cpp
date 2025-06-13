@@ -21,17 +21,22 @@ PlantaFlor::PlantaFlor(int xx, int yy, int ee)
 	:Recursos(xx, yy, ee)
 {}
 
-string PlantaFlor::toString() const {
+string PlantaFlor::toString() const 
+{
 	stringstream s;
+
 	s << "_+_  E:" << EnergyValue; 
+
 	return s.str();
 }
 
-string PlantaFlor::getEtiqueta() const{ 
+string PlantaFlor::getEtiqueta() const
+{ 
 	return "Planta";
 }
 
-void PlantaFlor::guardarDatos(ofstream& archivo) const{
+void PlantaFlor::guardarDatos(ofstream& archivo) const
+{
 	archivo << "PlantaFlor," << x << "," << y << "," << EnergyValue << "\n";
 }
 
@@ -40,13 +45,17 @@ PlantaRosa::PlantaRosa(int xx, int yy, int ee)
 	:Recursos(xx, yy, ee) {}
 
 
-string PlantaRosa::toString() const {
+string PlantaRosa::toString() const 
+{
 	stringstream s;
+
 	s << "_@_  E:" << EnergyValue;
+
 	return s.str();
 }
 
-string PlantaRosa::getEtiqueta() const { 
+string PlantaRosa::getEtiqueta() const 
+{ 
 	return "Planta";
 }
 

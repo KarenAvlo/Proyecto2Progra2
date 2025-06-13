@@ -3,6 +3,7 @@
 #include "Creature.h"
 
 class Herbivoro : public Creatura {
+
 	public:
 
 		Herbivoro(int x = 0, int  y = 0, int energia = 0, int edad = 0, 
@@ -15,6 +16,7 @@ class Herbivoro : public Creatura {
 
 		void reproducirse() override;
 		void alimentarse() override;
+
 		//metodo defensa aplicada en ataque
 		void atacar() override;
 
@@ -23,6 +25,7 @@ class Herbivoro : public Creatura {
 		void setFueHerido(bool);
 
 	private:
+
 		//aplica para defensa
 		bool fueHerido = false; 
 };

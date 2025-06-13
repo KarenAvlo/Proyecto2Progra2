@@ -4,7 +4,9 @@
 using namespace std;
 
 class Objeto {
+
 	public:
+
 		Objeto(int = 0, int = 0);
 		virtual~Objeto() = default;
 

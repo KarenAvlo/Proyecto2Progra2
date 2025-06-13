@@ -6,8 +6,10 @@
 
 class Objeto;
 
-class Mapa{
+class Mapa {
+
 	public:
+
 		Mapa(int x = 0, int y = 0);
 		virtual ~Mapa() = default;
 
@@ -32,8 +34,10 @@ class Mapa{
 		bool estaLleno() const;
 
 	private:
+
 		int ancho;
 		int alto;
+
 		unique_ptr<shared_ptr<Objeto>[]> filas;
 		unique_ptr<shared_ptr<Objeto>* []>mapa;
 };

@@ -20,17 +20,22 @@ Meat::Meat(int xx, int yy, int ee)
 	:Recursos(xx, yy, ee) {}
 
 
-string Meat::getEtiqueta() const {
+string Meat::getEtiqueta() const 
+{
 	return "Carne";
 }
 
 
-string Meat::toString() const {
+string Meat::toString() const 
+{
 	stringstream s;
+
 	s << "M(" << x << "," << y << ") E:" << EnergyValue; // M de Meat, sus coordenadas y respectiva energía
+
 	return s.str();
 }
 
-void Meat::guardarDatos(ofstream& archivo) const { 
+void Meat::guardarDatos(ofstream& archivo) const 
+{ 
 	archivo << "Meat," << x << "," << y << "," << EnergyValue << "\n"; 
 }
